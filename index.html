@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAJAB-KING YT - App Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-body: #0d0f18;
+            --bg-container: #121421;
+            --bg-card: #191c2e;
+            --bg-header: linear-gradient(180deg, rgba(26,29,46,1) 0%, rgba(18,20,33,1) 100%);
+            --border-color: #232740;
+            --text-main: #ffffff;
+            --text-sub: #8b8ea8;
+            --nav-bg: #141625;
+            --btn-bg: #1a1d2e;
+        }
+
+        /* Light Mode Variables */
+        body.light-mode {
+            --bg-body: #e0e5ec;
+            --bg-container: #ffffff;
+            --bg-card: #f0f3f8;
+            --bg-header: linear-gradient(180deg, #ffffff 0%, #f0f3f8 100%);
+            --border-color: #d1d5db;
+            --text-main: #111827;
+            --text-sub: #4b5563;
+            --nav-bg: #ffffff;
+            --btn-bg: #e5e7eb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            background-color: var(--bg-container);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding-bottom: 80px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            overflow-x: hidden;
+        }
+
+        /* Top Header Fixed Layout */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: var(--bg-header);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 90;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-grow: 1;
+        }
+
+        .logo-glow {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #252840;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #00ff88;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
+            flex-shrink: 0;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .logo-glow img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .user-info h2 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .user-info p {
+            font-size: 11px;
+            color: var(--text-sub);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .icon-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--btn-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .icon-btn:active {
+            transform: scale(0.92);
+        }
+
+        .badge {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background: #ff3b30;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--bg-container);
+        }
+
+        /* Section Header */
+        .section-header {
+            padding: 16px 20px 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .setting-sub-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        /* App Grid */
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            padding: 10px 20px;
+        }
+
+        .app-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 12px 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: var(--text-main);
+            cursor: pointer;
+        }
+
+        .app-card:first-child {
+            border: 1px solid #7000ff;
+            box-shadow: 0 0 15px rgba(112, 0, 255, 0.25);
+        }
+
+        .app-card:active {
+            transform: scale(0.95);
+        }
+
+        .app-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 16px;
+            object-fit: cover;
+            margin-bottom: 8px;
+            background: #252840;
+        }
+
+        .app-name {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+        }
+
+        .app-rating {
+            font-size: 11px;
+            color: var(--text-sub);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 4px;
+        }
+
+        .app-rating i {
+            color: #ffb800;
+        }
+
+        .download-panel {
+            font-size: 10px;
+            color: #00ff88;
+            background: rgba(0, 255, 136, 0.1);
+            padding: 2px 6px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 2px;
+            width: fit-content;
+        }
+
+        /* General Overlay & Panels */
+        .notification-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(6px);
+            z-index: 200;
+            display: none;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .notification-panel {
+            width: 100%;
+            max-width: 480px;
+            max-height: 90vh;
+            background: #f4f5f9;
+            border-top-left-radius: 28px;
+            border-top-right-radius: 28px;
+            padding: 0 0 20px 0;
+            overflow-y: auto;
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.3s ease-out;
+            color: #1a1d2e;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        /* Top Header Banner inside Modal with Fancy Blue Gradient Background */
+        .popup-banner {
+            background: linear-gradient(135deg, #00c6ff 0%, #0072ff 50%, #1e3c72 100%);
+            padding: 35px 20px 25px;
+            text-align: center;
+            position: relative;
+            border-top-left-radius: 28px;
+            border-top-right-radius: 28px;
+            color: #ffffff;
+            margin-bottom: 20px;
+            box-shadow: inset 0 -5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .popup-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 18px;
+            background: rgba(0, 0, 0, 0.3);
+            border: none;
+            color: #ffffff;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .banner-icon-wrapper {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .banner-icon-wrapper i {
+            font-size: 28px;
+            color: #ffffff;
+        }
+
+        .banner-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #ffffff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .banner-subtitle {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.3);
+        }
+
+        /* Light Link Cards Container */
+        .modal-links-container {
+            padding: 0 16px;
+        }
+
+        .image-style-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            color: #1f2937;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: 1px solid #e5e7eb;
+        }
+
+        .image-style-card:active {
+            transform: scale(0.98);
+        }
+
+        .card-left-content {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .card-icon-box {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .yt-bg { background: #ffe6e6; color: #ff0000; }
+        .wa-bg { background: #e6f9ed; color: #25d366; }
+        .tg-bg { background: #e0f2fe; color: #0284c7; }
+        .admin-bg { background: #fef3c7; color: #d97706; }
+
+        .card-text-box h4 {
+            font-size: 14px;
+            color: #111827;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .card-text-box p {
+            font-size: 11px;
+            color: #6b7280;
+        }
+
+        .card-arrow {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        /* Telegram Bot Panel Modal Style */
+        .telegram-modal-panel {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 25px 20px;
+            text-align: left;
+            margin: auto;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: popIn 0.3s ease-out;
+            color: #1a1d2e;
+        }
+
+        .tg-input-group {
+            margin-bottom: 12px;
+        }
+
+        .tg-input-group label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #374151;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .tg-input-field {
+            width: 100%;
+            padding: 10px 14px;
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 13px;
+            color: #1f2937;
+            outline: none;
+        }
+
+        .tg-input-field:focus {
+            border-color: #0284c7;
+            background: #ffffff;
+        }
+
+        /* Dedicated Admin Login Modal Styling */
+        .admin-modal-panel {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 25px 20px;
+            text-align: center;
+            margin: auto;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: popIn 0.3s ease-out;
+            color: #1a1d2e;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .admin-icon-circle {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            color: #ffffff;
+            font-size: 28px;
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
+        }
+
+        .admin-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+
+        .admin-subtitle {
+            font-size: 12px;
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        .admin-input-group {
+            margin-bottom: 12px;
+        }
+
+        .admin-input-field {
+            width: 100%;
+            padding: 12px 16px;
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 13px;
+            color: #1f2937;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .admin-input-field:focus {
+            border-color: #6366f1;
+            background: #ffffff;
+        }
+
+        .admin-submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(90deg, #0284c7 0%, #0369a1 100%);
+            border: none;
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 8px;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .admin-cancel-btn {
+            width: 100%;
+            padding: 12px;
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            color: #374151;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        /* Hacker / Termux Modal Styling */
+        .termux-panel {
+            background: #0d1117;
+            border-top: 1px solid #00ff88;
+            box-shadow: 0 -10px 30px rgba(0, 255, 136, 0.25);
+            color: #fff;
+            padding: 20px;
+        }
+
+        .termux-full-banner {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .full-banner-img {
+            width: 100%;
+            height: auto;
+            max-height: 200px;
+            border-radius: 16px;
+            object-fit: cover;
+            border: 2px solid #00ff88;
+            margin-bottom: 10px;
+        }
+
+        .fancy-title {
+            font-family: monospace;
+            font-size: 15px;
+            font-weight: bold;
+            text-align: center;
+            color: #00ff88;
+        }
+
+        .noti-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #232740;
+            padding-bottom: 10px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #8b8ea8;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .command-card {
+            background: #161b22;
+            border-radius: 12px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #30363d;
+        }
+
+        .command-card label {
+            font-size: 10px;
+            color: #00ff88;
+            font-family: monospace;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .command-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #090d13;
+            padding: 6px 10px;
+            border-radius: 6px;
+            gap: 10px;
+        }
+
+        .command-text {
+            font-family: monospace;
+            font-size: 11px;
+            color: #e6edf3;
+        }
+
+        .copy-btn {
+            background: #238636;
+            color: #ffffff;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        /* Notification Card Standard Modal */
+        .noti-panel-dark {
+            background: #161828;
+            padding: 20px;
+            color: #fff;
+        }
+
+        .noti-card {
+            background: #1c1f36;
+            border-radius: 16px;
+            padding: 12px;
+            margin-bottom: 14px;
+            border: 1px solid #292d4d;
+        }
+
+        .noti-thumb {
+            width: 100%;
+            height: 150px;
+            border-radius: 12px;
+            object-fit: cover;
+            margin-bottom: 8px;
+        }
+
+        .noti-info h4 {
+            font-size: 13px;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .download-file-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            padding: 8px;
+            background: linear-gradient(90deg, #7000ff 0%, #9e00ff 100%);
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 480px;
+            height: 65px;
+            background: var(--nav-bg);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            color: var(--text-sub);
+            text-decoration: none;
+            font-size: 10px;
+            padding: 6px 14px;
+            border-radius: 12px;
+        }
+
+        .nav-item i { font-size: 18px; }
+
+        .nav-item.active {
+            color: var(--text-main);
+            background: rgba(112, 0, 255, 0.2);
+        }
+
+        .nav-item.active i { color: #8a2be2; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Top Header Fixed -->
+        <div class="top-bar">
+            <div class="user-profile">
+                <div class="logo-glow" onclick="toggleTermuxModal()" title="Click to open Hacker Termux Commands">
+                    <img src="https://i.postimg.cc/tC8xtFkL/1789643546627.png" alt="RAJAB-KING YT Logo">
+                </div>
+                <div class="user-info">
+                    <h2>RAJAB-KING YT</h2>
+                    <p>Total Apps: 3</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <!-- Mode Switcher Toggle Button -->
+                <button class="icon-btn" onclick="toggleTheme()" id="themeBtn" title="Toggle Light/Dark Mode">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <!-- Notification Bell -->
+                <button class="icon-btn" onclick="toggleNotifications()">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="badge" id="notiBadge">4</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Section Header with Setting Button -->
+        <div class="section-header">
+            <div class="section-title">
+                <i class="fa-solid fa-mobile-screen"></i> All Apps
+            </div>
+            <button class="setting-sub-btn" onclick="toggleSettingsModal()">
+                <i class="fa-solid fa-gear"></i> Settings
+            </button>
+        </div>
+
+        <!-- App Grid -->
+        <div class="app-grid">
+
+            <!-- APP CARD 1: SKETCHWARE PRO -->
+            <div class="app-card" onclick="downloadApp(this, 'https://www.mediafire.com/file/bnk1zomfmaytcs1/Sketchware+Pro_v7.0.0-SNAPSHOT-f28d22f-minApi26.apk/file')">
+                <img src="https://raw.githubusercontent.com/Sketchware-Pro/Sketchware-Pro/main/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" class="app-icon" alt="Sketchware Pro">
+                <div class="app-name">Sketchware Pro</div>
+                <div class="app-rating"><i class="fa-solid fa-star"></i> 5.0</div>
+                <div class="download-panel">
+                    <i class="fa-solid fa-download"></i> <span class="count">0</span>
+                </div>
+            </div>
+
+            <!-- APP CARD 2: TERMUX -->
+            <div class="app-card" onclick="downloadApp(this, 'YOUR_APK_LINK_HERE.apk')">
+                <img src="https://raw.githubusercontent.com/termux/termux-app/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" class="app-icon" alt="Termux">
+                <div class="app-name">Termux</div>
+                <div class="app-rating"><i class="fa-solid fa-star"></i> 5.0</div>
+                <div class="download-panel">
+                    <i class="fa-solid fa-download"></i> <span class="count">0</span>
+                </div>
+            </div>
+
+            <!-- APP CARD 3: MT MANAGER -->
+            <div class="app-card" onclick="downloadApp(this, 'YOUR_APK_LINK_HERE.apk')">
+                <img src="https://cdn-icons-png.flaticon.com/512/3665/3665923.png" class="app-icon" alt="MT Manager">
+                <div class="app-name">MT Manager</div>
+                <div class="app-rating"><i class="fa-solid fa-star"></i> 4.9</div>
+                <div class="download-panel">
+                    <i class="fa-solid fa-download"></i> <span class="count">0</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Settings Modal (With custom blue gradient background) -->
+        <div class="notification-overlay" id="settingsOverlay">
+            <div class="notification-panel">
+                
+                <!-- Popup Banner with Blue Gradient Background -->
+                <div class="popup-banner">
+                    <button class="popup-close-btn" onclick="toggleSettingsModal()"><i class="fa-solid fa-xmark"></i></button>
+                    <div class="banner-icon-wrapper">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <div class="banner-title">RAJAB-KING YT</div>
+                    <div class="banner-subtitle">Premium Apps & Tools Store</div>
+                </div>
+
+                <!-- Link Cards Container -->
+                <div class="modal-links-container">
+                    
+                    <!-- YouTube Box -->
+                    <a href="https://youtube.com/@rajabkingyt?si=YFtr2X4ypauA8GVv" target="_blank" class="image-style-card">
+                        <div class="card-left-content">
+                            <div class="card-icon-box yt-bg">
+                                <i class="fa-brands fa-youtube"></i>
+                            </div>
+                            <div class="card-text-box">
+                                <h4>YouTube Channel</h4>
+                                <p>Subscribe for tutorials</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right card-arrow"></i>
+                    </a>
+
+                    <!-- WhatsApp Channel Box -->
+                    <a href="https://whatsapp.com/channel/0029VbDbigr6xCSJI615wT2P" target="_blank" class="image-style-card">
+                        <div class="card-left-content">
+                            <div class="card-icon-box wa-bg">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <div class="card-text-box">
+                                <h4>WhatsApp Channel</h4>
+                                <p>Join our community</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right card-arrow"></i>
+                    </a>
+
+                    <!-- WhatsApp Direct Contact Box -->
+                    <a href="https://wa.me/923137059269" target="_blank" class="image-style-card">
+                        <div class="card-left-content">
+                            <div class="card-icon-box wa-bg">
+                                <i class="fa-solid fa-comment-dots"></i>
+                            </div>
+                            <div class="card-text-box">
+                                <h4>Contact Owner</h4>
+                                <p>Chat directly on WhatsApp</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right card-arrow"></i>
+                    </a>
+
+                    <!-- Telegram Sender Bot Option Box -->
+                    <div class="image-style-card" onclick="openTelegramModal()">
+                        <div class="card-left-content">
+                            <div class="card-icon-box tg-bg">
+                                <i class="fa-brands fa-telegram"></i>
+                            </div>
+                            <div class="card-text-box">
+                                <h4>Telegram Bot Sender</h4>
+                                <p>Send automated messages</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right card-arrow"></i>
+                    </div>
+
+                    <!-- Admin Panel Button Box -->
+                    <div class="image-style-card" onclick="openAdminModal()">
+                        <div class="card-left-content">
+                            <div class="card-icon-box admin-bg">
+                                <i class="fa-solid fa-gear"></i>
+                            </div>
+                            <div class="card-text-box">
+                                <h4>Admin Panel</h4>
+                                <p>Manage your apps</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right card-arrow"></i>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Telegram Bot Sender Modal -->
+        <div class="notification-overlay" id="telegramOverlay" style="align-items: center;">
+            <div class="telegram-modal-panel">
+                <div class="admin-icon-circle" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); box-shadow: 0 8px 20px rgba(2, 132, 199, 0.35);">
+                    <i class="fa-brands fa-telegram"></i>
+                </div>
+                <div class="admin-title" style="text-align: center;">Telegram Sender</div>
+                <div class="admin-subtitle" style="text-align: center;">Send direct message via Bot</div>
+                
+                <div class="tg-input-group">
+                    <label>Bot Token</label>
+                    <input type="text" class="tg-input-field" id="tgBotToken" placeholder="e.g. 123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ">
+                </div>
+                <div class="tg-input-group">
+                    <label>Chat ID / User ID</label>
+                    <input type="text" class="tg-input-field" id="tgChatId" placeholder="e.g. 987654321">
+                </div>
+                <div class="tg-input-group">
+                    <label>Your Message</label>
+                    <textarea class="tg-input-field" id="tgMessage" rows="3" placeholder="Type your message here..."></textarea>
+                </div>
+                
+                <button type="button" class="admin-submit-btn" onclick="sendTelegramMessage()">
+                    <i class="fa-solid fa-paper-plane"></i> Send Message
+                </button>
+                <button type="button" class="admin-cancel-btn" onclick="closeTelegramModal()">Close</button>
+            </div>
+        </div>
+
+        <!-- Separate Admin Login Modal -->
+        <div class="notification-overlay" id="adminOverlay" style="align-items: center;">
+            <div class="admin-modal-panel">
+                <div class="admin-icon-circle">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <div class="admin-title">Admin Login</div>
+                <div class="admin-subtitle">Enter your credentials to continue</div>
+                
+                <form onsubmit="handleAdminLogin(event)">
+                    <div class="admin-input-group">
+                        <input type="email" class="admin-input-field" placeholder="Email" required>
+                    </div>
+                    <div class="admin-input-group">
+                        <input type="password" class="admin-input-field" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="admin-submit-btn">
+                        <i class="fa-solid fa-right-to-bracket"></i> Login
+                    </button>
+                    <button type="button" class="admin-cancel-btn" onclick="closeAdminModal()">Cancel</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Termux Commands Hacker Modal -->
+        <div class="notification-overlay" id="termuxOverlay">
+            <div class="notification-panel termux-panel">
+                <div class="noti-header">
+                    <h3 style="color: #00ff88; font-family: monospace;">☠️ HACKER TERMUX COMMAND ☠️</h3>
+                    <button class="close-btn" onclick="toggleTermuxModal()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <div class="termux-full-banner">
+                    <img src="https://i.postimg.cc/pTszWnKZ/1789971985456.png" class="full-banner-img" alt="Rajab King Full DP">
+                    <div class="fancy-title">★ RAJAB-KING YT HACKER PANEL ★</div>
+                </div>
+
+                <!-- COMMAND 1 -->
+                <div class="command-card">
+                    <label>STEP 01: SYSTEM UPDATE</label>
+                    <div class="command-box">
+                        <span class="command-text" id="cmd1">pkg update && pkg upgrade -y</span>
+                        <button class="copy-btn" onclick="copyCommand('cmd1', this)">Copy</button>
+                    </div>
+                </div>
+
+                <!-- COMMAND 2 -->
+                <div class="command-card">
+                    <label>STEP 02: INSTALL DEPENDENCIES</label>
+                    <div class="command-box">
+                        <span class="command-text" id="cmd2">pkg install git python python -y</span>
+                        <button class="copy-btn" onclick="copyCommand('cmd2', this)">Copy</button>
+                    </div>
+                </div>
+
+                <!-- COMMAND 3 -->
+                <div class="command-card">
+                    <label>STEP 03: CLONE REPOSITORY</label>
+                    <div class="command-box">
+                        <span class="command-text" id="cmd3">git clone https://github.com/spyboy-productions/r4ven.git</span>
+                        <button class="copy-btn" onclick="copyCommand('cmd3', this)">Copy</button>
+                    </div>
+                </div>
+
+                <!-- COMMAND 4 -->
+                <div class="command-card">
+                    <label>STEP 04: INSTALL REQUIREMENTS</label>
+                    <div class="command-box">
+                        <span class="command-text" id="cmd4">pip3 install -r requirements.txt</span>
+                        <button class="copy-btn" onclick="copyCommand('cmd4', this)">Copy</button>
+                    </div>
+                </div>
+
+                <!-- COMMAND 5 -->
+                <div class="command-card">
+                    <label>STEP 05: RUN SCRIPT</label>
+                    <div class="command-box">
+                        <span class="command-text" id="cmd5">python3 r4ven.py</span>
+                        <button class="copy-btn" onclick="copyCommand('cmd5', this)">Copy</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Notification Panel / Bell Modal -->
+        <div class="notification-overlay" id="notificationOverlay">
+            <div class="notification-panel noti-panel-dark">
+                <div class="noti-header">
+                    <h3><i class="fa-solid fa-bell" style="color: #8a2be2;"></i> Latest Updates</h3>
+                    <button class="close-btn" onclick="toggleNotifications()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <div class="noti-card">
+                    <img src="https://i.postimg.cc/3x5yv1LW/upscalemedia-transformed.png" class="noti-thumb" alt="SIM Data Thumbnail">
+                    <div class="noti-info">
+                        <h4>🤯 SIM DATA 🗃️ Zip File</h4>
+                        <a href="https://www.mediafire.com/file/spdwdbrjhidszgz/🤯+SIM+DATA+🗃️.zip/file" target="_blank" class="download-file-btn">
+                            <i class="fa-solid fa-cloud-arrow-down"></i> Download SIM Data ZIP
+                        </a>
+                    </div>
+                </div>
+
+                <div class="noti-card">
+                    <img src="https://i.postimg.cc/cLN42bw3/1789872362831.png" class="noti-thumb" alt="Thumbnail 1">
+                    <div class="noti-info">
+                        <h4>Index HTML Source File</h4>
+                        <a href="https://www.mediafire.com/file/wsdurfaerwe32v9/index.html/file" target="_blank" class="download-file-btn">
+                            <i class="fa-solid fa-cloud-arrow-down"></i> Download Index File
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Bottom Navigation Bar -->
+        <div class="bottom-nav">
+            <a href="#" class="nav-item active">
+                <i class="fa-solid fa-border-all"></i>
+                <span>Apps</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-gamepad"></i>
+                <span>Games</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-trophy"></i>
+                <span>Top Apps</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-book-open"></i>
+                <span>Books</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function downloadApp(element, url) {
+            let countSpan = element.querySelector('.count');
+            let currentCount = parseInt(countSpan.innerText);
+            countSpan.innerText = currentCount + 1;
+
+            if(url && url !== 'YOUR_APK_LINK_HERE.apk') {
+                window.open(url, '_blank');
+            } else {
+                alert("Kripya pehle is app ka sahi download link HTML code me lagayein!");
+            }
+        }
+
+        function toggleNotifications() {
+            const overlay = document.getElementById('notificationOverlay');
+            const badge = document.getElementById('notiBadge');
+            
+            if (overlay.style.display === 'flex') {
+                overlay.style.display = 'none';
+            } else {
+                overlay.style.display = 'flex';
+                badge.innerText = '0';
+            }
+        }
+
+        function toggleSettingsModal() {
+            const overlay = document.getElementById('settingsOverlay');
+            if (overlay.style.display === 'flex') {
+                overlay.style.display = 'none';
+            } else {
+                overlay.style.display = 'flex';
+            }
+        }
+
+        function openTelegramModal() {
+            document.getElementById('settingsOverlay').style.display = 'none';
+            document.getElementById('telegramOverlay').style.display = 'flex';
+        }
+
+        function closeTelegramModal() {
+            document.getElementById('telegramOverlay').style.display = 'none';
+        }
+
+        function sendTelegramMessage() {
+            const token = document.getElementById('tgBotToken').value.trim();
+            const chatId = document.getElementById('tgChatId').value.trim();
+            const message = document.getElementById('tgMessage').value.trim();
+
+            if(!token || !chatId || !message) {
+                alert("Please fill in Bot Token, Chat ID, and Message!");
+                return;
+            }
+
+            const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if(data.ok) {
+                    alert("Message sent successfully via Telegram Bot!");
+                    document.getElementById('tgMessage').value = '';
+                    closeTelegramModal();
+                } else {
+                    alert("Failed to send: " + (data.description || "Check your Token and Chat ID."));
+                }
+            })
+            .catch(error => {
+                alert("Error connecting to Telegram API. Check your internet connection.");
+                console.error(error);
+            });
+        }
+
+        function openAdminModal() {
+            document.getElementById('settingsOverlay').style.display = 'none';
+            document.getElementById('adminOverlay').style.display = 'flex';
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminOverlay').style.display = 'none';
+        }
+
+        function handleAdminLogin(event) {
+            event.preventDefault();
+            alert("Admin Login Successful!");
+            closeAdminModal();
+        }
+
+        function toggleTermuxModal() {
+            const overlay = document.getElementById('termuxOverlay');
+            if (overlay.style.display === 'flex') {
+                overlay.style.display = 'none';
+            } else {
+                overlay.style.display = 'flex';
+            }
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const themeBtn = document.getElementById('themeBtn');
+            if (document.body.classList.contains('light-mode')) {
+                themeBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+            } else {
+                themeBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+            }
+        }
+
+        function copyCommand(elementId, btn) {
+            const commandText = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(commandText).then(() => {
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = 'Copied';
+                btn.style.background = '#00ff88';
+                btn.style.color = '#000000';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.style.background = '#238636';
+                    btn.style.color = '#ffffff';
+                }, 1500);
+            });
+        }
+    </script>
+</body>
+</html>
