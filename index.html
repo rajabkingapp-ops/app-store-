@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RAJAB-KING YT - App Store</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
             --bg-body: #0d0f18;
@@ -19,7 +19,6 @@
             --btn-bg: #1a1d2e;
         }
 
-        /* Light Mode Variables */
         body.light-mode {
             --bg-body: #e0e5ec;
             --bg-container: #ffffff;
@@ -49,6 +48,48 @@
             min-height: 100vh;
         }
 
+        /* Circular Dots App Loader */
+        .app-loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 0;
+            width: 100%;
+        }
+
+        .spinner-circles {
+            display: grid;
+            grid-template-columns: repeat(3, 12px);
+            grid-gap: 8px;
+            margin-bottom: 15px;
+            justify-content: center;
+        }
+
+        .spinner-circles div {
+            width: 10px;
+            height: 10px;
+            background: #6366f1;
+            border-radius: 50%;
+            animation: pulseDot 1.2s infinite ease-in-out both;
+        }
+
+        .spinner-circles div:nth-child(1) { animation-delay: -0.4s; }
+        .spinner-circles div:nth-child(2) { animation-delay: -0.2s; }
+        .spinner-circles div:nth-child(3) { animation-delay: 0s; }
+
+        @keyframes pulseDot {
+            0%, 80%, 100% { transform: scale(0); opacity: 0.3; }
+            40% { transform: scale(1.0); opacity: 1; }
+        }
+
+        .app-loading-text {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-sub);
+            letter-spacing: 0.5px;
+        }
+
         .app-container {
             width: 100%;
             max-width: 480px;
@@ -62,7 +103,6 @@
             overflow-x: hidden;
         }
 
-        /* Top Header Fixed Layout */
         .top-bar {
             display: flex;
             align-items: center;
@@ -90,11 +130,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid #00ff88;
-            box-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
+            border: 2px solid #7000ff;
+            box-shadow: 0 0 10px rgba(112, 0, 255, 0.4);
             flex-shrink: 0;
             overflow: hidden;
-            cursor: pointer;
         }
 
         .logo-glow img {
@@ -139,10 +178,6 @@
             position: relative;
         }
 
-        .icon-btn:active {
-            transform: scale(0.92);
-        }
-
         .badge {
             position: absolute;
             top: 2px;
@@ -160,9 +195,41 @@
             border: 2px solid var(--bg-container);
         }
 
-        /* Section Header */
+        /* Search Bar Styles */
+        .search-box-wrapper {
+            padding: 12px 16px 4px;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            background: var(--btn-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 10px 16px;
+            gap: 10px;
+        }
+
+        .search-container i {
+            color: var(--text-sub);
+            font-size: 16px;
+        }
+
+        .search-input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-main);
+            font-size: 14px;
+            width: 100%;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-sub);
+        }
+
         .section-header {
-            padding: 16px 20px 8px;
+            padding: 12px 16px 8px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -172,7 +239,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
         }
 
@@ -180,62 +247,63 @@
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            padding: 6px 12px;
+            padding: 5px 10px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 11px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
             cursor: pointer;
         }
 
-        /* App Grid */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Fancy Smaller App Grid */
         .app-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            padding: 10px 20px;
+            gap: 10px;
+            padding: 6px 16px;
         }
 
         .app-card {
             background: var(--bg-card);
-            border-radius: 20px;
-            padding: 12px 8px;
+            border-radius: 16px;
+            padding: 10px 8px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
             border: 1px solid var(--border-color);
-            position: relative;
-            overflow: hidden;
-            text-decoration: none;
-            color: var(--text-main);
             cursor: pointer;
+            position: relative;
         }
 
         .app-card:first-child {
             border: 1px solid #7000ff;
-            box-shadow: 0 0 15px rgba(112, 0, 255, 0.25);
-        }
-
-        .app-card:active {
-            transform: scale(0.95);
+            box-shadow: 0 0 12px rgba(112, 0, 255, 0.2);
         }
 
         .app-icon {
-            width: 55px;
-            height: 55px;
-            border-radius: 16px;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
             object-fit: cover;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             background: #252840;
         }
 
         .app-name {
             font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 4px;
+            font-weight: 700;
+            margin-bottom: 2px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -243,32 +311,128 @@
         }
 
         .app-rating {
-            font-size: 11px;
+            font-size: 10px;
             color: var(--text-sub);
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 3px;
             margin-bottom: 4px;
         }
 
         .app-rating i {
             color: #ffb800;
+            font-size: 9px;
         }
 
         .download-panel {
-            font-size: 10px;
+            font-size: 9px;
             color: #00ff88;
             background: rgba(0, 255, 136, 0.1);
             padding: 2px 6px;
-            border-radius: 10px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 3px;
             margin-top: 2px;
-            width: fit-content;
         }
 
-        /* General Overlay & Panels */
+        /* Snake Game UI */
+        .game-container {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 12px;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .game-board-wrapper {
+            position: relative;
+        }
+
+        canvas#snakeCanvas {
+            background-color: #111;
+            border: 3px solid #7000ff;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(112, 0, 255, 0.4);
+            display: block;
+        }
+
+        .game-over-card {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(18, 20, 33, 0.95);
+            border: 2px solid #ff3b30;
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+            width: 80%;
+            display: none;
+            box-shadow: 0 10px 25px rgba(255, 59, 48, 0.4);
+            backdrop-filter: blur(5px);
+            z-index: 10;
+        }
+
+        .game-over-card h3 {
+            color: #ff3b30;
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .game-over-card p {
+            font-size: 13px;
+            color: var(--text-sub);
+            margin-bottom: 15px;
+        }
+
+        .game-over-card button {
+            background: linear-gradient(135deg, #7000ff 0%, #9e00ff 100%);
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .game-controls {
+            display: grid;
+            grid-template-columns: repeat(3, 60px);
+            gap: 10px;
+            margin-top: 15px;
+            justify-content: center;
+        }
+
+        .ctrl-btn {
+            height: 50px;
+            background: var(--btn-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            border-radius: 12px;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ctrl-btn:active {
+            background: #7000ff;
+        }
+
         .notification-overlay {
             position: fixed;
             top: 0;
@@ -287,10 +451,10 @@
             width: 100%;
             max-width: 480px;
             max-height: 90vh;
-            background: #f4f5f9;
+            background: #ffffff;
             border-top-left-radius: 28px;
             border-top-right-radius: 28px;
-            padding: 0 0 20px 0;
+            padding: 20px 16px;
             overflow-y: auto;
             box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
             animation: slideUp 0.3s ease-out;
@@ -302,72 +466,200 @@
             to { transform: translateY(0); }
         }
 
-        /* Top Header Banner inside Modal with Fancy Blue Gradient Background */
-        .popup-banner {
-            background: linear-gradient(135deg, #00c6ff 0%, #0072ff 50%, #1e3c72 100%);
-            padding: 35px 20px 25px;
-            text-align: center;
-            position: relative;
-            border-top-left-radius: 28px;
-            border-top-right-radius: 28px;
-            color: #ffffff;
+        .sheet-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
             margin-bottom: 20px;
-            box-shadow: inset 0 -5px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .popup-close-btn {
-            position: absolute;
-            top: 15px;
-            right: 18px;
-            background: rgba(0, 0, 0, 0.3);
-            border: none;
-            color: #ffffff;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
+        .sheet-app-info {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .sheet-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 18px;
+            object-fit: cover;
+            background: #252840;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .sheet-titles h3 {
+            font-size: 18px;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 2px;
+        }
+
+        .sheet-titles p {
             font-size: 14px;
+            font-weight: 800;
+            color: #0056b3;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .category-badge {
+            background: #ede9fe;
+            color: #7c3aed;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+
+        .sheet-close-btn {
+            background: #f3f4f6;
+            border: none;
+            color: #374151;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 16px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .banner-icon-wrapper {
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
+        .sheet-stats-bar {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 15px 0;
+            border-top: 1px solid #e5e7eb;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .stat-item .val {
+            font-size: 15px;
+            font-weight: 700;
+            color: #111827;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 12px;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            gap: 4px;
         }
 
-        .banner-icon-wrapper i {
-            font-size: 28px;
-            color: #ffffff;
+        .stat-item .val i { color: #ffb800; }
+        .stat-item .lbl {
+            font-size: 11px;
+            color: #6b7280;
+            margin-top: 2px;
         }
 
-        .banner-title {
+        .about-section {
+            margin-bottom: 20px;
+        }
+
+        .about-section h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .about-section p {
+            font-size: 13px;
+            color: #4b5563;
+            line-height: 1.5;
+            background: #f9fafb;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid #f3f4f6;
+            white-space: pre-line;
+        }
+
+        .rating-box {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .rating-box h5 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #374151;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .rating-box h5 i { color: #ffb800; }
+
+        .star-rating {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
             font-size: 24px;
-            font-weight: 800;
+            color: #d1d5db;
+            cursor: pointer;
+        }
+
+        .star-rating i.selected {
+            color: #ffb800;
+        }
+
+        .thank-you-msg {
+            margin-top: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #10b981;
+            display: none;
+        }
+
+        .sheet-action-bar {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            padding-top: 10px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .download-action-btn {
+            flex-grow: 1;
+            background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
             color: #ffffff;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            margin-bottom: 4px;
-            letter-spacing: 0.5px;
+            border: none;
+            padding: 14px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+            text-decoration: none;
         }
 
-        .banner-subtitle {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: 500;
-            text-shadow: 0 1px 5px rgba(0,0,0,0.3);
+        .share-action-btn {
+            width: 50px;
+            height: 50px;
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4b5563;
+            font-size: 18px;
+            cursor: pointer;
         }
 
-        /* Light Link Cards Container */
         .modal-links-container {
             padding: 0 16px;
         }
@@ -383,13 +675,8 @@
             text-decoration: none;
             color: #1f2937;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            transition: all 0.2s ease;
-            cursor: pointer;
             border: 1px solid #e5e7eb;
-        }
-
-        .image-style-card:active {
-            transform: scale(0.98);
+            cursor: pointer;
         }
 
         .card-left-content {
@@ -410,7 +697,6 @@
 
         .yt-bg { background: #ffe6e6; color: #ff0000; }
         .wa-bg { background: #e6f9ed; color: #25d366; }
-        .tg-bg { background: #e0f2fe; color: #0284c7; }
         .admin-bg { background: #fef3c7; color: #d97706; }
 
         .card-text-box h4 {
@@ -430,49 +716,201 @@
             font-size: 14px;
         }
 
-        /* Telegram Bot Panel Modal Style */
-        .telegram-modal-panel {
-            background: #ffffff;
-            border-radius: 28px;
-            padding: 25px 20px;
-            text-align: left;
-            margin: auto;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            animation: popIn 0.3s ease-out;
-            color: #1a1d2e;
-        }
-
-        .tg-input-group {
-            margin-bottom: 12px;
-        }
-
-        .tg-input-group label {
-            font-size: 12px;
-            font-weight: 700;
-            color: #374151;
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        .tg-input-field {
+        /* WhatsApp Chat Simulator Styles */
+        .wa-chat-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 10px 14px;
-            background: #f3f4f6;
-            border: 1px solid #e5e7eb;
-            border-radius: 10px;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 300;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .wa-chat-container {
+            width: 100%;
+            max-width: 480px;
+            height: 100vh;
+            max-height: 100vh;
+            background: #0b141a;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            color: #e9edef;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        }
+
+        .wa-chat-header {
+            background: #202c33;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #222d34;
+        }
+
+        .wa-chat-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .wa-back-btn {
+            background: none;
+            border: none;
+            color: #aebac1;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .wa-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #252840;
+        }
+
+        .wa-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .wa-contact-info h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #e9edef;
+        }
+
+        .wa-contact-info p {
+            font-size: 11px;
+            color: #8696a0;
+        }
+
+        .wa-chat-header-right {
+            display: flex;
+            gap: 20px;
+            color: #aebac1;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .wa-chat-body {
+            flex-grow: 1;
+            background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+            background-repeat: repeat;
+            background-color: #0b141a;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .wa-encryption-banner {
+            background: #182229;
+            color: #ffd279;
+            font-size: 11px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            border: 1px solid #222d34;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .wa-message {
+            max-width: 80%;
+            padding: 8px 12px;
+            border-radius: 8px;
             font-size: 13px;
-            color: #1f2937;
+            position: relative;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+
+        .wa-message.incoming {
+            background: #202c33;
+            color: #e9edef;
+            align-self: flex-start;
+            border-top-left-radius: 0;
+        }
+
+        .wa-message.outgoing {
+            background: #005c4b;
+            color: #e9edef;
+            align-self: flex-end;
+            border-top-right-radius: 0;
+        }
+
+        .wa-msg-time {
+            font-size: 9px;
+            color: #8696a0;
+            float: right;
+            margin-top: 4px;
+            margin-left: 8px;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .wa-chat-footer {
+            background: #202c33;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .wa-input-box {
+            flex-grow: 1;
+            background: #2a3942;
+            border-radius: 24px;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .wa-input-box input {
+            background: transparent;
+            border: none;
             outline: none;
+            color: #e9edef;
+            font-size: 14px;
+            width: 100%;
         }
 
-        .tg-input-field:focus {
-            border-color: #0284c7;
-            background: #ffffff;
+        .wa-input-box input::placeholder {
+            color: #8696a0;
         }
 
-        /* Dedicated Admin Login Modal Styling */
+        .wa-input-box i {
+            color: #8696a0;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .wa-send-btn {
+            background: #00a884;
+            color: #fff;
+            border: none;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
         .admin-modal-panel {
             background: #ffffff;
             border-radius: 28px;
@@ -482,13 +920,7 @@
             width: 90%;
             max-width: 400px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            animation: popIn 0.3s ease-out;
             color: #1a1d2e;
-        }
-
-        @keyframes popIn {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
         }
 
         .admin-icon-circle {
@@ -531,12 +963,6 @@
             font-size: 13px;
             color: #1f2937;
             outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .admin-input-field:focus {
-            border-color: #6366f1;
-            background: #ffffff;
         }
 
         .admin-submit-btn {
@@ -550,7 +976,6 @@
             font-weight: 700;
             cursor: pointer;
             margin-top: 8px;
-            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -570,39 +995,9 @@
             margin-top: 8px;
         }
 
-        /* Hacker / Termux Modal Styling */
-        .termux-panel {
-            background: #0d1117;
-            border-top: 1px solid #00ff88;
-            box-shadow: 0 -10px 30px rgba(0, 255, 136, 0.25);
+        .noti-panel-dark {
+            background: #161828;
             color: #fff;
-            padding: 20px;
-        }
-
-        .termux-full-banner {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 18px;
-        }
-
-        .full-banner-img {
-            width: 100%;
-            height: auto;
-            max-height: 200px;
-            border-radius: 16px;
-            object-fit: cover;
-            border: 2px solid #00ff88;
-            margin-bottom: 10px;
-        }
-
-        .fancy-title {
-            font-family: monospace;
-            font-size: 15px;
-            font-weight: bold;
-            text-align: center;
-            color: #00ff88;
         }
 
         .noti-header {
@@ -620,56 +1015,6 @@
             color: #8b8ea8;
             font-size: 20px;
             cursor: pointer;
-        }
-
-        .command-card {
-            background: #161b22;
-            border-radius: 12px;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #30363d;
-        }
-
-        .command-card label {
-            font-size: 10px;
-            color: #00ff88;
-            font-family: monospace;
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        .command-box {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #090d13;
-            padding: 6px 10px;
-            border-radius: 6px;
-            gap: 10px;
-        }
-
-        .command-text {
-            font-family: monospace;
-            font-size: 11px;
-            color: #e6edf3;
-        }
-
-        .copy-btn {
-            background: #238636;
-            color: #ffffff;
-            border: none;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 10px;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-
-        /* Notification Card Standard Modal */
-        .noti-panel-dark {
-            background: #161828;
-            padding: 20px;
-            color: #fff;
         }
 
         .noti-card {
@@ -709,7 +1054,6 @@
             font-weight: 600;
         }
 
-        /* Bottom Navigation */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -734,6 +1078,7 @@
             font-size: 10px;
             padding: 6px 14px;
             border-radius: 12px;
+            cursor: pointer;
         }
 
         .nav-item i { font-size: 18px; }
@@ -752,211 +1097,342 @@
         <!-- Top Header Fixed -->
         <div class="top-bar">
             <div class="user-profile">
-                <div class="logo-glow" onclick="toggleTermuxModal()" title="Click to open Hacker Termux Commands">
+                <div class="logo-glow">
                     <img src="https://i.postimg.cc/tC8xtFkL/1789643546627.png" alt="RAJAB-KING YT Logo">
                 </div>
                 <div class="user-info">
                     <h2>RAJAB-KING YT</h2>
-                    <p>Total Apps: 4</p>
+                    <p>App Store Panel</p>
                 </div>
             </div>
             <div class="header-actions">
-                <!-- Mode Switcher Toggle Button -->
+                <!-- WhatsApp Chat Simulator Trigger Button -->
+                <button class="icon-btn" onclick="openWhatsAppChat()" title="WhatsApp Chat">
+                    <i class="fa-brands fa-whatsapp" style="color: #25d366; font-size: 18px;"></i>
+                </button>
                 <button class="icon-btn" onclick="toggleTheme()" id="themeBtn" title="Toggle Light/Dark Mode">
                     <i class="fa-solid fa-moon"></i>
                 </button>
-                <!-- Notification Bell -->
                 <button class="icon-btn" onclick="toggleNotifications()">
                     <i class="fa-solid fa-bell"></i>
-                    <span class="badge" id="notiBadge">4</span>
+                    <span class="badge" id="notiBadge">2</span>
                 </button>
             </div>
         </div>
 
-        <!-- Section Header with Setting Button -->
-        <div class="section-header">
-            <div class="section-title">
-                <i class="fa-solid fa-mobile-screen"></i> All Apps
+        <!-- TAB 1: APPS -->
+        <div id="tab-apps" class="tab-content active">
+            <!-- Search Bar -->
+            <div class="search-box-wrapper">
+                <div class="search-container">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="appSearchInput" class="search-input" placeholder="Search apps & games..." onkeyup="filterApps()">
+                </div>
             </div>
-            <button class="setting-sub-btn" onclick="toggleSettingsModal()">
-                <i class="fa-solid fa-gear"></i> Settings
-            </button>
+
+            <div class="section-header">
+                <div class="section-title">
+                    <i class="fa-solid fa-mobile-screen"></i> All Apps
+                </div>
+                <button class="setting-sub-btn" onclick="toggleSettingsModal()">
+                    <i class="fa-solid fa-gear"></i> Settings
+                </button>
+            </div>
+
+            <!-- Loader Placeholder -->
+            <div id="dynamicAppLoader" class="app-loading-container">
+                <div class="spinner-circles">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="app-loading-text">Loading apps...</div>
+            </div>
+
+            <div class="app-grid" id="appGridContainer" style="display: none;">
+                <div class="app-card" data-name="sketchware pro" onclick="openAppDetail('sketchware', {
+                    name: 'Sketchware Pro',
+                    dev: 'RAJAB-KING YT',
+                    category: 'Apps',
+                    rating: '5.0',
+                    reviews: '3',
+                    downloads: 5,
+                    icon: 'https://raw.githubusercontent.com/Sketchware-Pro/Sketchware-Pro/main/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png',
+                    about: 'Sketchware Pro v7.0.0 Snapshot build for building native Android Java apps easily. Yeh tool mobile par Java coding aur native Android applications banane ke liye istemal hota hai.',
+                    link: 'https://www.mediafire.com/file/bnk1zomfmaytcs1/Sketchware+Pro_v7.0.0-SNAPSHOT-f28d22f-minApi26.apk/file'
+                })">
+                    <img src="https://raw.githubusercontent.com/Sketchware-Pro/Sketchware-Pro/main/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" class="app-icon" alt="Sketchware Pro">
+                    <div class="app-name">Sketchware Pro</div>
+                    <div class="app-rating"><i class="fa-solid fa-star"></i> 5.0</div>
+                    <div class="download-panel"><i class="fa-solid fa-download"></i> <span id="card-dl-sketchware">5</span></div>
+                </div>
+
+                <div class="app-card" data-name="termux" onclick="openAppDetail('termux', {
+                    name: 'Termux',
+                    dev: 'RAJAB-KING YT',
+                    category: 'Tools',
+                    rating: '5.0',
+                    reviews: '8',
+                    downloads: 12,
+                    icon: 'https://raw.githubusercontent.com/termux/termux-app/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png',
+                    about: 'Termux terminal emulator application for Android. Yeh app command-line scripts, CLI tools aur Linux commands run karne ke liye istemal hoti hai.',
+                    link: 'https://www.mediafire.com/file/wvrcxnf6rm03ar6/Xed-Editor_3.4.5.apk/file'
+                })">
+                    <img src="https://raw.githubusercontent.com/termux/termux-app/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" class="app-icon" alt="Termux">
+                    <div class="app-name">Termux</div>
+                    <div class="app-rating"><i class="fa-solid fa-star"></i> 5.0</div>
+                    <div class="download-panel"><i class="fa-solid fa-download"></i> <span id="card-dl-termux">12</span></div>
+                </div>
+
+                <div class="app-card" data-name="mt manager" onclick="openAppDetail('mtmanager', {
+                    name: 'MT Manager',
+                    dev: 'RAJAB-KING YT',
+                    category: 'Apps',
+                    rating: '4.9',
+                    reviews: '3',
+                    downloads: 3,
+                    icon: 'https://cdn-icons-png.flaticon.com/512/3665/3665923.png',
+                    about: 'MT Manager file manager and APK editor tool. Yeh advanced file management aur APK files ko edit / modify karne ke liye istemal hoti hai.',
+                    link: 'https://www.mediafire.com/file/nn13vtu54chnryl/MT_Manager.apk/file'
+                })">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3665/3665923.png" class="app-icon" alt="MT Manager">
+                    <div class="app-name">MT Manager</div>
+                    <div class="app-rating"><i class="fa-solid fa-star"></i> 4.9</div>
+                    <div class="download-panel"><i class="fa-solid fa-download"></i> <span id="card-dl-mtmanager">3</span></div>
+                </div>
+
+                <div class="app-card" data-name="xed editor" onclick="openAppDetail('xed', {
+                    name: 'Xed Editor',
+                    dev: 'RAJAB-KING YT',
+                    category: 'Development',
+                    rating: '4.9',
+                    reviews: '6',
+                    downloads: 9,
+                    icon: 'https://cdn-icons-png.flaticon.com/512/3242/3242257.png',
+                    about: 'Xed Editor is a powerful code editor built for Android web developers. Yeh HTML, CSS aur JavaScript files ko likhne aur edit karne ke liye istemal hoti hai.',
+                    link: 'https://www.mediafire.com/file/wvrcxnf6rm03ar6/Xed-Editor_3.4.5.apk/file'
+                })">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3242/3242257.png" class="app-icon" alt="Xed Editor">
+                    <div class="app-name">Xed Editor</div>
+                    <div class="app-rating"><i class="fa-solid fa-star"></i> 4.9</div>
+                    <div class="download-panel"><i class="fa-solid fa-download"></i> <span id="card-dl-xed">9</span></div>
+                </div>
+            </div>
         </div>
 
-        <!-- App Grid -->
-        <div class="app-grid">
-
-            <!-- APP CARD 1: SKETCHWARE PRO -->
-            <div class="app-card" onclick="downloadApp(this, 'https://www.mediafire.com/file/bnk1zomfmaytcs1/Sketchware+Pro_v7.0.0-SNAPSHOT-f28d22f-minApi26.apk/file')">
-                <img src="https://raw.githubusercontent.com/Sketchware-Pro/Sketchware-Pro/main/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" class="app-icon" alt="Sketchware Pro">
-                <div class="app-name">Sketchware Pro</div>
-                <div class="app-rating"><i class="fa-solid fa-star"></i> 5.0</div>
-                <div class="download-panel">
-                    <i class="fa-solid fa-download"></i> <span class="count">0</span>
+        <!-- TAB 2: GAMES -->
+        <div id="tab-games" class="tab-content">
+            <div class="section-header">
+                <div class="section-title">
+                    <i class="fa-solid fa-gamepad"></i> Classic Snake Game
                 </div>
             </div>
-
-            <!-- APP CARD 2: TERMUX -->
-            <div class="app-card" onclick="downloadApp(this, 'YOUR_APK_LINK_HERE.apk')">
-                <img src="https://raw.githubusercontent.com/termux/termux-app/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" class="app-icon" alt="Termux">
-                <div class="app-name">Termux</div>
-                <div class="app-rating"><i class="fa-solid fa-star"></i> 5.0</div>
-                <div class="download-panel">
-                    <i class="fa-solid fa-download"></i> <span class="count">0</span>
+            <div class="game-container">
+                <div class="game-header">
+                    <span>Score: <span id="snakeScore">0</span></span>
+                    <button onclick="startSnakeGame()" style="background:#7000ff; color:#fff; border:none; padding:4px 12px; border-radius:8px; cursor:pointer; font-weight:bold;">Restart</button>
                 </div>
-            </div>
-
-            <!-- APP CARD 3: MT MANAGER -->
-            <div class="app-card" onclick="downloadApp(this, 'YOUR_APK_LINK_HERE.apk')">
-                <img src="https://cdn-icons-png.flaticon.com/512/3665/3665923.png" class="app-icon" alt="MT Manager">
-                <div class="app-name">MT Manager</div>
-                <div class="app-rating"><i class="fa-solid fa-star"></i> 4.9</div>
-                <div class="download-panel">
-                    <i class="fa-solid fa-download"></i> <span class="count">0</span>
-                </div>
-            </div>
-
-            <!-- APP CARD 4: XED EDITOR -->
-            <div class="app-card" onclick="downloadApp(this, 'https://www.mediafire.com/file/wvrcxnf6rm03ar6/Xed-Editor_3.4.5.apk/file')">
-                <img src="https://cdn-icons-png.flaticon.com/512/3242/3242257.png" class="app-icon" alt="Xed Editor">
-                <div class="app-name">Xed Editor</div>
-                <div class="app-rating"><i class="fa-solid fa-star"></i> 4.9</div>
-                <div class="download-panel">
-                    <i class="fa-solid fa-download"></i> <span class="count">0</span>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Settings Modal (With custom blue gradient background) -->
-        <div class="notification-overlay" id="settingsOverlay">
-            <div class="notification-panel">
                 
-                <!-- Popup Banner with Blue Gradient Background -->
-                <div class="popup-banner">
-                    <button class="popup-close-btn" onclick="toggleSettingsModal()"><i class="fa-solid fa-xmark"></i></button>
-                    <div class="banner-icon-wrapper">
-                        <i class="fa-solid fa-bolt"></i>
+                <div class="game-board-wrapper">
+                    <canvas id="snakeCanvas" width="280" height="280"></canvas>
+                    <div class="game-over-card" id="gameOverCard">
+                        <h3>Game Over!</h3>
+                        <p>Your Score: <span id="finalScore">0</span></p>
+                        <button onclick="startSnakeGame()">Play Again</button>
                     </div>
-                    <div class="banner-title">RAJAB-KING YT</div>
-                    <div class="banner-subtitle">Premium Apps & Tools Store</div>
                 </div>
 
-                <!-- Link Cards Container -->
+                <div class="game-controls">
+                    <div></div>
+                    <button class="ctrl-btn" onclick="changeDirection('UP')"><i class="fa-solid fa-arrow-up"></i></button>
+                    <div></div>
+                    <button class="ctrl-btn" onclick="changeDirection('LEFT')"><i class="fa-solid fa-arrow-left"></i></button>
+                    <button class="ctrl-btn" onclick="changeDirection('DOWN')"><i class="fa-solid fa-arrow-down"></i></button>
+                    <button class="ctrl-btn" onclick="changeDirection('RIGHT')"><i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: TOP APPS -->
+        <div id="tab-top" class="tab-content">
+            <div class="section-header">
+                <div class="section-title"><i class="fa-solid fa-trophy"></i> Top Trending Apps</div>
+            </div>
+            <div class="app-grid">
+                <div class="app-card" onclick="openAppDetail('sketchware', {
+                    name: 'Sketchware Pro', dev: 'RAJAB-KING YT', category: 'Apps', rating: '5.0', reviews: '3', downloads: 5,
+                    icon: 'https://raw.githubusercontent.com/Sketchware-Pro/Sketchware-Pro/main/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png',
+                    about: 'Sketchware Pro v7.0.0 Snapshot build for building native Android Java apps easily.', link: 'https://www.mediafire.com/file/bnk1zomfmaytcs1/Sketchware+Pro_v7.0.0-SNAPSHOT-f28d22f-minApi26.apk/file'
+                })">
+                    <img src="https://raw.githubusercontent.com/Sketchware-Pro/Sketchware-Pro/main/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" class="app-icon" alt="Sketchware Pro">
+                    <div class="app-name">Sketchware Pro</div>
+                    <div class="app-rating"><i class="fa-solid fa-star"></i> 5.0</div>
+                    <div class="download-panel"><i class="fa-solid fa-download"></i> 5</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: BOOKS -->
+        <div id="tab-books" class="tab-content">
+            <div class="section-header">
+                <div class="section-title"><i class="fa-solid fa-book-open"></i> E-Books & Guides</div>
+            </div>
+            <div style="padding: 20px; text-align: center; color: var(--text-sub);">
+                <p>No books added yet. Stay tuned for tutorials!</p>
+            </div>
+        </div>
+
+        <!-- WhatsApp Chat Simulator Modal -->
+        <div class="wa-chat-overlay" id="waChatOverlay">
+            <div class="wa-chat-container">
+                <div class="wa-chat-header">
+                    <div class="wa-chat-header-left">
+                        <button class="wa-back-btn" onclick="closeWhatsAppChat()"><i class="fa-solid fa-arrow-left"></i></button>
+                        <div class="wa-avatar">
+                            <img src="https://i.postimg.cc/tC8xtFkL/1789643546627.png" alt="RAJAB-KING YT">
+                        </div>
+                        <div class="wa-contact-info">
+                            <h4>RAJAB-KING YT</h4>
+                            <p>online</p>
+                        </div>
+                    </div>
+                    <div class="wa-chat-header-right">
+                        <i class="fa-solid fa-video"></i>
+                        <i class="fa-solid fa-phone"></i>
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                    </div>
+                </div>
+
+                <div class="wa-chat-body" id="waChatBody">
+                    <div class="wa-encryption-banner">
+                        <i class="fa-solid fa-lock"></i> Messages and calls are end-to-end encrypted. Only people in this chat can read, listen to, or share them. Learn more.
+                    </div>
+                    <div class="wa-message incoming">
+                        Assalam-o-Alaikum! 👑 Welcome to RAJAB-KING YT official support chat. Aapko kis app ya tool ke baray mein maloomat chahiye?
+                        <span class="wa-msg-time">11:22 PM <i class="fa-solid fa-check-double" style="color: #53bdeb;"></i></span>
+                    </div>
+                </div>
+
+                <div class="wa-chat-footer">
+                    <div class="wa-input-box">
+                        <i class="fa-regular fa-face-smile"></i>
+                        <input type="text" id="waMsgInput" placeholder="Type a message" onkeypress="handleWaKeyPress(event)">
+                        <i class="fa-solid fa-paperclip"></i>
+                        <i class="fa-solid fa-camera"></i>
+                    </div>
+                    <button class="wa-send-btn" onclick="sendWhatsAppMessage()">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- App Details Sheet Modal -->
+        <div class="notification-overlay" id="appDetailOverlay">
+            <div class="notification-panel">
+                <div class="sheet-top">
+                    <div class="sheet-app-info">
+                        <img src="" id="sheetIcon" class="sheet-icon" alt="App Icon">
+                        <div class="sheet-titles">
+                            <h3 id="sheetName">App Name</h3>
+                            <p id="sheetDev">RAJAB-KING YT</p>
+                            <span class="category-badge" id="sheetCategory">Apps</span>
+                        </div>
+                    </div>
+                    <button class="sheet-close-btn" onclick="closeAppDetail()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <div class="sheet-stats-bar">
+                    <div class="stat-item">
+                        <div class="val"><span id="sheetRatingNum">5.0</span> <i class="fa-solid fa-star"></i></div>
+                        <div class="lbl"><span id="sheetReviewsCount">3</span> reviews</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="val" id="sheetDownloadsCount">3</div>
+                        <div class="lbl">Downloads</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="val" style="color: #10b981;"><i class="fa-solid fa-shield-check" style="color: #10b981;"></i> Verified</div>
+                        <div class="lbl">Safe</div>
+                    </div>
+                </div>
+
+                <div class="about-section">
+                    <h4>About this app</h4>
+                    <p id="sheetAboutText">Loading...</p>
+                </div>
+
+                <div class="rating-box">
+                    <h5><i class="fa-solid fa-star"></i> Rate this app</h5>
+                    <div class="star-rating" id="starContainer">
+                        <i class="fa-solid fa-star" onclick="rateApp(1)"></i>
+                        <i class="fa-solid fa-star" onclick="rateApp(2)"></i>
+                        <i class="fa-solid fa-star" onclick="rateApp(3)"></i>
+                        <i class="fa-solid fa-star" onclick="rateApp(4)"></i>
+                        <i class="fa-solid fa-star" onclick="rateApp(5)"></i>
+                    </div>
+                    <div class="thank-you-msg" id="thankYouMsg">Thank You! 😊</div>
+                </div>
+
+                <div class="sheet-action-bar">
+                    <a href="#" id="sheetDownloadBtn" target="_blank" class="download-action-btn" onclick="incrementDownload()">
+                        <i class="fa-solid fa-cloud-arrow-down"></i> Download
+                    </a>
+                    <button class="share-action-btn" onclick="shareAppLink()">
+                        <i class="fa-solid fa-share-nodes"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Modal -->
+        <div class="notification-overlay" id="settingsOverlay">
+            <div class="notification-panel" style="background: #f4f5f9; color: #1a1d2e;">
+                <div style="background: linear-gradient(135deg, #00c6ff 0%, #0072ff 50%, #1e3c72 100%); padding: 35px 20px 25px; text-align: center; border-radius: 20px; color: #fff; margin-bottom: 20px; position: relative;">
+                    <button onclick="toggleSettingsModal()" style="position: absolute; top: 15px; right: 18px; background: rgba(0,0,0,0.3); border:none; color:#fff; width:28px; height:28px; border-radius:50%; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
+                    <div style="width: 65px; height: 65px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; border: 2px solid rgba(255,255,255,0.5);">
+                        <i class="fa-solid fa-bolt" style="font-size: 28px;"></i>
+                    </div>
+                    <div style="font-size: 22px; font-weight: 800;">RAJAB-KING YT</div>
+                    <div style="font-size: 12px; opacity: 0.9;">Premium Apps Store</div>
+                </div>
+
                 <div class="modal-links-container">
-                    
-                    <!-- YouTube Box -->
                     <a href="https://youtube.com/@rajabkingyt?si=YFtr2X4ypauA8GVv" target="_blank" class="image-style-card">
                         <div class="card-left-content">
-                            <div class="card-icon-box yt-bg">
-                                <i class="fa-brands fa-youtube"></i>
-                            </div>
-                            <div class="card-text-box">
-                                <h4>YouTube Channel</h4>
-                                <p>Subscribe for tutorials</p>
-                            </div>
+                            <div class="card-icon-box yt-bg"><i class="fa-brands fa-youtube"></i></div>
+                            <div class="card-text-box"><h4>YouTube Channel</h4><p>Subscribe for tutorials</p></div>
                         </div>
                         <i class="fa-solid fa-chevron-right card-arrow"></i>
                     </a>
 
-                    <!-- WhatsApp Channel Box -->
                     <a href="https://whatsapp.com/channel/0029VbDbigr6xCSJI615wT2P" target="_blank" class="image-style-card">
                         <div class="card-left-content">
-                            <div class="card-icon-box wa-bg">
-                                <i class="fa-brands fa-whatsapp"></i>
-                            </div>
-                            <div class="card-text-box">
-                                <h4>WhatsApp Channel</h4>
-                                <p>Join our community</p>
-                            </div>
+                            <div class="card-icon-box wa-bg"><i class="fa-brands fa-whatsapp"></i></div>
+                            <div class="card-text-box"><h4>WhatsApp Channel</h4><p>Join our community</p></div>
                         </div>
                         <i class="fa-solid fa-chevron-right card-arrow"></i>
                     </a>
 
-                    <!-- WhatsApp Direct Contact Box -->
-                    <a href="https://wa.me/923137059269" target="_blank" class="image-style-card">
-                        <div class="card-left-content">
-                            <div class="card-icon-box wa-bg">
-                                <i class="fa-solid fa-comment-dots"></i>
-                            </div>
-                            <div class="card-text-box">
-                                <h4>Contact Owner</h4>
-                                <p>Chat directly on WhatsApp</p>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-chevron-right card-arrow"></i>
-                    </a>
-
-                    <!-- Telegram Sender Bot Option Box -->
-                    <div class="image-style-card" onclick="openTelegramModal()">
-                        <div class="card-left-content">
-                            <div class="card-icon-box tg-bg">
-                                <i class="fa-brands fa-telegram"></i>
-                            </div>
-                            <div class="card-text-box">
-                                <h4>Telegram Bot Sender</h4>
-                                <p>Send automated messages</p>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-chevron-right card-arrow"></i>
-                    </div>
-
-                    <!-- Admin Panel Button Box -->
                     <div class="image-style-card" onclick="openAdminModal()">
                         <div class="card-left-content">
-                            <div class="card-icon-box admin-bg">
-                                <i class="fa-solid fa-gear"></i>
-                            </div>
-                            <div class="card-text-box">
-                                <h4>Admin Panel</h4>
-                                <p>Manage your apps</p>
-                            </div>
+                            <div class="card-icon-box admin-bg"><i class="fa-solid fa-gear"></i></div>
+                            <div class="card-text-box"><h4>Admin Panel</h4><p>Manage your apps</p></div>
                         </div>
                         <i class="fa-solid fa-chevron-right card-arrow"></i>
                     </div>
-
                 </div>
-
             </div>
         </div>
 
-        <!-- Telegram Bot Sender Modal -->
-        <div class="notification-overlay" id="telegramOverlay" style="align-items: center;">
-            <div class="telegram-modal-panel">
-                <div class="admin-icon-circle" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); box-shadow: 0 8px 20px rgba(2, 132, 199, 0.35);">
-                    <i class="fa-brands fa-telegram"></i>
-                </div>
-                <div class="admin-title" style="text-align: center;">Telegram Sender</div>
-                <div class="admin-subtitle" style="text-align: center;">Send direct message via Bot</div>
-                
-                <div class="tg-input-group">
-                    <label>Bot Token</label>
-                    <input type="text" class="tg-input-field" id="tgBotToken" placeholder="e.g. 123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ">
-                </div>
-                <div class="tg-input-group">
-                    <label>Chat ID / User ID</label>
-                    <input type="text" class="tg-input-field" id="tgChatId" placeholder="e.g. 987654321">
-                </div>
-                <div class="tg-input-group">
-                    <label>Your Message</label>
-                    <textarea class="tg-input-field" id="tgMessage" rows="3" placeholder="Type your message here..."></textarea>
-                </div>
-                
-                <button type="button" class="admin-submit-btn" onclick="sendTelegramMessage()">
-                    <i class="fa-solid fa-paper-plane"></i> Send Message
-                </button>
-                <button type="button" class="admin-cancel-btn" onclick="closeTelegramModal()">Close</button>
-            </div>
-        </div>
-
-        <!-- Separate Admin Login Modal -->
+        <!-- Admin Login Modal -->
         <div class="notification-overlay" id="adminOverlay" style="align-items: center;">
             <div class="admin-modal-panel">
                 <div class="admin-icon-circle">
                     <i class="fa-solid fa-lock"></i>
                 </div>
                 <div class="admin-title">Admin Login</div>
-                <div class="admin-subtitle">Enter your credentials to continue</div>
+                <div class="admin-subtitle">Enter credentials</div>
                 
                 <form onsubmit="handleAdminLogin(event)">
                     <div class="admin-input-group">
@@ -973,68 +1449,7 @@
             </div>
         </div>
 
-        <!-- Termux Commands Hacker Modal -->
-        <div class="notification-overlay" id="termuxOverlay">
-            <div class="notification-panel termux-panel">
-                <div class="noti-header">
-                    <h3 style="color: #00ff88; font-family: monospace;">☠️ HACKER TERMUX COMMAND ☠️</h3>
-                    <button class="close-btn" onclick="toggleTermuxModal()"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-
-                <div class="termux-full-banner">
-                    <img src="https://i.postimg.cc/pTszWnKZ/1789971985456.png" class="full-banner-img" alt="Rajab King Full DP">
-                    <div class="fancy-title">★ RAJAB-KING YT HACKER PANEL ★</div>
-                </div>
-
-                <!-- COMMAND 1 -->
-                <div class="command-card">
-                    <label>STEP 01: SYSTEM UPDATE</label>
-                    <div class="command-box">
-                        <span class="command-text" id="cmd1">pkg update && pkg upgrade -y</span>
-                        <button class="copy-btn" onclick="copyCommand('cmd1', this)">Copy</button>
-                    </div>
-                </div>
-
-                <!-- COMMAND 2 -->
-                <div class="command-card">
-                    <label>STEP 02: INSTALL DEPENDENCIES</label>
-                    <div class="command-box">
-                        <span class="command-text" id="cmd2">pkg install git python python -y</span>
-                        <button class="copy-btn" onclick="copyCommand('cmd2', this)">Copy</button>
-                    </div>
-                </div>
-
-                <!-- COMMAND 3 -->
-                <div class="command-card">
-                    <label>STEP 03: CLONE REPOSITORY</label>
-                    <div class="command-box">
-                        <span class="command-text" id="cmd3">git clone https://github.com/spyboy-productions/r4ven.git</span>
-                        <button class="copy-btn" onclick="copyCommand('cmd3', this)">Copy</button>
-                    </div>
-                </div>
-
-                <!-- COMMAND 4 -->
-                <div class="command-card">
-                    <label>STEP 04: INSTALL REQUIREMENTS</label>
-                    <div class="command-box">
-                        <span class="command-text" id="cmd4">pip3 install -r requirements.txt</span>
-                        <button class="copy-btn" onclick="copyCommand('cmd4', this)">Copy</button>
-                    </div>
-                </div>
-
-                <!-- COMMAND 5 -->
-                <div class="command-card">
-                    <label>STEP 05: RUN SCRIPT</label>
-                    <div class="command-box">
-                        <span class="command-text" id="cmd5">python3 r4ven.py</span>
-                        <button class="copy-btn" onclick="copyCommand('cmd5', this)">Copy</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Notification Panel / Bell Modal -->
+        <!-- Notification Panel -->
         <div class="notification-overlay" id="notificationOverlay">
             <div class="notification-panel noti-panel-dark">
                 <div class="noti-header">
@@ -1043,17 +1458,17 @@
                 </div>
 
                 <div class="noti-card">
-                    <img src="https://i.postimg.cc/3x5yv1LW/upscalemedia-transformed.png" class="noti-thumb" alt="SIM Data Thumbnail">
+                    <img src="https://i.postimg.cc/3x5yv1LW/upscalemedia-transformed.png" class="noti-thumb" alt="SIM">
                     <div class="noti-info">
-                        <h4>🤯 SIM DATA 🗃️ Zip File</h4>
+                        <h4>🤯 SIM DATA 🗃 Zip File</h4>
                         <a href="https://www.mediafire.com/file/spdwdbrjhidszgz/🤯+SIM+DATA+🗃️.zip/file" target="_blank" class="download-file-btn">
-                            <i class="fa-solid fa-cloud-arrow-down"></i> Download SIM Data ZIP
+                            <i class="fa-solid fa-cloud-arrow-down"></i> Download ZIP
                         </a>
                     </div>
                 </div>
 
                 <div class="noti-card">
-                    <img src="https://i.postimg.cc/cLN42bw3/1789872362831.png" class="noti-thumb" alt="Thumbnail 1">
+                    <img src="https://i.postimg.cc/cLN42bw3/1789872362831.png" class="noti-thumb" alt="Index">
                     <div class="noti-info">
                         <h4>Index HTML Source File</h4>
                         <a href="https://www.mediafire.com/file/wsdurfaerwe32v9/index.html/file" target="_blank" class="download-file-btn">
@@ -1061,25 +1476,24 @@
                         </a>
                     </div>
                 </div>
-
             </div>
         </div>
 
         <!-- Bottom Navigation Bar -->
         <div class="bottom-nav">
-            <a href="#" class="nav-item active">
+            <a class="nav-item active" onclick="switchTab('apps', this)">
                 <i class="fa-solid fa-border-all"></i>
                 <span>Apps</span>
             </a>
-            <a href="#" class="nav-item">
+            <a class="nav-item" onclick="switchTab('games', this)">
                 <i class="fa-solid fa-gamepad"></i>
                 <span>Games</span>
             </a>
-            <a href="#" class="nav-item">
+            <a class="nav-item" onclick="switchTab('top', this)">
                 <i class="fa-solid fa-trophy"></i>
                 <span>Top Apps</span>
             </a>
-            <a href="#" class="nav-item">
+            <a class="nav-item" onclick="switchTab('books', this)">
                 <i class="fa-solid fa-book-open"></i>
                 <span>Books</span>
             </a>
@@ -1087,126 +1501,247 @@
     </div>
 
     <script>
-        function downloadApp(element, url) {
-            let countSpan = element.querySelector('.count');
-            let currentCount = parseInt(countSpan.innerText);
-            countSpan.innerText = currentCount + 1;
+        // Simulate loading apps for 3 seconds then show grid
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const loader = document.getElementById('dynamicAppLoader');
+                const grid = document.getElementById('appGridContainer');
+                if(loader) loader.style.display = 'none';
+                if(grid) grid.style.display = 'grid';
+            }, 3000);
+        });
 
-            if(url && url !== 'YOUR_APK_LINK_HERE.apk') {
-                window.open(url, '_blank');
-            } else {
-                alert("Kripya pehle is app ka sahi download link HTML code me lagayein!");
+        // WhatsApp Chat Simulator Functions
+        function openWhatsAppChat() {
+            document.getElementById('waChatOverlay').style.display = 'flex';
+            const chatBody = document.getElementById('waChatBody');
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function closeWhatsAppChat() {
+            document.getElementById('waChatOverlay').style.display = 'none';
+        }
+
+        function handleWaKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendWhatsAppMessage();
             }
         }
 
-        function toggleNotifications() {
-            const overlay = document.getElementById('notificationOverlay');
-            const badge = document.getElementById('notiBadge');
+        function sendWhatsAppMessage() {
+            const input = document.getElementById('waMsgInput');
+            const text = input.value.trim();
+            if(!text) return;
+
+            const chatBody = document.getElementById('waChatBody');
+            const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            // Append User Message
+            const userMsgDiv = document.createElement('div');
+            userMsgDiv.className = 'wa-message outgoing';
+            userMsgDiv.innerHTML = `${text} <span class="wa-msg-time">${currentTime} <i class="fa-solid fa-check-double" style="color: #53bdeb;"></i></span>`;
+            chatBody.appendChild(userMsgDiv);
             
-            if (overlay.style.display === 'flex') {
-                overlay.style.display = 'none';
-            } else {
-                overlay.style.display = 'flex';
-                badge.innerText = '0';
-            }
+            input.value = '';
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            // Simulate Bot Auto-Reply after 1 second
+            setTimeout(() => {
+                const botMsgDiv = document.createElement('div');
+                botMsgDiv.className = 'wa-message incoming';
+                botMsgDiv.innerHTML = `Shukriya message karne ke liye! 👑 Main filhal busy hoon, aap hamare App Store se apni pasand ki app download kar sakte hain ya YouTube channel visit karein! <span class="wa-msg-time">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>`;
+                chatBody.appendChild(botMsgDiv);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }, 1000);
         }
 
-        function toggleSettingsModal() {
-            const overlay = document.getElementById('settingsOverlay');
-            if (overlay.style.display === 'flex') {
-                overlay.style.display = 'none';
-            } else {
-                overlay.style.display = 'flex';
-            }
-        }
-
-        function openTelegramModal() {
-            document.getElementById('settingsOverlay').style.display = 'none';
-            document.getElementById('telegramOverlay').style.display = 'flex';
-        }
-
-        function closeTelegramModal() {
-            document.getElementById('telegramOverlay').style.display = 'none';
-        }
-
-        function sendTelegramMessage() {
-            const token = document.getElementById('tgBotToken').value.trim();
-            const chatId = document.getElementById('tgChatId').value.trim();
-            const message = document.getElementById('tgMessage').value.trim();
-
-            if(!token || !chatId || !message) {
-                alert("Please fill in Bot Token, Chat ID, and Message!");
-                return;
-            }
-
-            const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
-
-            fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                if(data.ok) {
-                    alert("Message sent successfully via Telegram Bot!");
-                    document.getElementById('tgMessage').value = '';
-                    closeTelegramModal();
+        // App Search Functionality
+        function filterApps() {
+            let query = document.getElementById('appSearchInput').value.toLowerCase();
+            let cards = document.querySelectorAll('#appGridContainer .app-card');
+            cards.forEach(card => {
+                let name = card.getAttribute('data-name');
+                if(name.includes(query)) {
+                    card.style.display = 'flex';
                 } else {
-                    alert("Failed to send: " + (data.description || "Check your Token and Chat ID."));
+                    card.style.display = 'none';
                 }
-            })
-            .catch(error => {
-                alert("Error connecting to Telegram API. Check your internet connection.");
-                console.error(error);
             });
         }
 
+        function switchTab(tabName, element) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            
+            document.getElementById('tab-' + tabName).classList.add('active');
+            element.classList.add('active');
+
+            if(tabName === 'games') {
+                initSnakeGame();
+            } else {
+                stopSnakeGame();
+            }
+        }
+
+        const canvas = document.getElementById("snakeCanvas");
+        const ctx = canvas.getContext("2d");
+        const grid = 20;
+        let snake = [{x: 100, y: 100}];
+        let food = {x: 0, y: 0};
+        let dx = grid, dy = 0;
+        let score = 0;
+        let gameInterval = null;
+        let isGameRunning = false;
+
+        function initSnakeGame() {
+            document.getElementById('gameOverCard').style.display = 'none';
+            score = 0;
+            document.getElementById('snakeScore').innerText = score;
+            snake = [{x: 100, y: 100}, {x: 80, y: 100}, {x: 60, y: 100}];
+            dx = grid;
+            dy = 0;
+            spawnFood();
+            if(gameInterval) clearInterval(gameInterval);
+            isGameRunning = true;
+            gameInterval = setInterval(gameLoop, 120);
+        }
+
+        function startSnakeGame() {
+            initSnakeGame();
+        }
+
+        function stopSnakeGame() {
+            if(gameInterval) {
+                clearInterval(gameInterval);
+                gameInterval = null;
+            }
+            isGameRunning = false;
+        }
+
+        function spawnFood() {
+            food.x = Math.floor(Math.random() * (canvas.width / grid)) * grid;
+            food.y = Math.floor(Math.random() * (canvas.height / grid)) * grid;
+        }
+
+        function gameLoop() {
+            if (!isGameRunning) return;
+            update();
+            if(checkGameOver()) {
+                stopSnakeGame();
+                document.getElementById('finalScore').innerText = score;
+                document.getElementById('gameOverCard').style.display = 'block';
+                return;
+            }
+            draw();
+        }
+
+        function update() {
+            const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+            snake.unshift(head);
+
+            if(head.x === food.x && head.y === food.y) {
+                score += 10;
+                document.getElementById('snakeScore').innerText = score;
+                spawnFood();
+            } else {
+                snake.pop();
+            }
+        }
+
+        function checkGameOver() {
+            const head = snake[0];
+            if(head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height) return true;
+            for(let i = 1; i < snake.length; i++) {
+                if(head.x === snake[i].x && head.y === snake[i].y) return true;
+            }
+            return false;
+        }
+
+        function draw() {
+            ctx.fillStyle = "#111";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#ff3b30";
+            ctx.fillRect(food.x, food.y, grid - 2, grid - 2);
+
+            snake.forEach((part, index) => {
+                ctx.fillStyle = index === 0 ? "#00ff88" : "#7000ff";
+                ctx.fillRect(part.x, part.y, grid - 2, grid - 2);
+            });
+        }
+
+        function changeDirection(dir) {
+            if(!isGameRunning) return;
+            if(dir === 'UP' && dy === 0) { dx = 0; dy = -grid; }
+            if(dir === 'DOWN' && dy === 0) { dx = 0; dy = grid; }
+            if(dir === 'LEFT' && dx === 0) { dx = -grid; dy = 0; }
+            if(dir === 'RIGHT' && dx === 0) { dx = grid; dy = 0; }
+        }
+
+        let appDownloads = { 'sketchware': 5, 'termux': 12, 'mtmanager': 3, 'xed': 9 };
+        let currentAppKey = null, currentActiveApp = null;
+
+        function openAppDetail(appKey, appData) {
+            currentAppKey = appKey;
+            currentActiveApp = appData;
+            document.getElementById('sheetIcon').src = appData.icon;
+            document.getElementById('sheetName').innerText = appData.name;
+            document.getElementById('sheetDev').innerText = appData.dev;
+            document.getElementById('sheetCategory').innerText = appData.category;
+            document.getElementById('sheetRatingNum').innerText = appData.rating;
+            document.getElementById('sheetReviewsCount').innerText = appData.reviews;
+            document.getElementById('sheetDownloadsCount').innerText = appDownloads[appKey];
+            document.getElementById('sheetAboutText').innerText = appData.about;
+            document.getElementById('sheetDownloadBtn').href = appData.link;
+            resetStars();
+            document.getElementById('appDetailOverlay').style.display = 'flex';
+        }
+
+        function closeAppDetail() { document.getElementById('appDetailOverlay').style.display = 'none'; }
+        function incrementDownload() {
+            if(currentAppKey) {
+                appDownloads[currentAppKey]++;
+                document.getElementById('sheetDownloadsCount').innerText = appDownloads[currentAppKey];
+                document.getElementById('card-dl-' + currentAppKey).innerText = appDownloads[currentAppKey];
+            }
+        }
+        function rateApp(stars) {
+            const starIcons = document.querySelectorAll('#starContainer i');
+            starIcons.forEach((icon, index) => {
+                icon.className = index < stars ? "fa-solid fa-star selected" : "fa-solid fa-star";
+            });
+            document.getElementById('thankYouMsg').style.display = 'block';
+        }
+        function resetStars() {
+            document.querySelectorAll('#starContainer i').forEach(icon => icon.className = "fa-solid fa-star");
+            document.getElementById('thankYouMsg').style.display = 'none';
+        }
+        function shareAppLink() {
+            if(navigator.share) {
+                navigator.share({ title: currentActiveApp ? currentActiveApp.name : 'App Store', url: window.location.href }).catch(console.error);
+            } else { alert("Link copied!"); }
+        }
+        function toggleNotifications() {
+            const overlay = document.getElementById('notificationOverlay');
+            overlay.style.display = overlay.style.display === 'flex' ? 'none' : 'flex';
+            document.getElementById('notiBadge').innerText = '0';
+        }
+        function toggleSettingsModal() {
+            const overlay = document.getElementById('settingsOverlay');
+            overlay.style.display = overlay.style.display === 'flex' ? 'none' : 'flex';
+        }
         function openAdminModal() {
             document.getElementById('settingsOverlay').style.display = 'none';
             document.getElementById('adminOverlay').style.display = 'flex';
         }
-
-        function closeAdminModal() {
-            document.getElementById('adminOverlay').style.display = 'none';
-        }
-
-        function handleAdminLogin(event) {
-            event.preventDefault();
-            alert("Admin Login Successful!");
-            closeAdminModal();
-        }
-
-        function toggleTermuxModal() {
-            const overlay = document.getElementById('termuxOverlay');
-            if (overlay.style.display === 'flex') {
-                overlay.style.display = 'none';
-            } else {
-                overlay.style.display = 'flex';
-            }
-        }
-
+        function closeAdminModal() { document.getElementById('adminOverlay').style.display = 'none'; }
+        function handleAdminLogin(event) { event.preventDefault(); alert("Login Successful!"); closeAdminModal(); }
         function toggleTheme() {
             document.body.classList.toggle('light-mode');
-            const themeBtn = document.getElementById('themeBtn');
-            if (document.body.classList.contains('light-mode')) {
-                themeBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
-            } else {
-                themeBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
-            }
-        }
-
-        function copyCommand(elementId, btn) {
-            const commandText = document.getElementById(elementId).innerText;
-            navigator.clipboard.writeText(commandText).then(() => {
-                const originalHTML = btn.innerHTML;
-                btn.innerHTML = 'Copied';
-                btn.style.background = '#00ff88';
-                btn.style.color = '#000000';
-                
-                setTimeout(() => {
-                    btn.innerHTML = originalHTML;
-                    btn.style.background = '#238636';
-                    btn.style.color = '#ffffff';
-                }, 1500);
-            });
+            const btn = document.getElementById('themeBtn');
+            btn.innerHTML = document.body.classList.contains('light-mode') ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
         }
     </script>
 </body>
-</html>
+    </html>
+    
