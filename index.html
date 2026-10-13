@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RAJAB-KING YT - App Store</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>RAJAB-KING YT - App Store & Game</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Firebase SDK Integration -->
@@ -21,6 +21,8 @@
             --text-sub: #8b8ea8;
             --nav-bg: #141625;
             --btn-bg: #1a1d2e;
+            --card-text-color: #ffffff;
+            --name-rest-color: #ffffff;
         }
 
         body.light-mode {
@@ -33,6 +35,8 @@
             --text-sub: #4b5563;
             --nav-bg: #ffffff;
             --btn-bg: #e5e7eb;
+            --card-text-color: #111827;
+            --name-rest-color: #111827;
         }
 
         * {
@@ -103,7 +107,7 @@
             display: flex;
             flex-direction: column;
             position: relative;
-            padding-bottom: 80px;
+            padding-bottom: 70px;
             box-shadow: 0 0 20px rgba(0,0,0,0.5);
             overflow-x: hidden;
         }
@@ -123,22 +127,65 @@
         .user-profile {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             flex-grow: 1;
         }
 
+        .top-profile-laser-box {
+            position: relative;
+            border-radius: 20px;
+            padding: 4px 8px;
+            overflow: hidden;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        @keyframes rotateLaserBorder {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .top-profile-laser-box::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: conic-gradient(transparent, #ff0055, #00c6ff, #00ff88, #ffb800, #9e00ff, transparent 50%);
+            animation: rotateLaserBorder 0.9s linear infinite;
+            z-index: -2;
+        }
+
+        .top-profile-laser-box::after {
+            content: '';
+            position: absolute;
+            inset: 2.5px;
+            background: var(--bg-container);
+            border-radius: 17px;
+            z-index: -1;
+        }
+
         .logo-glow {
-            width: 42px;
-            height: 42px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             background: #252840;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid #7000ff;
-            box-shadow: 0 0 10px rgba(112, 0, 255, 0.4);
+            border: 2px solid #00c6ff;
+            box-shadow: 0 0 10px rgba(0, 198, 255, 0.8);
             flex-shrink: 0;
             overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .logo-glow:active {
+            transform: scale(0.92);
         }
 
         .logo-glow img {
@@ -150,15 +197,25 @@
 
         .user-info h2 {
             font-size: 16px;
-            font-weight: 700;
-            color: var(--text-main);
-            letter-spacing: 0.5px;
+            font-weight: 900;
+            letter-spacing: 0.6px;
             white-space: nowrap;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .user-info h2 .name-rajab {
+            color: #ff0033 !important;
+            text-shadow: 0 0 8px rgba(255, 0, 51, 0.6);
+        }
+        .user-info h2 .name-rest {
+            color: var(--name-rest-color) !important;
         }
 
         .user-info p {
             font-size: 11px;
-            color: var(--text-sub);
+            font-weight: 800;
+            color: #00c6ff;
         }
 
         .header-actions {
@@ -208,10 +265,10 @@
             display: flex;
             align-items: center;
             background: var(--btn-bg);
-            border: 1px solid var(--border-color);
             border-radius: 24px;
-            padding: 10px 16px;
+            padding: 12px 16px;
             gap: 10px;
+            border: 1px solid var(--border-color);
         }
 
         .search-container i {
@@ -243,17 +300,19 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 16px;
-            font-weight: 700;
+            font-size: 17px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
         }
 
         .setting-sub-btn {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            padding: 5px 10px;
+            padding: 6px 12px;
             border-radius: 20px;
-            font-size: 11px;
+            font-size: 12px;
+            font-weight: 700;
             display: flex;
             align-items: center;
             gap: 5px;
@@ -300,7 +359,7 @@
 
         .app-name {
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 800;
             margin-bottom: 2px;
             white-space: nowrap;
             overflow: hidden;
@@ -332,125 +391,229 @@
             align-items: center;
             gap: 3px;
             margin-top: 2px;
+            font-weight: 700;
         }
 
-        /* Snake Game UI - Center Align */
-        .game-container {
-            padding: 15px;
+        .top-app-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 10px 16px;
+        }
+
+        .top-app-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+
+        .top-app-rank {
+            width: 30px;
+            height: 30px;
+            background: #6366f1;
+            color: #ffffff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .top-app-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .top-app-details {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            overflow: hidden;
+        }
+
+        .top-app-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .top-app-cat {
+            font-size: 12px;
+            color: var(--text-sub);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .top-app-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--text-sub);
+            font-weight: 700;
+        }
+
+        .top-app-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .top-app-meta i {
+            color: #ffb800;
+            font-size: 11px;
+        }
+
+        /* Rainbow Snake Game Styles */
+        .game-container-wrap {
             display: flex;
             flex-direction: column;
             align-items: center;
-            position: relative;
-        }
-
-        .game-header {
-            display: flex;
             justify-content: space-between;
-            align-items: center;
+            padding: 12px;
             width: 100%;
-            max-width: 280px;
-            margin-bottom: 10px;
-            font-weight: 700;
-            font-size: 14px;
+            min-height: calc(100vh - 140px);
+            box-sizing: border-box;
         }
 
-        .game-center-controls {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 12px;
+        .header-section { 
+            text-align: center;
             width: 100%;
-            max-width: 280px;
+            margin-bottom: 8px;
         }
 
-        .game-center-controls button {
-            flex: 1;
-            padding: 8px;
-            border-radius: 10px;
-            border: none;
+        .game-title-rainbow {
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            background: linear-gradient(to right, red, orange, yellow, green, cyan, blue, violet);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .score-panel {
+            background: rgba(255, 255, 255, 0.12);
+            padding: 6px 28px;
+            border-radius: 20px;
+            font-size: 1.5rem;
             font-weight: bold;
-            font-size: 12px;
-            cursor: pointer;
+            border: 1.5px solid #5faaff;
+            margin-top: 6px;
+            color: #fff;
+            box-shadow: 0 0 12px rgba(95, 170, 255, 0.4);
+            display: inline-block;
+        }
+
+        .canvas-box-container {
+            width: 100%;
+            max-width: 340px;
             display: flex;
+            justify-content: center;
             align-items: center;
-            justify-content: center;
-            gap: 6px;
+            margin: 8px 0;
         }
 
-        .game-settings-bar {
-            display: flex;
-            justify-content: center;
-            gap: 6px;
-            margin-bottom: 12px;
-        }
-
-        .game-settings-bar button {
-            background: var(--btn-bg);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 5px 12px;
-            border-radius: 8px;
-            font-size: 11px;
-            cursor: pointer;
-        }
-
-        .game-settings-bar button.active-speed {
-            background: #7000ff;
-            border-color: #7000ff;
-        }
-
-        .game-board-wrapper {
-            position: relative;
-        }
-
-        canvas#snakeCanvas {
-            background-color: #111;
-            border: 3px solid #7000ff;
-            border-radius: 12px;
-            box-shadow: 0 0 20px rgba(112, 0, 255, 0.4);
+        canvas#gameCanvas {
+            width: 100% !important;
+            height: auto !important;
+            max-width: 320px;
+            aspect-ratio: 1 / 1;
+            background: #0f1a2b;
+            border-radius: 16px;
+            border: 2px solid #334a6e;
+            box-shadow: 0 0 25px rgba(0, 198, 255, 0.25);
             display: block;
         }
 
-        .game-over-card {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(18, 20, 33, 0.95);
-            border: 2px solid #ff3b30;
-            padding: 20px;
-            border-radius: 16px;
-            text-align: center;
-            width: 80%;
-            display: none;
-            box-shadow: 0 10px 25px rgba(255, 59, 48, 0.4);
-            backdrop-filter: blur(5px);
-            z-index: 10;
+        .speed-row { 
+            display: flex; 
+            gap: 12px; 
+            margin-bottom: 12px;
         }
 
-        .game-controls {
-            display: grid;
-            grid-template-columns: repeat(3, 60px);
-            gap: 10px;
-            margin-top: 15px;
+        .speed-btn {
+            background: #1f3d62;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+            transition: transform 0.1s ease;
+        }
+
+        .speed-btn:active {
+            transform: scale(0.92);
+        }
+
+        .speed-btn.active { 
+            background: #00ddff; 
+            color: #000; 
+            font-weight: bold; 
+            box-shadow: 0 0 12px rgba(0, 221, 255, 0.6);
+        }
+
+        .control-pad {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .btn-row { 
+            display: flex; 
+            gap: 18px; 
             justify-content: center;
         }
 
-        .ctrl-btn {
-            height: 50px;
-            background: var(--btn-bg);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            border-radius: 12px;
-            font-size: 20px;
-            cursor: pointer;
+        .ctrl-button {
+            width: 68px;
+            height: 68px;
+            background: #1e3347;
+            border: 2px solid #4c8fd8;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 5px 0 #0a1424;
+            cursor: pointer;
+            transition: all 0.1s ease;
         }
 
-        .ctrl-btn:active {
-            background: #7000ff;
+        .ctrl-button:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #0a1424;
+            background: #00c6ff;
+        }
+
+        .ctrl-button img { 
+            width: 30px; 
+            pointer-events: none; 
+        }
+
+        .pause-btn { 
+            background: #334a6e; 
+            width: 62px; 
+            height: 62px; 
         }
 
         .notification-overlay {
@@ -459,8 +622,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(6px);
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
             z-index: 200;
             display: none;
             justify-content: center;
@@ -680,19 +843,48 @@
             cursor: pointer;
         }
 
-        .modal-links-container {
-            padding: 0 16px;
+        .fancy-header-banner {
+            position: relative;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            z-index: 1;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 25px rgba(0, 225, 255, 0.8), 0 0 15px rgba(255, 0, 128, 0.8);
         }
 
-        .fancy-header-banner {
-            background: linear-gradient(135deg, #00c6ff 0%, #0072ff 50%, #7c3aed 100%);
-            padding: 30px 20px;
-            text-align: center;
-            border-radius: 20px;
-            color: #fff;
-            margin-bottom: 20px;
-            position: relative;
-            box-shadow: 0 8px 25px rgba(0, 114, 255, 0.3);
+        .fancy-header-banner::before {
+            content: '';
+            position: absolute;
+            top: -150%;
+            left: -150%;
+            width: 400%;
+            height: 400%;
+            background: conic-gradient(transparent, #00ffff, #ff007f, #ffff00, #00ff88, #9e00ff, #00ffff, transparent 60%);
+            animation: rotateLaserBorder 0.4s linear infinite;
+            z-index: -2;
+        }
+
+        .fancy-header-banner::after {
+            content: '';
+            position: absolute;
+            inset: 3.5px;
+            background: #0d0f18;
+            border-radius: 17px;
+            z-index: -1;
+        }
+
+        .banner-custom-image {
+            width: 100%;
+            height: auto;
+            max-height: 180px;
+            object-fit: cover;
+            border-radius: 16px;
+            display: block;
+            z-index: 2;
         }
 
         .image-style-card {
@@ -704,7 +896,7 @@
             align-items: center;
             justify-content: space-between;
             text-decoration: none;
-            color: #1f2937;
+            color: var(--card-text-color);
             box-shadow: 0 4px 15px rgba(0,0,0,0.06);
             border: 1px solid #e5e7eb;
             cursor: pointer;
@@ -713,6 +905,139 @@
 
         .image-style-card:active {
             transform: scale(0.98);
+        }
+
+        .laser-card-base {
+            position: relative;
+            border: none !important;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .laser-card-base::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            animation: rotateLaserBorder 1.2s linear infinite;
+            z-index: -2;
+        }
+
+        .laser-card-base::after {
+            content: '';
+            position: absolute;
+            inset: 3.5px;
+            background: #ffffff;
+            border-radius: inherit;
+            z-index: -1;
+        }
+
+        body:not(.light-mode) .laser-card-base::after {
+            background: var(--bg-card);
+        }
+
+        .admin-modal-panel.laser-card-base::after {
+            background: var(--admin-modal-bg, #121421);
+        }
+
+        .yt-laser-card::before {
+            background: conic-gradient(transparent, #ff0000, #ffb800, #ff0055, transparent 40%);
+        }
+        .yt-laser-card {
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.7), 0 0 10px rgba(255, 184, 0, 0.6) !important;
+        }
+
+        .wa-laser-card::before {
+            background: conic-gradient(transparent, #25d366, #00ff88, #00e5ff, transparent 40%);
+        }
+        .wa-laser-card {
+            box-shadow: 0 0 25px rgba(37, 211, 102, 0.7), 0 0 10px rgba(0, 255, 136, 0.6) !important;
+        }
+
+        .admin-laser-card::before {
+            background: conic-gradient(transparent, #ff9900, #ff007f, #9e00ff, transparent 40%);
+        }
+        .admin-laser-card {
+            box-shadow: 0 0 25px rgba(255, 153, 0, 0.7), 0 0 10px rgba(158, 0, 255, 0.6) !important;
+        }
+
+        .appview-laser-card::before {
+            background: conic-gradient(transparent, #00c6ff, #0072ff, #7000ff, transparent 40%);
+        }
+        .appview-laser-card {
+            box-shadow: 0 0 25px rgba(0, 198, 255, 0.8), 0 0 10px rgba(112, 0, 255, 0.6) !important;
+        }
+
+        .bot-laser-card::before {
+            background: conic-gradient(transparent, #00d2ff, #00ff88, #ff00ff, transparent 40%);
+        }
+        .bot-laser-card {
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.8), 0 0 12px rgba(0, 255, 136, 0.6) !important;
+        }
+
+        .sec-laser-card::before {
+            background: conic-gradient(transparent, #ff007f, #7000ff, #00ffff, transparent 40%);
+        }
+        .sec-laser-card {
+            box-shadow: 0 0 30px rgba(255, 0, 127, 0.8), 0 0 12px rgba(112, 0, 255, 0.6) !important;
+        }
+
+        .laser-input-box {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            z-index: 1;
+            padding: 2px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .laser-input-box::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            animation: rotateLaserBorder 0.8s linear infinite;
+            z-index: -2;
+        }
+
+        .laser-input-box::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            background: var(--admin-input-bg, #191c2e);
+            border-radius: 10px;
+            z-index: -1;
+        }
+
+        .laser-input-box .admin-input-field,
+        .laser-input-box .search-input {
+            border: none !important;
+            background: transparent !important;
+            outline: none !important;
+        }
+
+        .laser-inp-gmail::before {
+            background: conic-gradient(transparent, #00c6ff, #ff007f, #00ff88, #ffb800, transparent 50%);
+        }
+        .laser-inp-pass::before {
+            background: conic-gradient(transparent, #ff0055, #9e00ff, #00d2ff, #ffea00, transparent 50%);
+        }
+        .laser-inp-cyan::before {
+            background: conic-gradient(transparent, #00ffcc, #0072ff, #ff00ff, transparent 40%);
+        }
+        .laser-inp-purple::before {
+            background: conic-gradient(transparent, #a855f7, #ec4899, #3b82f6, transparent 40%);
+        }
+        .laser-inp-green::before {
+            background: conic-gradient(transparent, #10b981, #f59e0b, #06b6d4, transparent 40%);
+        }
+        .laser-inp-orange::before {
+            background: conic-gradient(transparent, #f97316, #8b5cf6, #14b8a6, transparent 40%);
         }
 
         .card-left-content {
@@ -734,17 +1059,18 @@
         .yt-bg { background: #ffe6e6; color: #ff0000; }
         .wa-bg { background: #e6f9ed; color: #25d366; }
         .admin-bg { background: #fef3c7; color: #d97706; }
+        .appview-bg { background: linear-gradient(135deg, #00c6ff, #0072ff); color: #ffffff; }
 
         .card-text-box h4 {
             font-size: 15px;
-            color: #111827;
+            color: var(--card-text-color);
             font-weight: 700;
             margin-bottom: 2px;
         }
 
         .card-text-box p {
             font-size: 12px;
-            color: #6b7280;
+            color: var(--text-sub);
         }
 
         .card-arrow {
@@ -752,19 +1078,99 @@
             font-size: 14px;
         }
 
-        @keyframes cleanNeonGlow {
-            0% {
-                border-color: #00c6ff;
-                box-shadow: 0 0 15px rgba(0, 198, 255, 0.6), inset 0 0 10px rgba(0, 198, 255, 0.2);
-            }
-            50% {
-                border-color: #00ff88;
-                box-shadow: 0 0 20px rgba(0, 255, 136, 0.7), inset 0 0 10px rgba(0, 255, 136, 0.2);
-            }
-            100% {
-                border-color: #00c6ff;
-                box-shadow: 0 0 15px rgba(0, 198, 255, 0.6), inset 0 0 10px rgba(0, 198, 255, 0.2);
-            }
+        .bold-app-view-title {
+            font-size: 16px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--card-text-color);
+        }
+
+        .app-view-link-btn {
+            display: inline-block;
+            background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
+            color: #ffffff !important;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-weight: bold;
+            text-decoration: none;
+            margin: 6px 0;
+            word-break: break-all;
+            box-shadow: 0 4px 10px rgba(0, 198, 255, 0.4);
+        }
+
+        .app-view-bottom-media {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #232740;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .app-view-img {
+            width: 100%;
+            border-radius: 12px;
+            max-height: 220px;
+            object-fit: cover;
+            border: 1px solid #00c6ff;
+            box-shadow: 0 0 10px rgba(0, 198, 255, 0.3);
+        }
+
+        .app-view-audio-player {
+            width: 100%;
+            margin-top: 5px;
+            outline: none;
+            border-radius: 8px;
+        }
+
+        /* ===== Ultra Compact Warning Text & Micro Audio Widget ===== */
+        .warning-text-box {
+            background: rgba(255, 59, 48, 0.15);
+            border: 1px solid #ff3b30;
+            border-radius: 12px;
+            padding: 8px 12px;
+            margin: 8px 0 12px 0;
+            text-align: center;
+        }
+
+        .warning-text-box p {
+            color: #ff3b30;
+            font-size: 11px;
+            font-weight: 800;
+            line-height: 1.4;
+            margin-bottom: 6px;
+        }
+
+        .micro-audio-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #ff3b30;
+            color: #ffffff;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(255, 59, 48, 0.8);
+            margin: 0 auto;
+        }
+
+        .admin-del-item-btn {
+            background: #ff3b30;
+            color: #ffffff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
         }
 
         @keyframes shakeError {
@@ -780,19 +1186,65 @@
             animation: shakeError 0.4s ease-in-out;
         }
 
+        /* ===== Modal Theme Variables ===== */
         .admin-modal-panel {
-            background: #121421;
+            background: var(--admin-modal-bg, #121421);
             border-radius: 28px;
-            padding: 25px 20px;
+            padding: 20px 16px;
             text-align: center;
             margin: auto;
-            width: 92%;
-            max-width: 420px;
-            color: #ffffff;
-            max-height: 88vh;
+            width: 95%;
+            max-width: 440px;
+            color: var(--admin-modal-text, #ffffff);
+            max-height: 90vh;
             overflow-y: auto;
-            border: 3px solid #00c6ff;
-            animation: cleanNeonGlow 3s infinite ease-in-out;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .admin-modal-panel.modal-light-mode {
+            --admin-modal-bg: #ffffff;
+            --admin-modal-text: #111827;
+            --admin-input-bg: #f0f3f8;
+        }
+
+        .admin-nav-bar {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding: 8px 0;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #232740;
+            scrollbar-width: none;
+        }
+        .admin-nav-bar::-webkit-scrollbar { display: none; }
+
+        .admin-nav-btn {
+            background: #191c2e;
+            border: 1px solid #232740;
+            color: #8b8ea8;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 800;
+            white-space: nowrap;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .admin-nav-btn.active {
+            background: #00c6ff;
+            color: #111;
+            border-color: #00c6ff;
+        }
+
+        .admin-section-content {
+            display: none;
+        }
+
+        .admin-section-content.active {
+            display: block;
         }
 
         .admin-dp-img {
@@ -808,7 +1260,7 @@
         .admin-title {
             font-size: 20px;
             font-weight: 800;
-            color: #ffffff;
+            color: var(--admin-modal-text, #ffffff);
             margin-bottom: 4px;
         }
 
@@ -819,7 +1271,7 @@
         }
 
         .admin-input-group {
-            margin-bottom: 12px;
+            margin-bottom: 4px;
             text-align: left;
         }
 
@@ -834,22 +1286,18 @@
         .admin-input-field {
             width: 100%;
             padding: 12px 16px;
-            background: #191c2e;
-            border: 1px solid #232740;
-            border-radius: 12px;
+            background: var(--admin-input-bg, #191c2e);
+            border-radius: 10px;
             font-size: 13px;
-            color: #ffffff;
+            color: var(--admin-modal-text, #ffffff);
             outline: none;
-        }
-
-        .admin-input-field:focus {
-            border-color: #00c6ff;
+            text-align: center;
         }
 
         .checkbox-group {
             display: flex;
             gap: 15px;
-            background: #191c2e;
+            background: var(--admin-input-bg, #191c2e);
             padding: 10px 14px;
             border-radius: 12px;
             border: 1px solid #232740;
@@ -864,7 +1312,7 @@
             align-items: center;
             gap: 6px;
             cursor: pointer;
-            color: #fff;
+            color: var(--admin-modal-text, #ffffff);
         }
 
         .admin-submit-btn {
@@ -898,6 +1346,28 @@
             margin-top: 8px;
         }
 
+        .card-title-left {
+            text-align: left;
+            font-size: 15px;
+            color: #00c6ff;
+            font-weight: 800;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .field-label {
+            text-align: left;
+            font-size: 12px;
+            color: #8b8ea8;
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
         .noti-panel-dark {
             background: #161828;
             color: #fff;
@@ -910,6 +1380,11 @@
             margin-bottom: 15px;
             border-bottom: 1px solid #232740;
             padding-bottom: 10px;
+        }
+
+        .noti-header h3 {
+            font-size: 17px;
+            font-weight: 800;
         }
 
         .close-btn {
@@ -926,6 +1401,7 @@
             padding: 12px;
             margin-bottom: 14px;
             border: 1px solid #292d4d;
+            position: relative;
         }
 
         .noti-thumb {
@@ -937,9 +1413,34 @@
         }
 
         .noti-info h4 {
-            font-size: 13px;
+            font-size: 14px;
+            font-weight: 700;
             color: #fff;
             margin-bottom: 6px;
+        }
+
+        .post-card {
+            background: #1c1f36;
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 16px;
+            border: 1px solid #292d4d;
+            text-align: left;
+        }
+
+        .post-card img {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            max-height: 220px;
+            object-fit: cover;
+        }
+
+        .post-card p {
+            font-size: 13px;
+            color: #d1d5db;
+            line-height: 1.5;
+            white-space: pre-line;
         }
 
         .download-file-btn {
@@ -954,16 +1455,16 @@
             border-radius: 8px;
             text-decoration: none;
             font-size: 12px;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .delete-app-btn {
             background: #ff3b30;
             color: white;
             border: none;
-            padding: 3px 10px;
+            padding: 4px 10px;
             border-radius: 6px;
-            font-size: 10px;
+            font-size: 11px;
             cursor: pointer;
             margin-top: 6px;
             font-weight: bold;
@@ -979,7 +1480,7 @@
             display: flex;
             justify-content: space-around;
             align-items: center;
-            border-top: 1px solid var(--border-color);
+            border-top: 2px solid var(--border-color);
             z-index: 100;
         }
 
@@ -990,20 +1491,22 @@
             gap: 3px;
             color: var(--text-sub);
             text-decoration: none;
-            font-size: 10px;
+            font-size: 12px;
+            font-weight: 900;
             padding: 6px 14px;
             border-radius: 12px;
             cursor: pointer;
+            letter-spacing: 0.5px;
         }
 
-        .nav-item i { font-size: 18px; }
+        .nav-item i { font-size: 20px; }
 
         .nav-item.active {
             color: var(--text-main);
-            background: rgba(112, 0, 255, 0.2);
+            background: rgba(112, 0, 255, 0.25);
         }
 
-        .nav-item.active i { color: #8a2be2; }
+        .nav-item.active i { color: #00c6ff; }
     </style>
 </head>
 <body>
@@ -1012,21 +1515,25 @@
         <!-- Top Header Fixed -->
         <div class="top-bar">
             <div class="user-profile">
-                <div class="logo-glow">
-                    <img src="https://i.postimg.cc/tC8xtFkL/1789643546627.png" alt="RAJAB-KING YT Logo">
-                </div>
-                <div class="user-info">
-                    <h2>RAJAB-KING YT</h2>
-                    <p>App Store Panel</p>
+                <div class="top-profile-laser-box">
+                    <div class="logo-glow" onclick="openPostsModal()" title="View Posts">
+                        <img id="headerLogoImg" src="https://i.postimg.cc/tC8xtFkL/1789643546627.png" alt="RAJAB-KING YT Logo">
+                    </div>
+                    <div class="user-info">
+                        <h2 onclick="openBotPanelModal()">
+                            <span class="name-rajab">RAJAB</span><span class="name-rest">-KING YT</span>
+                        </h2>
+                        <p id="appCounterText">Apps</p>
+                    </div>
                 </div>
             </div>
             <div class="header-actions">
-                <button class="icon-btn" onclick="toggleTheme()" id="themeBtn" title="Toggle Light/Dark Mode">
-                    <i class="fa-solid fa-moon"></i>
+                <button class="icon-btn" onclick="toggleMainTheme()" title="Toggle Main Light/Dark Mode">
+                    <i class="fa-solid fa-moon mainThemeIcon"></i>
                 </button>
                 <button class="icon-btn" onclick="toggleNotifications()">
                     <i class="fa-solid fa-bell"></i>
-                    <span class="badge" id="notiBadge">2</span>
+                    <span class="badge" id="notiBadge">0</span>
                 </button>
             </div>
         </div>
@@ -1063,44 +1570,34 @@
 
         <!-- TAB 2: GAMES -->
         <div id="tab-games" class="tab-content">
-            <div class="section-header">
-                <div class="section-title">
-                    <i class="fa-solid fa-gamepad"></i> Classic Snake Game
-                </div>
-            </div>
-            <div class="game-container">
-                <div class="game-header">
-                    <span>Score: <span id="snakeScore">0</span></span>
+            <div class="game-container-wrap">
+                <div class="header-section">
+                    <h1 class="game-title-rainbow">RAJAB KING YT</h1>
+                    <div class="score-panel">🍎 <span id="scoreDisplay">0</span></div>
                 </div>
 
-                <div class="game-center-controls">
-                    <button id="pausePlayBtn" onclick="togglePauseGame()" style="background:#ffb800; color:#111;"><i class="fa-solid fa-pause"></i> Pause Game</button>
-                    <button onclick="startSnakeGame()" style="background:#7000ff; color:#fff;"><i class="fa-solid fa-rotate-right"></i> Restart</button>
+                <div class="canvas-box-container">
+                    <canvas id="gameCanvas" width="300" height="300"></canvas>
                 </div>
 
-                <div class="game-settings-bar">
-                    <span style="font-size: 11px; color: var(--text-sub); align-self: center;">Speed:</span>
-                    <button id="spdSlow" onclick="setGameSpeed(160)">Slow</button>
-                    <button id="spdNorm" class="active-speed" onclick="setGameSpeed(120)">Normal</button>
-                    <button id="spdFast" onclick="setGameSpeed(75)">Fast</button>
+                <div class="speed-row">
+                    <button class="speed-btn" id="s1">🐢</button>
+                    <button class="speed-btn active" id="s2">⚡</button>
+                    <button class="speed-btn" id="s3">🚀</button>
                 </div>
-                
-                <div class="game-board-wrapper">
-                    <canvas id="snakeCanvas" width="280" height="280"></canvas>
-                    <div class="game-over-card" id="gameOverCard">
-                        <h3 style="color:#ff3b30; font-size:20px; font-weight:800; margin-bottom:6px;">Game Over!</h3>
-                        <p style="font-size:13px; color:var(--text-sub); margin-bottom:15px;">Your Score: <span id="finalScore">0</span></p>
-                        <button onclick="startSnakeGame()" style="background:#7000ff; color:#fff; border:none; padding:8px 18px; border-radius:10px; font-weight:bold; cursor:pointer;">Play Again</button>
+
+                <div class="control-pad">
+                    <div class="btn-row">
+                        <button class="ctrl-button" id="moveUp"><img src="https://img.icons8.com/ios-filled/50/ffffff/up.png" alt="Up"></button>
                     </div>
-                </div>
-
-                <div class="game-controls">
-                    <div></div>
-                    <button class="ctrl-btn" onclick="changeDirection('UP')"><i class="fa-solid fa-arrow-up"></i></button>
-                    <div></div>
-                    <button class="ctrl-btn" onclick="changeDirection('LEFT')"><i class="fa-solid fa-arrow-left"></i></button>
-                    <button class="ctrl-btn" onclick="changeDirection('DOWN')"><i class="fa-solid fa-arrow-down"></i></button>
-                    <button class="ctrl-btn" onclick="changeDirection('RIGHT')"><i class="fa-solid fa-arrow-right"></i></button>
+                    <div class="btn-row">
+                        <button class="ctrl-button" id="moveLeft"><img src="https://img.icons8.com/ios-filled/50/ffffff/left.png" alt="Left"></button>
+                        <button class="ctrl-button pause-btn" id="pauseBtn"><img src="https://img.icons8.com/ios-filled/50/ffffff/pause.png" id="pauseImg" alt="Pause"></button>
+                        <button class="ctrl-button" id="moveRight"><img src="https://img.icons8.com/ios-filled/50/ffffff/right.png" alt="Right"></button>
+                    </div>
+                    <div class="btn-row">
+                        <button class="ctrl-button" id="moveDown"><img src="https://img.icons8.com/ios-filled/50/ffffff/down.png" alt="Down"></button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1108,9 +1605,9 @@
         <!-- TAB 3: TOP APPS -->
         <div id="tab-top" class="tab-content">
             <div class="section-header">
-                <div class="section-title"><i class="fa-solid fa-trophy"></i> Top Trending Apps</div>
+                <div class="section-title"><i class="fa-solid fa-trophy"></i> Top Apps</div>
             </div>
-            <div class="app-grid" id="topAppGridContainer"></div>
+            <div class="top-app-list" id="topAppGridContainer"></div>
         </div>
 
         <!-- TAB 4: BOOKS -->
@@ -1182,17 +1679,14 @@
         <!-- Settings Modal -->
         <div class="notification-overlay" id="settingsOverlay">
             <div class="notification-panel" style="background: var(--bg-container); color: var(--text-main);">
+                
                 <div class="fancy-header-banner">
-                    <button onclick="toggleSettingsModal()" style="position: absolute; top: 15px; right: 18px; background: rgba(0,0,0,0.3); border:none; color:#fff; width:28px; height:28px; border-radius:50%; cursor:pointer;"><i class="fa-solid fa-xmark"></i></button>
-                    <div style="width: 65px; height: 65px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; border: 2px solid rgba(255,255,255,0.5);">
-                        <i class="fa-solid fa-bolt" style="font-size: 28px;"></i>
-                    </div>
-                    <div style="font-size: 22px; font-weight: 800;">RAJAB-KING YT</div>
-                    <div style="font-size: 12px; opacity: 0.9;">Premium Apps & Tools Store</div>
+                    <button onclick="toggleSettingsModal()" style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.6); border:none; color:#fff; width:28px; height:28px; border-radius:50%; cursor:pointer; z-index:5;"><i class="fa-solid fa-xmark"></i></button>
+                    <img src="https://i.postimg.cc/rFZnBB6q/file-0000000056c481f5a14d13f0fb78d724.png" class="banner-custom-image" alt="Custom Banner Header">
                 </div>
 
                 <div class="modal-links-container">
-                    <a href="https://youtube.com/@rajabkingyt?si=YFtr2X4ypauA8GVv" target="_blank" class="image-style-card">
+                    <a href="https://youtube.com/@rajabkingyt?si=qu__V7IzBBffmVNQ" target="_blank" class="image-style-card laser-card-base yt-laser-card">
                         <div class="card-left-content">
                             <div class="card-icon-box yt-bg"><i class="fa-brands fa-youtube"></i></div>
                             <div class="card-text-box"><h4>YouTube Channel</h4><p>Subscribe for tutorials</p></div>
@@ -1200,7 +1694,7 @@
                         <i class="fa-solid fa-chevron-right card-arrow"></i>
                     </a>
 
-                    <a href="https://whatsapp.com/channel/0029VbDbigr6xCSJI615wT2P" target="_blank" class="image-style-card">
+                    <a href="https://whatsapp.com/channel/0029VbDbigr6xCSJI615wT2P" target="_blank" class="image-style-card laser-card-base wa-laser-card">
                         <div class="card-left-content">
                             <div class="card-icon-box wa-bg"><i class="fa-brands fa-whatsapp"></i></div>
                             <div class="card-text-box"><h4>WhatsApp Channel</h4><p>Join our community</p></div>
@@ -1208,10 +1702,21 @@
                         <i class="fa-solid fa-chevron-right card-arrow"></i>
                     </a>
 
-                    <div class="image-style-card" onclick="openAdminModal()">
+                    <div class="image-style-card laser-card-base admin-laser-card" onclick="openAdminModal()">
                         <div class="card-left-content">
                             <div class="card-icon-box admin-bg"><i class="fa-solid fa-gear"></i></div>
                             <div class="card-text-box"><h4>Admin Panel</h4><p>Manage store & apps</p></div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right card-arrow"></i>
+                    </div>
+
+                    <div class="image-style-card laser-card-base appview-laser-card" onclick="openAppViewDisplayModal()">
+                        <div class="card-left-content">
+                            <div class="card-icon-box appview-bg"><i class="fa-solid fa-eye"></i></div>
+                            <div class="card-text-box">
+                                <h4 class="bold-app-view-title">APP VIEW</h4>
+                                <p id="appViewSubText">Open links, photos & media</p>
+                            </div>
                         </div>
                         <i class="fa-solid fa-chevron-right card-arrow"></i>
                     </div>
@@ -1219,26 +1724,73 @@
             </div>
         </div>
 
-        <!-- Encrypted Admin Security Modal -->
+        <!-- App View Public Display Modal -->
+        <div class="notification-overlay" id="appViewDisplayOverlay" style="align-items: center;">
+            <div class="admin-modal-panel laser-card-base appview-laser-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #232740; padding-bottom: 10px;">
+                    <h3 class="bold-app-view-title" style="font-size: 18px; color: #00c6ff;"><i class="fa-solid fa-eye"></i> APP VIEW</h3>
+                    <button class="close-btn" onclick="closeAppViewDisplayModal()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                
+                <div style="background: #191c2e; padding: 15px; border-radius: 14px; border: 1px solid #232740; text-align: left; font-size: 14px; line-height: 1.6; color: #ffffff; word-wrap: break-word;" id="appViewPublicContent">
+                    Loading App View...
+                </div>
+
+                <div id="appViewBottomMediaSection" class="app-view-bottom-media" style="display: none;">
+                    <div id="appViewImageContainer"></div>
+                    <div id="appViewSongContainer"></div>
+                </div>
+
+                <button type="button" class="admin-cancel-btn" onclick="closeAppViewDisplayModal()" style="margin-top: 15px;">Close</button>
+            </div>
+        </div>
+
+        <!-- Encrypted Admin Security Modal (With Independent Theme Toggle) -->
         <div class="notification-overlay" id="adminOverlay" style="align-items: center;">
-            <div class="admin-modal-panel" id="adminPanelBox">
+            <div class="admin-modal-panel laser-card-base sec-laser-card" id="adminPanelBox">
+                
                 <!-- Login View -->
                 <div id="adminLoginView">
-                    <img src="https://i.postimg.cc/k4tMb2fx/file-00000000cdec820a8d03e9be822a6cc9.png" class="admin-dp-img" alt="Admin DP">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <div></div>
+                        <!-- Admin Specific Mode Toggle Button -->
+                        <button type="button" class="icon-btn" onclick="toggleAdminPanelTheme()" style="width: 32px; height: 32px;" title="Toggle Admin Dark/Light Mode">
+                            <i class="fa-solid fa-moon adminThemeIcon"></i>
+                        </button>
+                    </div>
+
+                    <img id="adminLoginDp" src="https://i.postimg.cc/k4tMb2fx/file-00000000cdec820a8d03e9be822a6cc9.png" class="admin-dp-img" alt="Admin DP">
                     <div class="admin-title">Admin Security Panel</div>
-                    <div class="admin-subtitle">Apna Gmail aur Password Likhein</div>
+                    <div class="admin-subtitle">Enter Gmail and Password</div>
                     
                     <form onsubmit="handleAdminLogin(event)">
                         <div class="admin-input-group">
                             <label>Admin Email</label>
-                            <input type="email" id="adminEmail" class="admin-input-field" placeholder="Gmail..." required>
+                            <div class="laser-input-box laser-inp-gmail">
+                                <input type="email" id="adminEmail" class="admin-input-field" placeholder="Gmail..." required>
+                            </div>
                         </div>
+
+                        <!-- Text First, Below is Micro Audio Button -->
+                        <div id="wrongLoginWarningBox" class="warning-text-box" style="display: none;">
+                            <p id="warningTextContent">Security Alert Active!</p>
+                            <button type="button" class="micro-audio-btn" onclick="toggleCompactAudio()">
+                                <i class="fa-solid fa-play" id="compactAudioIcon"></i>
+                            </button>
+                            <audio id="warningAudioPlayer" loop>
+                                <source src="" id="warningAudioSource" type="audio/mpeg">
+                            </audio>
+                        </div>
+
                         <div class="admin-input-group">
                             <label>Admin Password</label>
-                            <input type="password" id="adminPassword" class="admin-input-field" placeholder="Password..." required>
+                            <div class="laser-input-box laser-inp-pass">
+                                <input type="password" id="adminPassword" class="admin-input-field" placeholder="Password..." required>
+                            </div>
                         </div>
+
                         <button type="submit" class="admin-submit-btn">
-                            <i class="fa-solid fa-right-to-bracket"></i> Login Dashboard
+                            <i class="fa-solid fa-right-to-bracket"></i> Login
                         </button>
                         <button type="button" class="admin-cancel-btn" onclick="closeAdminModal()">Cancel</button>
                     </form>
@@ -1246,53 +1798,309 @@
 
                 <!-- Dashboard Management View -->
                 <div id="adminDashboardView" style="display: none; text-align: left;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 2px solid #232740; padding-bottom: 10px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 2px solid #232740; padding-bottom: 10px;">
                         <h3 style="font-size: 15px; color: #00c6ff; font-weight: 800;"><i class="fa-solid fa-gauge-high"></i> Admin Dashboard</h3>
-                        <button onclick="adminLogout()" style="background:#ff3b30; color:#fff; border:none; padding:5px 10px; border-radius:8px; font-size:11px; font-weight:bold; cursor:pointer;">Logout</button>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <button type="button" onclick="toggleAdminPanelTheme()" class="icon-btn" style="width: 32px; height: 32px;" title="Toggle Admin Theme">
+                                <i class="fa-solid fa-moon adminThemeIcon"></i>
+                            </button>
+                            <button onclick="adminLogout()" style="background:#ff3b30; color:#fff; border:none; padding:5px 10px; border-radius:8px; font-size:11px; font-weight:bold; cursor:pointer;">Logout</button>
+                        </div>
                     </div>
 
-                    <form onsubmit="handleAddNewApp(event)">
-                        <div class="admin-input-group">
-                            <label>App Key (Chota Naam/ID e.g. app1)</label>
-                            <input type="text" id="newAppKey" class="admin-input-field" placeholder="e.g. app1" required>
-                        </div>
-                        <div class="admin-input-group">
-                            <label>App / Book Ka Naaam</label>
-                            <input type="text" id="newAppName" class="admin-input-field" placeholder="App Name" required>
-                        </div>
-                        <div class="admin-input-group">
-                            <label>Category (e.g. Tools, Apps, Games)</label>
-                            <input type="text" id="newAppCategory" class="admin-input-field" value="Apps" required>
-                        </div>
-                        <div class="admin-input-group">
-                            <label>App Icon Image URL</label>
-                            <input type="url" id="newAppIcon" class="admin-input-field" placeholder="https://..." required>
-                        </div>
-                        <div class="admin-input-group">
-                            <label>Download Link (MediaFire / APK)</label>
-                            <input type="url" id="newAppLink" class="admin-input-field" placeholder="https://mediafire.com/..." required>
-                        </div>
-                        <div class="admin-input-group">
-                            <label>App Details / Description</label>
-                            <textarea id="newAppAbout" class="admin-input-field" placeholder="Is app ke baray mein details likhein..." rows="3" required></textarea>
-                        </div>
+                    <div class="admin-nav-bar">
+                        <button class="admin-nav-btn active" onclick="switchAdminTab('adm-app', this)"><i class="fa-solid fa-mobile-screen"></i> App Upload</button>
+                        <button class="admin-nav-btn" onclick="switchAdminTab('adm-noti', this)"><i class="fa-solid fa-bell"></i> Noti Upload</button>
+                        <button class="admin-nav-btn" onclick="switchAdminTab('adm-post', this)"><i class="fa-solid fa-image"></i> Post Upload</button>
+                        <button class="admin-nav-btn" onclick="switchAdminTab('adm-count', this)"><i class="fa-solid fa-calculator"></i> Set App Count</button>
+                        <button class="admin-nav-btn" onclick="switchAdminTab('adm-vault', this)"><i class="fa-solid fa-folder-closed"></i> Private Vault</button>
+                        <button class="admin-nav-btn" onclick="switchAdminTab('adm-view', this)"><i class="fa-solid fa-eye"></i> APP VIEW</button>
+                        <button class="admin-nav-btn" onclick="switchAdminTab('adm-alert', this)"><i class="fa-solid fa-triangle-exclamation"></i> Security Alert</button>
+                        <button class="admin-nav-btn" onclick="switchAdminTab('adm-cred', this)"><i class="fa-solid fa-key"></i> Change Login</button>
+                    </div>
 
-                        <div class="admin-input-group">
-                            <label>Kahan Par Dikhana Hai? (Select Checkbox)</label>
-                            <div class="checkbox-group">
-                                <label><input type="checkbox" id="showInApps" checked> Apps Tab</label>
-                                <label><input type="checkbox" id="showInTop"> Top Apps</label>
-                                <label><input type="checkbox" id="showInBooks"> Books Tab</label>
+                    <!-- 1. APP UPLOAD SECTION -->
+                    <div id="adm-app" class="admin-section-content active">
+                        <div class="card-title-left"><i class="fa-solid fa-cloud-arrow-up"></i> Upload New App</div>
+                        <form id="appUploadForm" onsubmit="handleAddNewApp(event)">
+                            <div class="admin-input-group">
+                                <label>App Key (Short Name/ID e.g. app1)</label>
+                                <div class="laser-input-box laser-inp-cyan">
+                                    <input type="text" id="newAppKey" class="admin-input-field" placeholder="e.g. app1" required>
+                                </div>
                             </div>
-                        </div>
+                            <div class="admin-input-group">
+                                <label>App / Book Name</label>
+                                <div class="laser-input-box laser-inp-purple">
+                                    <input type="text" id="newAppName" class="admin-input-field" placeholder="App Name" required>
+                                </div>
+                            </div>
+                            <div class="admin-input-group">
+                                <label>Category (e.g. Tools, Apps, Games)</label>
+                                <div class="laser-input-box laser-inp-green">
+                                    <input type="text" id="newAppCategory" class="admin-input-field" value="Apps" required>
+                                </div>
+                            </div>
+                            <div class="admin-input-group">
+                                <label>App Icon Image URL</label>
+                                <div class="laser-input-box laser-inp-orange">
+                                    <input type="url" id="newAppIcon" class="admin-input-field" placeholder="https://..." required>
+                                </div>
+                            </div>
+                            <div class="admin-input-group">
+                                <label>Download Link (MediaFire / APK)</label>
+                                <div class="laser-input-box laser-inp-gmail">
+                                    <input type="url" id="newAppLink" class="admin-input-field" placeholder="https://mediafire.com/..." required>
+                                </div>
+                            </div>
+                            <div class="admin-input-group">
+                                <label>App Details / Description</label>
+                                <div class="laser-input-box laser-inp-pass">
+                                    <textarea id="newAppAbout" class="admin-input-field" placeholder="Write app details here..." rows="3" required style="text-align: left;"></textarea>
+                                </div>
+                            </div>
 
-                        <button type="submit" class="admin-submit-btn">
-                            <i class="fa-solid fa-cloud-arrow-up"></i> Store Par Live Karein
-                        </button>
-                    </form>
+                            <div class="admin-input-group">
+                                <label>Where to Show? (Select Checkbox)</label>
+                                <div class="checkbox-group">
+                                    <label><input type="checkbox" id="showInApps" checked> Apps Tab</label>
+                                    <label><input type="checkbox" id="showInTop"> Top Apps</label>
+                                    <label><input type="checkbox" id="showInBooks"> Books Tab</label>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="admin-submit-btn">
+                                <i class="fa-solid fa-cloud-arrow-up"></i> Publish Live on Store
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- 2. NOTIFICATION UPLOAD SECTION -->
+                    <div id="adm-noti" class="admin-section-content">
+                        <div class="card-title-left"><i class="fa-solid fa-bell"></i> Upload Notification Update</div>
+                        <form id="notiUploadForm" onsubmit="handleAddNewNoti(event)">
+                            <div class="admin-input-group">
+                                <label>Notification Title</label>
+                                <div class="laser-input-box laser-inp-cyan">
+                                    <input type="text" id="newNotiTitle" class="admin-input-field" placeholder="Notification Title..." required>
+                                </div>
+                            </div>
+                            <div class="admin-input-group">
+                                <label>Thumbnail Image URL</label>
+                                <div class="laser-input-box laser-inp-purple">
+                                    <input type="url" id="newNotiImg" class="admin-input-field" placeholder="https://..." required>
+                                </div>
+                            </div>
+                            <div class="admin-input-group">
+                                <label>Download Link</label>
+                                <div class="laser-input-box laser-inp-green">
+                                    <input type="url" id="newNotiLink" class="admin-input-field" placeholder="https://..." required>
+                                </div>
+                            </div>
+                            <button type="submit" class="admin-submit-btn" style="background: linear-gradient(90deg, #9e00ff, #7000ff);">
+                                <i class="fa-solid fa-paper-plane"></i> Add Notification Update
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- 3. POST UPLOAD SECTION -->
+                    <div id="adm-post" class="admin-section-content">
+                        <div class="card-title-left"><i class="fa-solid fa-image"></i> Upload Post (Show on Logo Click)</div>
+                        <form id="postUploadForm" onsubmit="handleAddNewPost(event)">
+                            <div class="admin-input-group">
+                                <label>Post Description / Text</label>
+                                <div class="laser-input-box laser-inp-orange">
+                                    <textarea id="newPostText" class="admin-input-field" placeholder="Post Details..." rows="2" required style="text-align: left;"></textarea>
+                                </div>
+                            </div>
+                            <div class="admin-input-group">
+                                <label>Post Image URL (Optional)</label>
+                                <div class="laser-input-box laser-inp-gmail">
+                                    <input type="url" id="newPostImg" class="admin-input-field" placeholder="https://...">
+                                </div>
+                            </div>
+                            <button type="submit" class="admin-submit-btn" style="background: linear-gradient(90deg, #00ff88, #00c6ff); color: #111;">
+                                <i class="fa-solid fa-circle-plus"></i> Publish Post
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- 4. CUSTOM APP COUNTER SECTION -->
+                    <div id="adm-count" class="admin-section-content">
+                        <div class="card-title-left"><i class="fa-solid fa-calculator"></i> Set Custom App Count Text</div>
+                        <form onsubmit="handleSetCustomCount(event)">
+                            <div class="admin-input-group">
+                                <label>What to write below Name? (e.g. 5 Apps, 10 Apps)</label>
+                                <div class="laser-input-box laser-inp-pass">
+                                    <input type="text" id="customCountInput" class="admin-input-field" placeholder="e.g. 5 Apps" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="admin-submit-btn" style="background: linear-gradient(90deg, #28a745, #20c997);">
+                                <i class="fa-solid fa-check-double"></i> Save App Count Text
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- 5. PRIVATE VAULT -->
+                    <div id="adm-vault" class="admin-section-content">
+                        <div class="card-title-left"><i class="fa-solid fa-folder-closed"></i> Private Vault (Only Admin Access)</div>
+                        <form onsubmit="handleSaveVaultItem(event)">
+                            <div class="admin-input-group">
+                                <label>File / Image Name</label>
+                                <div class="laser-input-box laser-inp-cyan">
+                                    <input type="text" id="vaultTitle" class="admin-input-field" placeholder="e.g. Private Photo / Document" required>
+                                </div>
+                            </div>
+                            <div class="admin-input-group">
+                                <label>File / Photo URL</label>
+                                <div class="laser-input-box laser-inp-purple">
+                                    <input type="url" id="vaultUrl" class="admin-input-field" placeholder="https://..." required>
+                                </div>
+                            </div>
+                            <button type="submit" class="admin-submit-btn" style="background: linear-gradient(90deg, #ff007f, #7928ca);">
+                                <i class="fa-solid fa-lock"></i> Save Securely in Vault
+                            </button>
+                        </form>
+                        <div id="vaultListContainer" style="margin-top: 15px;"></div>
+                    </div>
+
+                    <!-- 6. APP VIEW MANAGEMENT SECTION -->
+                    <div id="adm-view" class="admin-section-content">
+                        <div class="card-title-left"><i class="fa-solid fa-eye"></i> Edit / Delete APP VIEW Content</div>
+                        <form onsubmit="handleSaveAppViewConfig(event)">
+                            <div class="admin-input-group">
+                                <label>App View Text / Links</label>
+                                <div class="laser-input-box laser-inp-gmail">
+                                    <textarea id="customAppViewText" class="admin-input-field" placeholder="Text or links..." rows="3" style="text-align: left;"></textarea>
+                                </div>
+                                <button type="button" class="admin-del-item-btn" onclick="deleteAppViewItem('text')"><i class="fa-solid fa-trash"></i> Delete Text</button>
+                            </div>
+
+                            <div class="admin-input-group" style="margin-top:10px;">
+                                <label>App View Photo URL</label>
+                                <div class="laser-input-box laser-inp-orange">
+                                    <input type="url" id="customAppViewPhotoUrl" class="admin-input-field" placeholder="https://... (Photo Link)">
+                                </div>
+                                <button type="button" class="admin-del-item-btn" onclick="deleteAppViewItem('photo')"><i class="fa-solid fa-trash"></i> Delete Photo</button>
+                            </div>
+
+                            <div class="admin-input-group" style="margin-top:10px;">
+                                <label>App View Song / Audio Link (MP3)</label>
+                                <div class="laser-input-box laser-inp-green">
+                                    <input type="url" id="customAppViewSongUrl" class="admin-input-field" placeholder="https://... (Song Audio Link)">
+                                </div>
+                                <button type="button" class="admin-del-item-btn" onclick="deleteAppViewItem('song')"><i class="fa-solid fa-trash"></i> Delete Song</button>
+                            </div>
+
+                            <div class="admin-input-group" style="margin-top:10px;">
+                                <label>Admin Profile / Logo Image URL</label>
+                                <div class="laser-input-box laser-inp-purple">
+                                    <input type="url" id="customProfilePicUrl" class="admin-input-field" placeholder="https://... (Logo Link)">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="admin-submit-btn" style="background: linear-gradient(90deg, #0284c7, #00c6ff);">
+                                <i class="fa-solid fa-floppy-disk"></i> Add / Update APP VIEW
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- 7. WRONG LOGIN SECURITY ALERT & AUDIO CONFIG -->
+                    <div id="adm-alert" class="admin-section-content">
+                        <div class="card-title-left"><i class="fa-solid fa-triangle-exclamation"></i> Security Alert & Audio Settings</div>
+                        <form onsubmit="handleSaveSecurityAlert(event)">
+                            <div class="admin-input-group">
+                                <label>Warning Message (Shown after 3 wrong attempts)</label>
+                                <div class="laser-input-box laser-inp-pass">
+                                    <textarea id="customWarningMsg" class="admin-input-field" placeholder="Security Alert: Unauthorized login attempt detected!" rows="3" style="text-align: left;" required></textarea>
+                                </div>
+                            </div>
+                            <div class="admin-input-group" style="margin-top:10px;">
+                                <label>Warning Song / Audio MP3 URL (Auto-plays on 3rd wrong attempt)</label>
+                                <div class="laser-input-box laser-inp-green">
+                                    <input type="url" id="customWarningSong" class="admin-input-field" placeholder="https://mp3tourl.com/audio/..." required>
+                                </div>
+                            </div>
+                            <button type="submit" class="admin-submit-btn" style="background: linear-gradient(90deg, #ff3b30, #ff9500);">
+                                <i class="fa-solid fa-shield-halved"></i> Save Security Alert Settings
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- 8. CHANGE LOGIN CREDENTIALS -->
+                    <div id="adm-cred" class="admin-section-content">
+                        <div class="card-title-left"><i class="fa-solid fa-key"></i> Change Admin Email & Password</div>
+                        <form onsubmit="handleChangeCredentials(event)">
+                            <div class="admin-input-group">
+                                <label>New Admin Email</label>
+                                <div class="laser-input-box laser-inp-gmail">
+                                    <input type="email" id="changeEmail" class="admin-input-field" placeholder="New Gmail..." required>
+                                </div>
+                            </div>
+                            <div class="admin-input-group">
+                                <label>New Admin Password</label>
+                                <div class="laser-input-box laser-inp-pass">
+                                    <input type="text" id="changePassword" class="admin-input-field" placeholder="New Password..." required>
+                                </div>
+                            </div>
+                            <button type="submit" class="admin-submit-btn" style="background: linear-gradient(90deg, #ffb800, #ff5e00);">
+                                <i class="fa-solid fa-floppy-disk"></i> Update Login Details
+                            </button>
+                        </form>
+                    </div>
 
                     <button type="button" class="admin-cancel-btn" onclick="closeAdminModal()">Close Dashboard</button>
                 </div>
+            </div>
+        </div>
+
+        <!-- Telegram Bot Control Panel Modal (With Independent Theme Toggle) -->
+        <div class="notification-overlay" id="botPanelOverlay" style="align-items: center;">
+            <div class="admin-modal-panel laser-card-base bot-laser-card" id="botPanelBox">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #232740; padding-bottom: 10px;">
+                    <h3 style="font-size: 16px; color: #0099ff; font-weight: 800;"><i class="fas fa-robot"></i> BOT CONTROL PANEL</h3>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <!-- Independent Theme Toggle Button for Telegram Bot Panel -->
+                        <button type="button" onclick="toggleBotPanelTheme()" class="icon-btn" style="width: 32px; height: 32px;" title="Toggle Bot Panel Dark/Light Mode">
+                            <i class="fa-solid fa-moon botThemeIcon"></i>
+                        </button>
+                        <button class="close-btn" onclick="closeBotPanelModal()"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                </div>
+
+                <div class="card-title-left">
+                    <i class="fas fa-key"></i> BOT AUTHENTICATION
+                </div>
+                <div class="field-label">BOT TOKEN</div>
+                <div class="admin-input-group">
+                    <div class="laser-input-box laser-inp-cyan">
+                        <input type="text" id="bot-token-input" class="admin-input-field" placeholder="ENTER BOT TOKEN">
+                    </div>
+                </div>
+                <button class="admin-submit-btn" style="background: linear-gradient(90deg, #0099ff, #00d2ff); margin-bottom: 15px;" onclick="connectBot()">
+                    <i class="fas fa-plug"></i> CONNECT BOT
+                </button>
+
+                <div class="section-divider"></div>
+
+                <div class="card-title-left">
+                    <i class="fas fa-paper-plane"></i> SEND MESSAGE
+                </div>
+                <div class="field-label">USER CHAT ID</div>
+                <div class="admin-input-group">
+                    <div class="laser-input-box laser-inp-purple">
+                        <input type="text" id="chat-id-input" class="admin-input-field" placeholder="ENTER CHAT ID">
+                    </div>
+                </div>
+                <div class="field-label">MESSAGE TEXT</div>
+                <div class="admin-input-group">
+                    <div class="laser-input-box laser-inp-green">
+                        <input type="text" id="message-text-input" class="admin-input-field" placeholder="ENTER MESSAGE">
+                    </div>
+                </div>
+                <button class="admin-submit-btn" style="background: linear-gradient(90deg, #28a745, #20c997);" onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i> SEND MESSAGE
+                </button>
             </div>
         </div>
 
@@ -1303,26 +2111,18 @@
                     <h3><i class="fa-solid fa-bell" style="color: #8a2be2;"></i> Latest Updates</h3>
                     <button class="close-btn" onclick="toggleNotifications()"><i class="fa-solid fa-xmark"></i></button>
                 </div>
+                <div id="notiListContainer"></div>
+            </div>
+        </div>
 
-                <div class="noti-card">
-                    <img src="https://i.postimg.cc/3x5yv1LW/upscalemedia-transformed.png" class="noti-thumb" alt="SIM">
-                    <div class="noti-info">
-                        <h4>🤯 SIM DATA 🗃 Zip File</h4>
-                        <a href="https://www.mediafire.com/file/spdwdbrjhidszgz/🤯+SIM+DATA+🗃️.zip/file" target="_blank" class="download-file-btn">
-                            <i class="fa-solid fa-cloud-arrow-down"></i> Download ZIP
-                        </a>
-                    </div>
+        <!-- Logo Click Posts Panel -->
+        <div class="notification-overlay" id="postsOverlay">
+            <div class="notification-panel noti-panel-dark">
+                <div class="noti-header">
+                    <h3><i class="fa-solid fa-newspaper" style="color: #00c6ff;"></i> RAJAB-KING Posts</h3>
+                    <button class="close-btn" onclick="closePostsModal()"><i class="fa-solid fa-xmark"></i></button>
                 </div>
-
-                <div class="noti-card">
-                    <img src="https://i.postimg.cc/cLN42bw3/1789872362831.png" class="noti-thumb" alt="Index">
-                    <div class="noti-info">
-                        <h4>Index HTML Source File</h4>
-                        <a href="https://www.mediafire.com/file/wsdurfaerwe32v9/index.html/file" target="_blank" class="download-file-btn">
-                            <i class="fa-solid fa-cloud-arrow-down"></i> Download Index File
-                        </a>
-                    </div>
-                </div>
+                <div id="postsListContainer"></div>
             </div>
         </div>
 
@@ -1348,7 +2148,7 @@
     </div>
 
     <script>
-        // Aapka Firebase Configuration Code Integrated!
+        // Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyCrTaZEt_vsukrPh5rCOumxblGENZ4t-rc",
             authDomain: "rajabyt-e2867.firebaseapp.com",
@@ -1360,14 +2160,101 @@
             measurementId: "G-FQQH63Q9FE"
         };
 
-        // Initialize Firebase Realtime Database
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
         let appsList = [];
+        let notiList = [];
+        let postsList = [];
         let appDownloads = {};
+        let wrongLoginAttempts = 0;
 
-        // Realtime Listener: Firebase database se apps load karna
+        function stopWarningAudio() {
+            let audioP = document.getElementById('warningAudioPlayer');
+            if(audioP) {
+                audioP.pause();
+                audioP.currentTime = 0;
+            }
+            let icon = document.getElementById('compactAudioIcon');
+            if(icon) {
+                icon.className = "fa-solid fa-play";
+            }
+        }
+
+        function makeLinksClickable(text) {
+            if(!text) return "No text details available.";
+            const urlPattern = /(https?:\/\/[^\s]+)/g;
+            return text.replace(urlPattern, function(url) {
+                return `<br><a href="${url}" target="_blank" class="app-view-link-btn"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open Link: ${url}</a><br>`;
+            });
+        }
+
+        db.ref('app_branding').on('value', (snapshot) => {
+            const data = snapshot.val();
+            let publicContent = document.getElementById('appViewPublicContent');
+            let subText = document.getElementById('appViewSubText');
+            let bottomMediaSection = document.getElementById('appViewBottomMediaSection');
+            let imgContainer = document.getElementById('appViewImageContainer');
+            let songContainer = document.getElementById('appViewSongContainer');
+
+            imgContainer.innerHTML = '';
+            songContainer.innerHTML = '';
+            let hasMedia = false;
+
+            if(data) {
+                if(data.profilePic) {
+                    document.getElementById('headerLogoImg').src = data.profilePic;
+                    document.getElementById('adminLoginDp').src = data.profilePic;
+                }
+                
+                if(data.viewText) {
+                    publicContent.innerHTML = makeLinksClickable(data.viewText);
+                    subText.innerText = data.viewText.replace(/(https?:\/\/[^\s]+)/g, '[LINK]').substring(0, 35) + "...";
+                } else {
+                    publicContent.innerHTML = "No text details available.";
+                    subText.innerText = "Open links, photos & media";
+                }
+
+                if(data.viewPhoto) {
+                    imgContainer.innerHTML = `<div style="font-size:12px; color:#00c6ff; font-weight:bold; margin-bottom:4px;"><i class="fa-solid fa-image"></i> Photo:</div><img src="${data.viewPhoto}" class="app-view-img" alt="App View Photo">`;
+                    hasMedia = true;
+                }
+
+                if(data.viewSong) {
+                    songContainer.innerHTML = `<div style="font-size:12px; color:#00ff88; font-weight:bold; margin-bottom:4px;"><i class="fa-solid fa-music"></i> Audio Song:</div><audio controls class="app-view-audio-player"><source src="${data.viewSong}" type="audio/mpeg">Your browser does not support audio element.</audio>`;
+                    hasMedia = true;
+                }
+            } else {
+                publicContent.innerHTML = "No text details available.";
+            }
+
+            if(hasMedia) {
+                bottomMediaSection.style.display = 'flex';
+            } else {
+                bottomMediaSection.style.display = 'none';
+            }
+        });
+
+        db.ref('security_alert').on('value', (snapshot) => {
+            const data = snapshot.val();
+            if(data) {
+                window.savedWarningMsg = data.message || "Security Alert: Unauthorized login attempt detected!";
+                window.savedWarningSong = data.song || "https://mp3tourl.com/audio/1791881291237-ada90001-4895-4b03-aaac-2f4b3ad8afea.m4a";
+            } else {
+                window.savedWarningMsg = "Security Alert: Unauthorized login attempt detected!";
+                window.savedWarningSong = "https://mp3tourl.com/audio/1791881291237-ada90001-4895-4b03-aaac-2f4b3ad8afea.m4a";
+            }
+        });
+
+        db.ref('custom_app_count').on('value', (snapshot) => {
+            const countVal = snapshot.val();
+            if(countVal) {
+                document.getElementById('appCounterText').innerText = countVal;
+            } else {
+                document.getElementById('appCounterText').innerText = 'Apps';
+            }
+        });
+
         db.ref('apps').on('value', (snapshot) => {
             const data = snapshot.val();
             appsList = [];
@@ -1384,6 +2271,54 @@
             document.getElementById('appGridContainer').style.display = 'grid';
         });
 
+        db.ref('notifications').on('value', (snapshot) => {
+            const data = snapshot.val();
+            notiList = [];
+            if(data) {
+                Object.keys(data).forEach(key => {
+                    let item = data[key];
+                    item.firebaseKey = key;
+                    notiList.push(item);
+                });
+            }
+            document.getElementById('notiBadge').innerText = notiList.length;
+            renderNotifications();
+        });
+
+        db.ref('posts').on('value', (snapshot) => {
+            const data = snapshot.val();
+            postsList = [];
+            if(data) {
+                Object.keys(data).forEach(key => {
+                    let item = data[key];
+                    item.firebaseKey = key;
+                    postsList.push(item);
+                });
+            }
+            renderPosts();
+        });
+
+        db.ref('private_vault').on('value', (snapshot) => {
+            const data = snapshot.val();
+            let vaultHtml = '';
+            if(data) {
+                Object.keys(data).forEach(k => {
+                    let v = data[k];
+                    vaultHtml += `
+                        <div style="background:#191c2e; border:1px solid #232740; border-radius:10px; padding:10px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+                            <div>
+                                <div style="font-size:13px; font-weight:bold; color:#00c6ff;">${v.title}</div>
+                                <a href="${v.url}" target="_blank" style="font-size:11px; color:#00ff88; text-decoration:none;">Open File / Photo ↗</a>
+                            </div>
+                            <button onclick="deleteVaultItem('${k}')" style="background:#ff3b30; color:#fff; border:none; padding:4px 8px; border-radius:6px; font-size:10px; cursor:pointer;">Delete</button>
+                        </div>
+                    `;
+                });
+            }
+            const vaultContainer = document.getElementById('vaultListContainer');
+            if(vaultContainer) vaultContainer.innerHTML = vaultHtml || '<div style="font-size:12px; color:#8b8ea8; text-align:center;">Private vault is empty.</div>';
+        });
+
         function renderAllTabs() {
             const appsContainer = document.getElementById('appGridContainer');
             const topContainer = document.getElementById('topAppGridContainer');
@@ -1394,6 +2329,7 @@
             let booksHtml = '';
 
             let isAdminLogged = (localStorage.getItem('rajab_admin_logged') === 'true');
+            let topRank = 1;
 
             appsList.forEach(app => {
                 let deleteBtn = isAdminLogged ? `<button class="delete-app-btn" onclick="deleteApp(event, '${app.firebaseKey}')"><i class="fa-solid fa-trash"></i> Delete</button>` : '';
@@ -1408,14 +2344,77 @@
                     </div>
                 `;
 
+                let topItem = `
+                    <div class="top-app-item" onclick='openAppDetail("${app.key}", ${JSON.stringify(app)})'>
+                        <div class="top-app-rank">${topRank}</div>
+                        <img src="${app.icon}" class="top-app-icon" alt="${app.name}">
+                        <div class="top-app-details">
+                            <div class="top-app-title">${app.name}</div>
+                            <div class="top-app-cat">${app.category || 'Apps'}</div>
+                            <div class="top-app-meta">
+                                <span><i class="fa-solid fa-star"></i> ${app.rating}</span>
+                                <span>${app.reviews || '200'}</span>
+                            </div>
+                            ${deleteBtn}
+                        </div>
+                    </div>
+                `;
+
                 if(app.tabs && app.tabs.apps) appsHtml += card;
-                if(app.tabs && app.tabs.top) topHtml += card;
+                if(app.tabs && app.tabs.top) {
+                    topHtml += topItem;
+                    topRank++;
+                }
                 if(app.tabs && app.tabs.books) booksHtml += card;
             });
 
-            if(appsContainer) appsContainer.innerHTML = appsHtml || '<div style="grid-column: span 3; text-align: center; color: var(--text-sub); padding: 30px;">Koi app nahi hai. Admin panel se add karein!</div>';
-            if(topContainer) topContainer.innerHTML = topHtml || '<div style="grid-column: span 3; text-align: center; color: var(--text-sub); padding: 30px;">Top apps khali hain.</div>';
-            if(booksContainer) booksContainer.innerHTML = booksHtml || '<div style="grid-column: span 3; text-align: center; color: var(--text-sub); padding: 30px;">Books khali hain.</div>';
+            if(appsContainer) appsContainer.innerHTML = appsHtml || '<div style="grid-column: span 3; text-align: center; color: var(--text-sub); padding: 30px;">No apps available. Add from admin panel!</div>';
+            if(topContainer) topContainer.innerHTML = topHtml || '<div style="text-align: center; color: var(--text-sub); padding: 30px;">Top apps is empty.</div>';
+            if(booksContainer) booksContainer.innerHTML = booksHtml || '<div style="grid-column: span 3; text-align: center; color: var(--text-sub); padding: 30px;">Books is empty.</div>';
+        }
+
+        function renderNotifications() {
+            const container = document.getElementById('notiListContainer');
+            let isAdminLogged = (localStorage.getItem('rajab_admin_logged') === 'true');
+            let html = '';
+
+            notiList.forEach(noti => {
+                let delBtn = isAdminLogged ? `<button class="delete-app-btn" onclick="deleteNoti('${noti.firebaseKey}')" style="margin-top:6px;"><i class="fa-solid fa-trash"></i> Delete Update</button>` : '';
+                html += `
+                    <div class="noti-card">
+                        <img src="${noti.img}" class="noti-thumb" alt="Update">
+                        <div class="noti-info">
+                            <h4>${noti.title}</h4>
+                            <a href="${noti.link}" target="_blank" class="download-file-btn">
+                                <i class="fa-solid fa-cloud-arrow-down"></i> Download File
+                            </a>
+                            ${delBtn}
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html || '<div style="text-align: center; color: var(--text-sub); padding: 20px;">No new notifications available!</div>';
+        }
+
+        function renderPosts() {
+            const container = document.getElementById('postsListContainer');
+            let isAdminLogged = (localStorage.getItem('rajab_admin_logged') === 'true');
+            let html = '';
+
+            postsList.forEach(post => {
+                let delBtn = isAdminLogged ? `<button class="delete-app-btn" onclick="deletePost('${post.firebaseKey}')"><i class="fa-solid fa-trash"></i> Delete Post</button>` : '';
+                let imgTag = post.img ? `<img src="${post.img}" alt="Post Image">` : '';
+                html += `
+                    <div class="post-card">
+                        ${imgTag}
+                        <p>${post.text}</p>
+                        ${delBtn}
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html || '<div style="text-align: center; color: var(--text-sub); padding: 20px;">No posts available!</div>';
         }
 
         function filterApps() {
@@ -1439,129 +2438,164 @@
             element.classList.add('active');
 
             if(tabName === 'games') {
-                initSnakeGame();
+                initRainbowGame();
             } else {
-                stopSnakeGame();
+                stopRainbowGame();
             }
         }
 
-        /* Snake Game */
-        const canvas = document.getElementById("snakeCanvas");
-        const ctx = canvas.getContext("2d");
-        const grid = 20;
-        let snake = [{x: 100, y: 100}];
+        function switchAdminTab(secId, btnElem) {
+            document.querySelectorAll('.admin-section-content').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.admin-nav-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(secId).classList.add('active');
+            btnElem.classList.add('active');
+        }
+
+        /* Rainbow Snake Game Logic */
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const pauseImg = document.getElementById('pauseImg');
+
+        const GRID = 30; 
+        const SIZE = 10;
+        
+        let snake = [{x: 150, y: 150}, {x: 150, y: 160}, {x: 150, y: 170}];
         let food = {x: 0, y: 0};
-        let dx = grid, dy = 0;
+        let dx = 0, dy = -SIZE;
+        let nextDx = 0, nextDy = -SIZE;
         let score = 0;
+        let speed = 100;
         let gameInterval = null;
-        let isGameRunning = false;
         let isPaused = false;
-        let currentGameSpeed = 120;
+        let hueOffset = 0;
+        let isGameActive = false;
 
-        function initSnakeGame() {
-            document.getElementById('gameOverCard').style.display = 'none';
-            score = 0;
-            isPaused = false;
-            document.getElementById('pausePlayBtn').innerHTML = '<i class="fa-solid fa-pause"></i> Pause Game';
-            document.getElementById('snakeScore').innerText = score;
-            snake = [{x: 100, y: 100}, {x: 80, y: 100}, {x: 60, y: 100}];
-            dx = grid;
-            dy = 0;
-            spawnFood();
-            if(gameInterval) clearInterval(gameInterval);
-            isGameRunning = true;
-            gameInterval = setInterval(gameLoop, currentGameSpeed);
+        function createFood() {
+            food.x = Math.floor(Math.random() * GRID) * SIZE;
+            food.y = Math.floor(Math.random() * GRID) * SIZE;
+            if (snake.some(p => p.x === food.x && p.y === food.y)) createFood();
         }
 
-        function startSnakeGame() { initSnakeGame(); }
-        function stopSnakeGame() {
-            if(gameInterval) { clearInterval(gameInterval); gameInterval = null; }
-            isGameRunning = false;
+        function drawGame() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#ff3333';
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = 'red';
+            ctx.beginPath();
+            ctx.arc(food.x + 5, food.y + 5, 5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+
+            snake.forEach((part, i) => {
+                const hue = (i * 15 + hueOffset) % 360;
+                ctx.fillStyle = `hsl(${hue}, 100%, 60%)`;
+                
+                if(i === 0) {
+                    ctx.fillRect(part.x, part.y, SIZE, SIZE);
+                    ctx.fillStyle = "white";
+                    ctx.fillRect(part.x + 2, part.y + 2, 2, 2);
+                    ctx.fillRect(part.x + 6, part.y + 2, 2, 2);
+                } else {
+                    ctx.fillRect(part.x + 1, part.y + 1, SIZE - 2, SIZE - 2);
+                }
+            });
+            
+            hueOffset += 5;
         }
 
-        function togglePauseGame() {
-            if(!isGameRunning) return;
-            isPaused = !isPaused;
-            const btn = document.getElementById('pausePlayBtn');
-            if(isPaused) {
-                clearInterval(gameInterval);
-                btn.innerHTML = '<i class="fa-solid fa-play"></i> Resume Game';
-            } else {
-                gameInterval = setInterval(gameLoop, currentGameSpeed);
-                btn.innerHTML = '<i class="fa-solid fa-pause"></i> Pause Game';
-            }
-        }
+        function moveSnake() {
+            if (isPaused || !isGameActive) return;
 
-        function setGameSpeed(speed) {
-            currentGameSpeed = speed;
-            document.getElementById('spdSlow').className = speed === 160 ? 'active-speed' : '';
-            document.getElementById('spdNorm').className = speed === 120 ? 'active-speed' : '';
-            document.getElementById('spdFast').className = speed === 75 ? 'active-speed' : '';
-            if(isGameRunning && !isPaused) {
-                clearInterval(gameInterval);
-                gameInterval = setInterval(gameLoop, currentGameSpeed);
-            }
-        }
+            dx = nextDx;
+            dy = nextDy;
+            const head = {x: snake[0].x + dx, y: snake[0].y + dy};
 
-        function spawnFood() {
-            food.x = Math.floor(Math.random() * (canvas.width / grid)) * grid;
-            food.y = Math.floor(Math.random() * (canvas.height / grid)) * grid;
-        }
+            if (head.x < 0) head.x = canvas.width - SIZE;
+            if (head.x >= canvas.width) head.x = 0;
+            if (head.y < 0) head.y = canvas.height - SIZE;
+            if (head.y >= canvas.height) head.y = 0;
 
-        function gameLoop() {
-            if (!isGameRunning || isPaused) return;
-            update();
-            if(checkGameOver()) {
-                stopSnakeGame();
-                document.getElementById('finalScore').innerText = score;
-                document.getElementById('gameOverCard').style.display = 'block';
+            if (snake.some(p => p.x === head.x && p.y === head.y)) {
+                alert("Game Over! Score: " + score);
+                resetRainbowGame();
                 return;
             }
-            draw();
-        }
 
-        function update() {
-            const head = {x: snake[0].x + dx, y: snake[0].y + dy};
             snake.unshift(head);
 
-            if(head.x === food.x && head.y === food.y) {
-                score += 10;
-                document.getElementById('snakeScore').innerText = score;
-                spawnFood();
+            if (head.x === food.x && head.y === food.y) {
+                score += 1;
+                scoreDisplay.innerText = score;
+                createFood();
             } else {
                 snake.pop();
             }
+            drawGame();
         }
 
-        function checkGameOver() {
-            const head = snake[0];
-            if(head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height) return true;
-            for(let i = 1; i < snake.length; i++) {
-                if(head.x === snake[i].x && head.y === snake[i].y) return true;
+        function resetRainbowGame() {
+            snake = [{x: 150, y: 150}, {x: 150, y: 160}, {x: 150, y: 170}];
+            dx = 0; dy = -SIZE;
+            nextDx = 0; nextDy = -SIZE;
+            score = 0;
+            scoreDisplay.innerText = score;
+            createFood();
+        }
+
+        function initRainbowGame() {
+            isGameActive = true;
+            resetRainbowGame();
+            if(gameInterval) clearInterval(gameInterval);
+            gameInterval = setInterval(moveSnake, speed);
+        }
+
+        function stopRainbowGame() {
+            isGameActive = false;
+            if(gameInterval) {
+                clearInterval(gameInterval);
+                gameInterval = null;
             }
-            return false;
         }
 
-        function draw() {
-            ctx.fillStyle = "#111";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        const setupBtn = (id, action) => {
+            const btn = document.getElementById(id);
+            if(btn) {
+                btn.addEventListener('pointerdown', (e) => {
+                    e.preventDefault();
+                    action();
+                });
+            }
+        };
 
-            ctx.fillStyle = "#ff3b30";
-            ctx.fillRect(food.x, food.y, grid - 2, grid - 2);
+        setupBtn('moveUp', () => { if(dy === 0){ nextDx = 0; nextDy = -SIZE; } });
+        setupBtn('moveDown', () => { if(dy === 0){ nextDx = 0; nextDy = SIZE; } });
+        setupBtn('moveLeft', () => { if(dx === 0){ nextDx = -SIZE; nextDy = 0; } });
+        setupBtn('moveRight', () => { if(dx === 0){ nextDx = SIZE; nextDy = 0; } });
+        
+        setupBtn('pauseBtn', () => {
+            isPaused = !isPaused;
+            pauseImg.src = isPaused ? 
+                "https://img.icons8.com/ios-filled/50/ffffff/play--v1.png" : 
+                "https://img.icons8.com/ios-filled/50/ffffff/pause.png";
+        });
 
-            snake.forEach((part, index) => {
-                ctx.fillStyle = index === 0 ? "#00ff88" : "#7000ff";
-                ctx.fillRect(part.x, part.y, grid - 2, grid - 2);
-            });
-        }
+        const setSpeed = (newSpeed, id) => {
+            speed = newSpeed;
+            if(isGameActive) {
+                clearInterval(gameInterval);
+                gameInterval = setInterval(moveSnake, speed);
+            }
+            document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+            const speedBtnElem = document.getElementById(id);
+            if(speedBtnElem) speedBtnElem.classList.add('active');
+        };
 
-        function changeDirection(dir) {
-            if(!isGameRunning || isPaused) return;
-            if(dir === 'UP' && dy === 0) { dx = 0; dy = -grid; }
-            if(dir === 'DOWN' && dy === 0) { dx = 0; dy = grid; }
-            if(dir === 'LEFT' && dx === 0) { dx = -grid; dy = 0; }
-            if(dir === 'RIGHT' && dx === 0) { dx = grid; dy = 0; }
-        }
+        setupBtn('s1', () => setSpeed(180, 's1'));
+        setupBtn('s2', () => setSpeed(100, 's2'));
+        setupBtn('s3', () => setSpeed(60, 's3'));
 
         let currentAppKey = null, currentActiveApp = null;
 
@@ -1612,12 +2646,115 @@
         function toggleNotifications() {
             const overlay = document.getElementById('notificationOverlay');
             overlay.style.display = overlay.style.display === 'flex' ? 'none' : 'flex';
-            document.getElementById('notiBadge').innerText = '0';
+        }
+
+        function openPostsModal() {
+            document.getElementById('postsOverlay').style.display = 'flex';
+        }
+
+        function closePostsModal() {
+            document.getElementById('postsOverlay').style.display = 'none';
         }
 
         function toggleSettingsModal() {
             const overlay = document.getElementById('settingsOverlay');
             overlay.style.display = overlay.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function openAppViewDisplayModal() {
+            document.getElementById('settingsOverlay').style.display = 'none';
+            document.getElementById('appViewDisplayOverlay').style.display = 'flex';
+        }
+
+        function closeAppViewDisplayModal() {
+            document.getElementById('appViewDisplayOverlay').style.display = 'none';
+        }
+
+        function openBotPanelModal() {
+            document.getElementById('botPanelOverlay').style.display = 'flex';
+        }
+
+        function closeBotPanelModal() {
+            document.getElementById('botPanelOverlay').style.display = 'none';
+        }
+
+        function connectBot() {
+            var token = document.getElementById("bot-token-input").value.trim();
+            if(!token) {
+                alert("PLEASE ENTER BOT TOKEN FIRST!");
+                return;
+            }
+            
+            var targetUrl = "https://api.telegram.org/bot" + token + "/getMe";
+
+            fetch(targetUrl)
+                .then(function(response) { return response.json(); })
+                .then(function(data) {
+                    if (data.ok) {
+                        alert("SUCCESS! BOT CONNECTED.\nBOT NAME: " + data.result.first_name);
+                    } else {
+                        alert("INVALID BOT TOKEN!");
+                    }
+                })
+                .catch(function(error) {
+                    var proxyUrl = "https://corsproxy.io/?" + encodeURIComponent(targetUrl);
+                    fetch(proxyUrl)
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.ok) {
+                                alert("SUCCESS! BOT CONNECTED.\nBOT NAME: " + data.result.first_name);
+                            } else {
+                                alert("INVALID BOT TOKEN!");
+                            }
+                        })
+                        .catch(err => {
+                            alert("NETWORK ERROR! PLEASE CHECK YOUR INTERNET CONNECTION.");
+                        });
+                });
+        }
+
+        function sendMessage() {
+            var token = document.getElementById("bot-token-input").value.trim();
+            var chatId = document.getElementById("chat-id-input").value.trim();
+            var message = document.getElementById("message-text-input").value.trim();
+
+            if (!token) {
+                alert("PLEASE ENTER BOT TOKEN FIRST!");
+                return;
+            }
+            if (!chatId || !message) {
+                alert("PLEASE FILL BOTH CHAT ID AND MESSAGE TEXT!");
+                return;
+            }
+
+            var targetUrl = "https://api.telegram.org/bot" + token + "/sendMessage?chat_id=" + chatId + "&text=" + encodeURIComponent(message);
+
+            fetch(targetUrl)
+                .then(function(response) { return response.json(); })
+                .then(function(data) {
+                    if (data.ok) {
+                        alert("MESSAGE SENT SUCCESSFULLY!");
+                        document.getElementById("message-text-input").value = "";
+                    } else {
+                        alert("FAILED TO SEND MESSAGE!\nERROR: " + data.description);
+                    }
+                })
+                .catch(function(error) {
+                    var proxyUrl = "https://corsproxy.io/?" + encodeURIComponent(targetUrl);
+                    fetch(proxyUrl)
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.ok) {
+                                alert("MESSAGE SENT SUCCESSFULLY!\n");
+                                document.getElementById("message-text-input").value = "";
+                            } else {
+                                alert("FAILED TO SEND MESSAGE!\nERROR: " + data.description);
+                            }
+                        })
+                        .catch(err => {
+                            alert("NETWORK ERROR! PLEASE CHECK YOUR INTERNET CONNECTION.");
+                        });
+                });
         }
 
         function playHackerBeep() {
@@ -1637,9 +2774,8 @@
             } catch(e) {}
         }
 
-        /* Encrypted Admin Auth System */
-        const _e = 'cmFqYWJiMjQwQGdtYWlsLmNvbQ==';
-        const _p = 'MDM0NTE4NDQ5NDM=';
+        let currentAdminEmail = localStorage.getItem('custom_admin_email') || 'rajabb240@gmail.com';
+        let currentAdminPass = localStorage.getItem('custom_admin_pass') || '03451844943';
 
         function openAdminModal() {
             document.getElementById('settingsOverlay').style.display = 'none';
@@ -1655,37 +2791,201 @@
             }
         }
 
-        function closeAdminModal() { document.getElementById('adminOverlay').style.display = 'none'; }
+        function closeAdminModal() { 
+            stopWarningAudio();
+            document.getElementById('adminOverlay').style.display = 'none'; 
+        }
+
+        function toggleCompactAudio() {
+            let audioPlayer = document.getElementById('warningAudioPlayer');
+            let icon = document.getElementById('compactAudioIcon');
+            if(audioPlayer.paused) {
+                audioPlayer.play();
+                icon.className = "fa-solid fa-pause";
+            } else {
+                audioPlayer.pause();
+                icon.className = "fa-solid fa-play";
+            }
+        }
 
         function handleAdminLogin(event) { 
             event.preventDefault();
             let emailInput = document.getElementById('adminEmail').value.trim();
             let passInput = document.getElementById('adminPassword').value.trim();
             
-            if(btoa(emailInput) === _e && btoa(passInput) === _p) {
+            if(emailInput === currentAdminEmail && passInput === currentAdminPass) {
                 localStorage.setItem('rajab_admin_logged', 'true');
+                wrongLoginAttempts = 0;
+                document.getElementById('wrongLoginWarningBox').style.display = 'none';
+                stopWarningAudio();
+
                 alert("Login Successful! Welcome Admin 👑");
                 document.getElementById('adminLoginView').style.display = 'none';
                 document.getElementById('adminDashboardView').style.display = 'block';
                 renderAllTabs();
+                renderNotifications();
+                renderPosts();
             } else {
+                wrongLoginAttempts++;
                 playHackerBeep();
                 const panelBox = document.getElementById('adminPanelBox');
                 panelBox.classList.add('shake-effect');
                 setTimeout(() => {
                     panelBox.classList.remove('shake-effect');
                 }, 400);
+
+                if(wrongLoginAttempts >= 3) {
+                    let warningBox = document.getElementById('wrongLoginWarningBox');
+                    let warningText = document.getElementById('warningTextContent');
+                    let audioPlayer = document.getElementById('warningAudioPlayer');
+                    let audioSource = document.getElementById('warningAudioSource');
+                    let icon = document.getElementById('compactAudioIcon');
+
+                    warningText.innerText = window.savedWarningMsg || "Security Alert Active!";
+                    audioSource.src = window.savedWarningSong || "https://mp3tourl.com/audio/1791881291237-ada90001-4895-4b03-aaac-2f4b3ad8afea.m4a";
+                    
+                    warningBox.style.display = 'block';
+                    audioPlayer.load();
+                    
+                    // Auto-play audio when wrong attempts occur
+                    let playPromise = audioPlayer.play();
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            icon.className = "fa-solid fa-pause";
+                        }).catch(err => {
+                            console.log("Auto-play blocked:", err);
+                            icon.className = "fa-solid fa-play";
+                        });
+                    }
+                }
             }
         }
 
         function adminLogout() {
             localStorage.removeItem('rajab_admin_logged');
+            wrongLoginAttempts = 0;
+            document.getElementById('wrongLoginWarningBox').style.display = 'none';
+            stopWarningAudio();
+
             alert("Logged out successfully!");
             closeAdminModal();
             renderAllTabs();
+            renderNotifications();
+            renderPosts();
         }
 
-        // Firebase Realtime Publish Function
+        function handleSaveSecurityAlert(event) {
+            event.preventDefault();
+            let msg = document.getElementById('customWarningMsg').value.trim();
+            let song = document.getElementById('customWarningSong').value.trim();
+
+            if(msg && song) {
+                db.ref('security_alert').set({ message: msg, song: song }, (err) => {
+                    if(!err) {
+                        alert("Security Alert & Audio Settings Saved Successfully!");
+                        document.getElementById('customWarningMsg').value = '';
+                        document.getElementById('customWarningSong').value = '';
+                    }
+                });
+            }
+        }
+
+        function handleChangeCredentials(event) {
+            event.preventDefault();
+            let newE = document.getElementById('changeEmail').value.trim();
+            let newP = document.getElementById('changePassword').value.trim();
+
+            if(newE && newP) {
+                localStorage.setItem('custom_admin_email', newE);
+                localStorage.setItem('custom_admin_pass', newP);
+                currentAdminEmail = newE;
+                currentAdminPass = newP;
+                alert("Admin Gmail & Password Changed Successfully!");
+                document.getElementById('changeEmail').value = '';
+                document.getElementById('changePassword').value = '';
+            }
+        }
+
+        function handleSetCustomCount(event) {
+            event.preventDefault();
+            let val = document.getElementById('customCountInput').value.trim();
+            if(val) {
+                db.ref('custom_app_count').set(val, (err) => {
+                    if(!err) {
+                        alert("App Count Text Live Updated!");
+                        document.getElementById('customCountInput').value = '';
+                    }
+                });
+            }
+        }
+
+        function handleSaveVaultItem(event) {
+            event.preventDefault();
+            let title = document.getElementById('vaultTitle').value.trim();
+            let url = document.getElementById('vaultUrl').value.trim();
+            if(title && url) {
+                db.ref('private_vault').push({ title: title, url: url }, (err) => {
+                    if(!err) {
+                        alert("File / Photo Securely Saved in Vault!");
+                        document.getElementById('vaultTitle').value = '';
+                        document.getElementById('vaultUrl').value = '';
+                    }
+                });
+            }
+        }
+
+        function deleteVaultItem(key) {
+            if(confirm("Delete this private item from Vault?")) {
+                db.ref('private_vault/' + key).remove();
+            }
+        }
+
+        function handleSaveAppViewConfig(event) {
+            event.preventDefault();
+            let viewText = document.getElementById('customAppViewText').value.trim();
+            let viewPhoto = document.getElementById('customAppViewPhotoUrl').value.trim();
+            let viewSong = document.getElementById('customAppViewSongUrl').value.trim();
+            let profilePic = document.getElementById('customProfilePicUrl').value.trim();
+            
+            let data = {};
+            if(viewText) data.viewText = viewText;
+            if(viewPhoto) data.viewPhoto = viewPhoto;
+            if(viewSong) data.viewSong = viewSong;
+            if(profilePic) data.profilePic = profilePic;
+
+            db.ref('app_branding').update(data, (err) => {
+                if(!err) {
+                    alert("APP VIEW Content Successfully Saved!");
+                    document.getElementById('customAppViewText').value = '';
+                    document.getElementById('customAppViewPhotoUrl').value = '';
+                    document.getElementById('customAppViewSongUrl').value = '';
+                    document.getElementById('customProfilePicUrl').value = '';
+                }
+            });
+        }
+
+        function deleteAppViewItem(type) {
+            if(type === 'text') {
+                if(confirm("Delete App View Text / Links?")) {
+                    db.ref('app_branding/viewText').remove((err) => {
+                        if(!err) alert("App View Text Deleted!");
+                    });
+                }
+            } else if(type === 'photo') {
+                if(confirm("Delete App View Photo?")) {
+                    db.ref('app_branding/viewPhoto').remove((err) => {
+                        if(!err) alert("App View Photo Deleted!");
+                    });
+                }
+            } else if(type === 'song') {
+                if(confirm("Delete App View Song / Audio?")) {
+                    db.ref('app_branding/viewSong').remove((err) => {
+                        if(!err) alert("App View Song Deleted!");
+                    });
+                }
+            }
+        }
+
         function handleAddNewApp(event) {
             event.preventDefault();
             let key = document.getElementById('newAppKey').value.trim().toLowerCase();
@@ -1713,34 +3013,110 @@
                 tabs: { apps: showApps, top: showTop, books: showBooks }
             };
 
-            // Firebase Mein App Push Karna
             db.ref('apps').push(newApp, (error) => {
                 if(error) {
-                    alert("App Add Karne Mein Error Aaya!");
+                    alert("Error while adding app!");
                 } else {
-                    alert("App Firebase Database Par Live Save Ho Gayi!");
+                    alert("App successfully saved live on Firebase Database!");
+                    document.getElementById('appUploadForm').reset();
                     closeAdminModal();
                 }
             });
         }
 
-        // Firebase Realtime Delete Function
+        function handleAddNewNoti(event) {
+            event.preventDefault();
+            let title = document.getElementById('newNotiTitle').value.trim();
+            let img = document.getElementById('newNotiImg').value.trim();
+            let link = document.getElementById('newNotiLink').value.trim();
+
+            let newNoti = { title: title, img: img, link: link };
+
+            db.ref('notifications').push(newNoti, (error) => {
+                if(!error) {
+                    alert("Notification Successfully Uploaded!");
+                    document.getElementById('notiUploadForm').reset();
+                }
+            });
+        }
+
+        function handleAddNewPost(event) {
+            event.preventDefault();
+            let text = document.getElementById('newPostText').value.trim();
+            let img = document.getElementById('newPostImg').value.trim();
+
+            let newPost = { text: text, img: img };
+
+            db.ref('posts').push(newPost, (error) => {
+                if(!error) {
+                    alert("Post Published Successfully!");
+                    document.getElementById('postUploadForm').reset();
+                }
+            });
+        }
+
         function deleteApp(event, firebaseKey) {
             event.stopPropagation();
-            if(confirm("Kya aap waqai is app ko Firebase se delete karna chahte hain?")) {
+            if(confirm("Do you really want to delete this app from Firebase?")) {
                 db.ref('apps/' + firebaseKey).remove((error) => {
-                    if(!error) {
-                        alert("App Online Delete Ho Gayi!");
-                    }
+                    if(!error) { alert("App deleted online!"); }
                 });
             }
         }
 
-        function toggleTheme() {
+        function deleteNoti(firebaseKey) {
+            if(confirm("Delete this notification?")) {
+                db.ref('notifications/' + firebaseKey).remove();
+            }
+        }
+
+        function deletePost(firebaseKey) {
+            if(confirm("Delete this post?")) {
+                db.ref('posts/' + firebaseKey).remove();
+            }
+        }
+
+        /* 1. Main Page Global Theme Toggle */
+        function toggleMainTheme() {
             document.body.classList.toggle('light-mode');
-            const btn = document.getElementById('themeBtn');
-            btn.innerHTML = document.body.classList.contains('light-mode') ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+            const themeIcons = document.querySelectorAll('.mainThemeIcon');
+            themeIcons.forEach(icon => {
+                if(document.body.classList.contains('light-mode')) {
+                    icon.className = "fa-solid fa-sun mainThemeIcon";
+                } else {
+                    icon.className = "fa-solid fa-moon mainThemeIcon";
+                }
+            });
+        }
+
+        /* 2. Independent Telegram Bot Panel Theme Toggle */
+        function toggleBotPanelTheme() {
+            const botBox = document.getElementById('botPanelBox');
+            botBox.classList.toggle('modal-light-mode');
+            const icons = document.querySelectorAll('.botThemeIcon');
+            icons.forEach(icon => {
+                if(botBox.classList.contains('modal-light-mode')) {
+                    icon.className = "fa-solid fa-sun botThemeIcon";
+                } else {
+                    icon.className = "fa-solid fa-moon botThemeIcon";
+                }
+            });
+        }
+
+        /* 3. Independent Admin Panel Theme Toggle */
+        function toggleAdminPanelTheme() {
+            const adminBox = document.getElementById('adminPanelBox');
+            adminBox.classList.toggle('modal-light-mode');
+            const icons = document.querySelectorAll('.adminThemeIcon');
+            icons.forEach(icon => {
+                if(adminBox.classList.contains('modal-light-mode')) {
+                    icon.className = "fa-solid fa-sun adminThemeIcon";
+                } else {
+                    icon.className = "fa-solid fa-moon adminThemeIcon";
+                }
+            });
         }
     </script>
 </body>
-</html>
+    </html>
+    
