@@ -401,31 +401,124 @@
             padding: 10px 16px;
         }
 
-        .top-app-item {
+        /* Outer Laser Border Container specifically for Top Apps */
+        .laser-outer-wrapper {
+            position: relative;
+            border-radius: 24px;
+            padding: 3px;
+            overflow: hidden;
+            z-index: 1;
+            margin: 10px 16px;
+            box-shadow: 0 0 25px rgba(0, 198, 255, 0.3);
+        }
+
+        .laser-outer-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -150%;
+            left: -150%;
+            width: 400%;
+            height: 400%;
+            background: conic-gradient(transparent, #00c6ff, #ff007f, #00ff88, #ffb800, #9e00ff, #00c6ff, transparent 60%);
+            animation: rotateLaserBorder 1.5s linear infinite;
+            z-index: -2;
+        }
+
+        .laser-outer-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: 3px;
             background: var(--bg-card);
-            border: 1px solid var(--border-color);
+            border-radius: 22px;
+            z-index: -1;
+        }
+
+        body.light-mode .laser-outer-wrapper::after {
+            background: #ffffff;
+        }
+
+        .inner-container-box {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 12px;
+        }
+
+        /* Individual Laser Border for Books Cards */
+        .laser-item-card {
+            position: relative;
             border-radius: 20px;
+            padding: 2px;
+            overflow: hidden;
+            z-index: 1;
+            margin-bottom: 4px;
+            cursor: pointer;
+        }
+
+        .laser-item-card::before {
+            content: '';
+            position: absolute;
+            top: -150%;
+            left: -150%;
+            width: 400%;
+            height: 400%;
+            background: conic-gradient(transparent, #00c6ff, #ff007f, #00ff88, #ffb800, #9e00ff, #00c6ff, transparent 60%);
+            animation: rotateLaserBorder 1.2s linear infinite;
+            z-index: -2;
+        }
+
+        .laser-item-card::after {
+            content: '';
+            position: absolute;
+            inset: 2.5px;
+            background: var(--bg-card);
+            border-radius: 18px;
+            z-index: -1;
+        }
+
+        body.light-mode .laser-item-card::after {
+            background: #ffffff;
+        }
+
+        .top-app-item {
+            background: var(--bg-body);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
             padding: 12px 14px;
             display: flex;
             align-items: center;
             gap: 14px;
+            width: 100%;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-            position: relative;
+        }
+
+        .laser-item-card .top-app-item {
+            background: transparent;
+            border: none;
+        }
+
+        body.light-mode .top-app-item {
+            background: #f0f3f8;
+        }
+
+        .laser-item-card body.light-mode .top-app-item {
+            background: transparent;
         }
 
         .top-app-rank {
-            width: 30px;
-            height: 30px;
-            background: #6366f1;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
             color: #ffffff;
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 800;
+            font-weight: 900;
             font-size: 14px;
             flex-shrink: 0;
+            box-shadow: 0 3px 8px rgba(124, 58, 237, 0.4);
         }
 
         .top-app-icon {
@@ -1124,7 +1217,6 @@
             border-radius: 8px;
         }
 
-        /* ===== Ultra Compact Warning Text & Micro Audio Widget ===== */
         .warning-text-box {
             background: rgba(255, 59, 48, 0.15);
             border: 1px solid #ff3b30;
@@ -1186,7 +1278,6 @@
             animation: shakeError 0.4s ease-in-out;
         }
 
-        /* ===== Modal Theme Variables ===== */
         .admin-modal-panel {
             background: var(--admin-modal-bg, #121421);
             border-radius: 28px;
@@ -1602,20 +1693,22 @@
             </div>
         </div>
 
-        <!-- TAB 3: TOP APPS -->
+        <!-- TAB 3: TOP APPS (With Outer Laser Border Wrapper) -->
         <div id="tab-top" class="tab-content">
             <div class="section-header">
                 <div class="section-title"><i class="fa-solid fa-trophy"></i> Top Apps</div>
             </div>
-            <div class="top-app-list" id="topAppGridContainer"></div>
+            <div class="laser-outer-wrapper">
+                <div class="inner-container-box" id="topAppGridContainer"></div>
+            </div>
         </div>
 
-        <!-- TAB 4: BOOKS -->
+        <!-- TAB 4: BOOKS (Individual Item Laser Borders without Outer Wrapper) -->
         <div id="tab-books" class="tab-content">
             <div class="section-header">
-                <div class="section-title"><i class="fa-solid fa-book-open"></i> E-Books & Guides</div>
+                <div class="section-title"><i class="fa-solid fa-book-open"></i> Books</div>
             </div>
-            <div class="app-grid" id="booksGridContainer"></div>
+            <div class="top-app-list" id="booksGridContainer"></div>
         </div>
 
         <!-- App Details Sheet Modal -->
@@ -1667,7 +1760,7 @@
 
                 <div class="sheet-action-bar">
                     <a href="#" id="sheetDownloadBtn" target="_blank" class="download-action-btn" onclick="incrementDownload()">
-                        <i class="fa-solid fa-cloud-arrow-down"></i> Download
+                        <i class="fa-solid fa-cloud-arrow-down"></i> Download / Open Link
                     </a>
                     <button class="share-action-btn" onclick="shareAppLink()">
                         <i class="fa-solid fa-share-nodes"></i>
@@ -1745,7 +1838,7 @@
             </div>
         </div>
 
-        <!-- Encrypted Admin Security Modal (With Independent Theme Toggle) -->
+        <!-- Encrypted Admin Security Modal -->
         <div class="notification-overlay" id="adminOverlay" style="align-items: center;">
             <div class="admin-modal-panel laser-card-base sec-laser-card" id="adminPanelBox">
                 
@@ -1753,7 +1846,6 @@
                 <div id="adminLoginView">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                         <div></div>
-                        <!-- Admin Specific Mode Toggle Button -->
                         <button type="button" class="icon-btn" onclick="toggleAdminPanelTheme()" style="width: 32px; height: 32px;" title="Toggle Admin Dark/Light Mode">
                             <i class="fa-solid fa-moon adminThemeIcon"></i>
                         </button>
@@ -1771,7 +1863,6 @@
                             </div>
                         </div>
 
-                        <!-- Text First, Below is Micro Audio Button -->
                         <div id="wrongLoginWarningBox" class="warning-text-box" style="display: none;">
                             <p id="warningTextContent">Security Alert Active!</p>
                             <button type="button" class="micro-audio-btn" onclick="toggleCompactAudio()">
@@ -1789,8 +1880,9 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="admin-submit-btn">
-                            <i class="fa-solid fa-right-to-bracket"></i> Login
+                        <!-- Login Button itself shows loading state -->
+                        <button type="submit" id="loginSubmitBtn" class="admin-submit-btn">
+                            <i class="fa-solid fa-right-to-bracket" id="loginBtnIcon"></i> <span id="loginBtnText">Login</span>
                         </button>
                         <button type="button" class="admin-cancel-btn" onclick="closeAdminModal()">Cancel</button>
                     </form>
@@ -1821,7 +1913,7 @@
 
                     <!-- 1. APP UPLOAD SECTION -->
                     <div id="adm-app" class="admin-section-content active">
-                        <div class="card-title-left"><i class="fa-solid fa-cloud-arrow-up"></i> Upload New App</div>
+                        <div class="card-title-left"><i class="fa-solid fa-cloud-arrow-up"></i> Upload New App / Book</div>
                         <form id="appUploadForm" onsubmit="handleAddNewApp(event)">
                             <div class="admin-input-group">
                                 <label>App Key (Short Name/ID e.g. app1)</label>
@@ -1836,7 +1928,7 @@
                                 </div>
                             </div>
                             <div class="admin-input-group">
-                                <label>Category (e.g. Tools, Apps, Games)</label>
+                                <label>Category (e.g. Apps, Games, Books)</label>
                                 <div class="laser-input-box laser-inp-green">
                                     <input type="text" id="newAppCategory" class="admin-input-field" value="Apps" required>
                                 </div>
@@ -1848,9 +1940,9 @@
                                 </div>
                             </div>
                             <div class="admin-input-group">
-                                <label>Download Link (MediaFire / APK)</label>
+                                <label>Download Link / Media Link</label>
                                 <div class="laser-input-box laser-inp-gmail">
-                                    <input type="url" id="newAppLink" class="admin-input-field" placeholder="https://mediafire.com/..." required>
+                                    <input type="url" id="newAppLink" class="admin-input-field" placeholder="https://..." required>
                                 </div>
                             </div>
                             <div class="admin-input-group">
@@ -2018,7 +2110,7 @@
                             <div class="admin-input-group" style="margin-top:10px;">
                                 <label>Warning Song / Audio MP3 URL (Auto-plays on 3rd wrong attempt)</label>
                                 <div class="laser-input-box laser-inp-green">
-                                    <input type="url" id="customWarningSong" class="admin-input-field" placeholder="https://mp3tourl.com/audio/..." required>
+                                    <input type="url" id="customWarningSong" class="admin-input-field" placeholder="https://..." required>
                                 </div>
                             </div>
                             <button type="submit" class="admin-submit-btn" style="background: linear-gradient(90deg, #ff3b30, #ff9500);">
@@ -2054,23 +2146,20 @@
             </div>
         </div>
 
-        <!-- Telegram Bot Control Panel Modal (With Independent Theme Toggle) -->
+        <!-- Telegram Bot Control Panel Modal -->
         <div class="notification-overlay" id="botPanelOverlay" style="align-items: center;">
             <div class="admin-modal-panel laser-card-base bot-laser-card" id="botPanelBox">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #232740; padding-bottom: 10px;">
                     <h3 style="font-size: 16px; color: #0099ff; font-weight: 800;"><i class="fas fa-robot"></i> BOT CONTROL PANEL</h3>
                     <div style="display: flex; align-items: center; gap: 8px;">
-                        <!-- Independent Theme Toggle Button for Telegram Bot Panel -->
-                        <button type="button" onclick="toggleBotPanelTheme()" class="icon-btn" style="width: 32px; height: 32px;" title="Toggle Bot Panel Dark/Light Mode">
+                        <button type="button" onclick="toggleBotPanelTheme()" class="icon-btn" style="width: 32px; height: 32px;" title="Toggle Bot Panel Theme">
                             <i class="fa-solid fa-moon botThemeIcon"></i>
                         </button>
                         <button class="close-btn" onclick="closeBotPanelModal()"><i class="fa-solid fa-xmark"></i></button>
                     </div>
                 </div>
 
-                <div class="card-title-left">
-                    <i class="fas fa-key"></i> BOT AUTHENTICATION
-                </div>
+                <div class="card-title-left"><i class="fas fa-key"></i> BOT AUTHENTICATION</div>
                 <div class="field-label">BOT TOKEN</div>
                 <div class="admin-input-group">
                     <div class="laser-input-box laser-inp-cyan">
@@ -2081,11 +2170,7 @@
                     <i class="fas fa-plug"></i> CONNECT BOT
                 </button>
 
-                <div class="section-divider"></div>
-
-                <div class="card-title-left">
-                    <i class="fas fa-paper-plane"></i> SEND MESSAGE
-                </div>
+                <div class="card-title-left"><i class="fas fa-paper-plane"></i> SEND MESSAGE</div>
                 <div class="field-label">USER CHAT ID</div>
                 <div class="admin-input-group">
                     <div class="laser-input-box laser-inp-purple">
@@ -2344,6 +2429,7 @@
                     </div>
                 `;
 
+                // Top Apps items inside the large outer wrapper box
                 let topItem = `
                     <div class="top-app-item" onclick='openAppDetail("${app.key}", ${JSON.stringify(app)})'>
                         <div class="top-app-rank">${topRank}</div>
@@ -2360,17 +2446,38 @@
                     </div>
                 `;
 
+                // Books items with individual card laser borders
+                let bookItem = `
+                    <div class="laser-item-card">
+                        <div class="top-app-item" onclick='openAppDetail("${app.key}", ${JSON.stringify(app)})'>
+                            <div class="top-app-rank">${topRank}</div>
+                            <img src="${app.icon}" class="top-app-icon" alt="${app.name}">
+                            <div class="top-app-details">
+                                <div class="top-app-title">${app.name}</div>
+                                <div class="top-app-cat">${app.category || 'Books'}</div>
+                                <div class="top-app-meta">
+                                    <span><i class="fa-solid fa-star"></i> ${app.rating}</span>
+                                    <span>${app.reviews || '200'}</span>
+                                </div>
+                                ${deleteBtn}
+                            </div>
+                        </div>
+                    </div>
+                `;
+
                 if(app.tabs && app.tabs.apps) appsHtml += card;
                 if(app.tabs && app.tabs.top) {
                     topHtml += topItem;
                     topRank++;
                 }
-                if(app.tabs && app.tabs.books) booksHtml += card;
+                if(app.tabs && app.tabs.books) {
+                    booksHtml += bookItem;
+                }
             });
 
             if(appsContainer) appsContainer.innerHTML = appsHtml || '<div style="grid-column: span 3; text-align: center; color: var(--text-sub); padding: 30px;">No apps available. Add from admin panel!</div>';
-            if(topContainer) topContainer.innerHTML = topHtml || '<div style="text-align: center; color: var(--text-sub); padding: 30px;">Top apps is empty.</div>';
-            if(booksContainer) booksContainer.innerHTML = booksHtml || '<div style="grid-column: span 3; text-align: center; color: var(--text-sub); padding: 30px;">Books is empty.</div>';
+            if(topContainer) topContainer.innerHTML = topHtml || '<div style="text-align: center; color: var(--text-sub); padding: 20px;">Top apps is empty.</div>';
+            if(booksContainer) booksContainer.innerHTML = booksHtml || '<div style="text-align: center; color: var(--text-sub); padding: 20px;">Books is empty.</div>';
         }
 
         function renderNotifications() {
@@ -2680,36 +2787,23 @@
 
         function connectBot() {
             var token = document.getElementById("bot-token-input").value.trim();
-            if(!token) {
-                alert("PLEASE ENTER BOT TOKEN FIRST!");
-                return;
-            }
-            
+            if(!token) { alert("PLEASE ENTER BOT TOKEN FIRST!"); return; }
             var targetUrl = "https://api.telegram.org/bot" + token + "/getMe";
 
             fetch(targetUrl)
-                .then(function(response) { return response.json(); })
-                .then(function(data) {
-                    if (data.ok) {
-                        alert("SUCCESS! BOT CONNECTED.\nBOT NAME: " + data.result.first_name);
-                    } else {
-                        alert("INVALID BOT TOKEN!");
-                    }
+                .then(res => res.json())
+                .then(data => {
+                    if (data.ok) alert("SUCCESS! BOT CONNECTED.\nBOT NAME: " + data.result.first_name);
+                    else alert("INVALID BOT TOKEN!");
                 })
-                .catch(function(error) {
-                    var proxyUrl = "https://corsproxy.io/?" + encodeURIComponent(targetUrl);
-                    fetch(proxyUrl)
+                .catch(() => {
+                    fetch("https://corsproxy.io/?" + encodeURIComponent(targetUrl))
                         .then(res => res.json())
                         .then(data => {
-                            if (data.ok) {
-                                alert("SUCCESS! BOT CONNECTED.\nBOT NAME: " + data.result.first_name);
-                            } else {
-                                alert("INVALID BOT TOKEN!");
-                            }
+                            if (data.ok) alert("SUCCESS! BOT CONNECTED.\nBOT NAME: " + data.result.first_name);
+                            else alert("INVALID BOT TOKEN!");
                         })
-                        .catch(err => {
-                            alert("NETWORK ERROR! PLEASE CHECK YOUR INTERNET CONNECTION.");
-                        });
+                        .catch(() => alert("NETWORK ERROR!"));
                 });
         }
 
@@ -2718,42 +2812,29 @@
             var chatId = document.getElementById("chat-id-input").value.trim();
             var message = document.getElementById("message-text-input").value.trim();
 
-            if (!token) {
-                alert("PLEASE ENTER BOT TOKEN FIRST!");
-                return;
-            }
-            if (!chatId || !message) {
-                alert("PLEASE FILL BOTH CHAT ID AND MESSAGE TEXT!");
-                return;
-            }
+            if (!token) { alert("PLEASE ENTER BOT TOKEN FIRST!"); return; }
+            if (!chatId || !message) { alert("PLEASE FILL BOTH CHAT ID AND MESSAGE TEXT!"); return; }
 
             var targetUrl = "https://api.telegram.org/bot" + token + "/sendMessage?chat_id=" + chatId + "&text=" + encodeURIComponent(message);
 
             fetch(targetUrl)
-                .then(function(response) { return response.json(); })
-                .then(function(data) {
+                .then(res => res.json())
+                .then(data => {
                     if (data.ok) {
                         alert("MESSAGE SENT SUCCESSFULLY!");
                         document.getElementById("message-text-input").value = "";
-                    } else {
-                        alert("FAILED TO SEND MESSAGE!\nERROR: " + data.description);
-                    }
+                    } else alert("FAILED: " + data.description);
                 })
-                .catch(function(error) {
-                    var proxyUrl = "https://corsproxy.io/?" + encodeURIComponent(targetUrl);
-                    fetch(proxyUrl)
+                .catch(() => {
+                    fetch("https://corsproxy.io/?" + encodeURIComponent(targetUrl))
                         .then(res => res.json())
                         .then(data => {
                             if (data.ok) {
-                                alert("MESSAGE SENT SUCCESSFULLY!\n");
+                                alert("MESSAGE SENT SUCCESSFULLY!");
                                 document.getElementById("message-text-input").value = "";
-                            } else {
-                                alert("FAILED TO SEND MESSAGE!\nERROR: " + data.description);
-                            }
+                            } else alert("FAILED: " + data.description);
                         })
-                        .catch(err => {
-                            alert("NETWORK ERROR! PLEASE CHECK YOUR INTERNET CONNECTION.");
-                        });
+                        .catch(() => alert("NETWORK ERROR!"));
                 });
         }
 
@@ -2808,57 +2889,63 @@
             }
         }
 
+        // Updated Admin Login: Button itself shows loading state
         function handleAdminLogin(event) { 
             event.preventDefault();
             let emailInput = document.getElementById('adminEmail').value.trim();
             let passInput = document.getElementById('adminPassword').value.trim();
             
-            if(emailInput === currentAdminEmail && passInput === currentAdminPass) {
-                localStorage.setItem('rajab_admin_logged', 'true');
-                wrongLoginAttempts = 0;
-                document.getElementById('wrongLoginWarningBox').style.display = 'none';
-                stopWarningAudio();
+            let btn = document.getElementById('loginSubmitBtn');
+            let btnText = document.getElementById('loginBtnText');
+            let btnIcon = document.getElementById('loginBtnIcon');
 
-                alert("Login Successful! Welcome Admin 👑");
-                document.getElementById('adminLoginView').style.display = 'none';
-                document.getElementById('adminDashboardView').style.display = 'block';
-                renderAllTabs();
-                renderNotifications();
-                renderPosts();
-            } else {
-                wrongLoginAttempts++;
-                playHackerBeep();
-                const panelBox = document.getElementById('adminPanelBox');
-                panelBox.classList.add('shake-effect');
-                setTimeout(() => {
-                    panelBox.classList.remove('shake-effect');
-                }, 400);
+            btn.disabled = true;
+            btnIcon.className = "fa-solid fa-spinner fa-spin";
+            btnText.innerText = "Logging in...";
 
-                if(wrongLoginAttempts >= 3) {
-                    let warningBox = document.getElementById('wrongLoginWarningBox');
-                    let warningText = document.getElementById('warningTextContent');
-                    let audioPlayer = document.getElementById('warningAudioPlayer');
-                    let audioSource = document.getElementById('warningAudioSource');
-                    let icon = document.getElementById('compactAudioIcon');
+            setTimeout(() => {
+                btn.disabled = false;
+                btnIcon.className = "fa-solid fa-right-to-bracket";
+                btnText.innerText = "Login";
 
-                    warningText.innerText = window.savedWarningMsg || "Security Alert Active!";
-                    audioSource.src = window.savedWarningSong || "https://mp3tourl.com/audio/1791881291237-ada90001-4895-4b03-aaac-2f4b3ad8afea.m4a";
-                    
-                    warningBox.style.display = 'block';
-                    audioPlayer.load();
-                    
-                    // Auto-play audio when wrong attempts occur
-                    let playPromise = audioPlayer.play();
-                    if (playPromise !== undefined) {
-                        playPromise.then(() => {
-                            icon.className = "fa-solid fa-pause";
-                        }).catch(err => {
-                            console.log("Auto-play blocked:", err);
-                            icon.className = "fa-solid fa-play";
-                        });
+                if(emailInput === currentAdminEmail && passInput === currentAdminPass) {
+                    localStorage.setItem('rajab_admin_logged', 'true');
+                    wrongLoginAttempts = 0;
+                    document.getElementById('wrongLoginWarningBox').style.display = 'none';
+                    stopWarningAudio();
+
+                    alert("Login Successful! Welcome Admin 👑");
+                    document.getElementById('adminLoginView').style.display = 'none';
+                    document.getElementById('adminDashboardView').style.display = 'block';
+                    renderAllTabs();
+                    renderNotifications();
+                    renderPosts();
+                } else {
+                    wrongLoginAttempts++;
+                    playHackerBeep();
+                    const panelBox = document.getElementById('adminPanelBox');
+                    panelBox.classList.add('shake-effect');
+                    setTimeout(() => panelBox.classList.remove('shake-effect'), 400);
+
+                    if(wrongLoginAttempts >= 3) {
+                        let warningBox = document.getElementById('wrongLoginWarningBox');
+                        let warningText = document.getElementById('warningTextContent');
+                        let audioPlayer = document.getElementById('warningAudioPlayer');
+                        let audioSource = document.getElementById('warningAudioSource');
+                        let icon = document.getElementById('compactAudioIcon');
+
+                        warningText.innerText = window.savedWarningMsg || "Security Alert Active!";
+                        audioSource.src = window.savedWarningSong || "https://mp3tourl.com/audio/1791881291237-ada90001-4895-4b03-aaac-2f4b3ad8afea.m4a";
+                        
+                        warningBox.style.display = 'block';
+                        audioPlayer.load();
+                        audioPlayer.play().catch(() => {});
+                        icon.className = "fa-solid fa-pause";
+                    } else {
+                        alert("Incorrect Email or Password!");
                     }
                 }
-            }
+            }, 1000);
         }
 
         function adminLogout() {
@@ -2870,8 +2957,6 @@
             alert("Logged out successfully!");
             closeAdminModal();
             renderAllTabs();
-            renderNotifications();
-            renderPosts();
         }
 
         function handleSaveSecurityAlert(event) {
@@ -2881,11 +2966,7 @@
 
             if(msg && song) {
                 db.ref('security_alert').set({ message: msg, song: song }, (err) => {
-                    if(!err) {
-                        alert("Security Alert & Audio Settings Saved Successfully!");
-                        document.getElementById('customWarningMsg').value = '';
-                        document.getElementById('customWarningSong').value = '';
-                    }
+                    if(!err) alert("Security Alert Saved Successfully!");
                 });
             }
         }
@@ -2900,9 +2981,7 @@
                 localStorage.setItem('custom_admin_pass', newP);
                 currentAdminEmail = newE;
                 currentAdminPass = newP;
-                alert("Admin Gmail & Password Changed Successfully!");
-                document.getElementById('changeEmail').value = '';
-                document.getElementById('changePassword').value = '';
+                alert("Admin Credentials Updated!");
             }
         }
 
@@ -2911,10 +2990,7 @@
             let val = document.getElementById('customCountInput').value.trim();
             if(val) {
                 db.ref('custom_app_count').set(val, (err) => {
-                    if(!err) {
-                        alert("App Count Text Live Updated!");
-                        document.getElementById('customCountInput').value = '';
-                    }
+                    if(!err) alert("App Count Text Updated!");
                 });
             }
         }
@@ -2925,19 +3001,13 @@
             let url = document.getElementById('vaultUrl').value.trim();
             if(title && url) {
                 db.ref('private_vault').push({ title: title, url: url }, (err) => {
-                    if(!err) {
-                        alert("File / Photo Securely Saved in Vault!");
-                        document.getElementById('vaultTitle').value = '';
-                        document.getElementById('vaultUrl').value = '';
-                    }
+                    if(!err) alert("Saved in Vault!");
                 });
             }
         }
 
         function deleteVaultItem(key) {
-            if(confirm("Delete this private item from Vault?")) {
-                db.ref('private_vault/' + key).remove();
-            }
+            if(confirm("Delete item?")) db.ref('private_vault/' + key).remove();
         }
 
         function handleSaveAppViewConfig(event) {
@@ -2954,36 +3024,15 @@
             if(profilePic) data.profilePic = profilePic;
 
             db.ref('app_branding').update(data, (err) => {
-                if(!err) {
-                    alert("APP VIEW Content Successfully Saved!");
-                    document.getElementById('customAppViewText').value = '';
-                    document.getElementById('customAppViewPhotoUrl').value = '';
-                    document.getElementById('customAppViewSongUrl').value = '';
-                    document.getElementById('customProfilePicUrl').value = '';
-                }
+                if(!err) alert("APP VIEW Updated!");
             });
         }
 
         function deleteAppViewItem(type) {
-            if(type === 'text') {
-                if(confirm("Delete App View Text / Links?")) {
-                    db.ref('app_branding/viewText').remove((err) => {
-                        if(!err) alert("App View Text Deleted!");
-                    });
-                }
-            } else if(type === 'photo') {
-                if(confirm("Delete App View Photo?")) {
-                    db.ref('app_branding/viewPhoto').remove((err) => {
-                        if(!err) alert("App View Photo Deleted!");
-                    });
-                }
-            } else if(type === 'song') {
-                if(confirm("Delete App View Song / Audio?")) {
-                    db.ref('app_branding/viewSong').remove((err) => {
-                        if(!err) alert("App View Song Deleted!");
-                    });
-                }
-            }
+            if(type === 'text') db.ref('app_branding/viewText').remove();
+            if(type === 'photo') db.ref('app_branding/viewPhoto').remove();
+            if(type === 'song') db.ref('app_branding/viewSong').remove();
+            alert("Deleted successfully!");
         }
 
         function handleAddNewApp(event) {
@@ -3000,24 +3049,14 @@
             let showBooks = document.getElementById('showInBooks').checked;
 
             let newApp = {
-                key: key,
-                name: name,
-                dev: 'RAJAB-KING YT',
-                category: category,
-                rating: '5.0',
-                reviews: '1',
-                downloads: 1,
-                icon: icon,
-                about: about,
-                link: link,
+                key: key, name: name, dev: 'RAJAB-KING YT', category: category,
+                rating: '5.0', reviews: '1', downloads: 1, icon: icon, about: about, link: link,
                 tabs: { apps: showApps, top: showTop, books: showBooks }
             };
 
             db.ref('apps').push(newApp, (error) => {
-                if(error) {
-                    alert("Error while adding app!");
-                } else {
-                    alert("App successfully saved live on Firebase Database!");
+                if(!error) {
+                    alert("App published successfully!");
                     document.getElementById('appUploadForm').reset();
                     closeAdminModal();
                 }
@@ -3030,13 +3069,8 @@
             let img = document.getElementById('newNotiImg').value.trim();
             let link = document.getElementById('newNotiLink').value.trim();
 
-            let newNoti = { title: title, img: img, link: link };
-
-            db.ref('notifications').push(newNoti, (error) => {
-                if(!error) {
-                    alert("Notification Successfully Uploaded!");
-                    document.getElementById('notiUploadForm').reset();
-                }
+            db.ref('notifications').push({ title: title, img: img, link: link }, (error) => {
+                if(!error) alert("Notification Uploaded!");
             });
         }
 
@@ -3045,76 +3079,54 @@
             let text = document.getElementById('newPostText').value.trim();
             let img = document.getElementById('newPostImg').value.trim();
 
-            let newPost = { text: text, img: img };
-
-            db.ref('posts').push(newPost, (error) => {
-                if(!error) {
-                    alert("Post Published Successfully!");
-                    document.getElementById('postUploadForm').reset();
-                }
+            db.ref('posts').push({ text: text, img: img }, (error) => {
+                if(!error) alert("Post Published!");
             });
         }
 
         function deleteApp(event, firebaseKey) {
             event.stopPropagation();
-            if(confirm("Do you really want to delete this app from Firebase?")) {
-                db.ref('apps/' + firebaseKey).remove((error) => {
-                    if(!error) { alert("App deleted online!"); }
-                });
-            }
+            if(confirm("Delete app?")) db.ref('apps/' + firebaseKey).remove();
         }
 
         function deleteNoti(firebaseKey) {
-            if(confirm("Delete this notification?")) {
-                db.ref('notifications/' + firebaseKey).remove();
-            }
+            if(confirm("Delete notification?")) db.ref('notifications/' + firebaseKey).remove();
         }
 
         function deletePost(firebaseKey) {
-            if(confirm("Delete this post?")) {
-                db.ref('posts/' + firebaseKey).remove();
+            if(confirm("Delete post?")) db.ref('posts/' + firebaseKey).remove();
+        }
+
+        function toggleMainTheme() {
+            document.body.classList.toggle('light-mode');
+            const icon = document.querySelector('.mainThemeIcon');
+            if(document.body.classList.contains('light-mode')) {
+                icon.className = "fa-solid fa-sun mainThemeIcon";
+            } else {
+                icon.className = "fa-solid fa-moon mainThemeIcon";
             }
         }
 
-        /* 1. Main Page Global Theme Toggle */
-        function toggleMainTheme() {
-            document.body.classList.toggle('light-mode');
-            const themeIcons = document.querySelectorAll('.mainThemeIcon');
-            themeIcons.forEach(icon => {
-                if(document.body.classList.contains('light-mode')) {
-                    icon.className = "fa-solid fa-sun mainThemeIcon";
-                } else {
-                    icon.className = "fa-solid fa-moon mainThemeIcon";
-                }
-            });
-        }
-
-        /* 2. Independent Telegram Bot Panel Theme Toggle */
         function toggleBotPanelTheme() {
             const botBox = document.getElementById('botPanelBox');
             botBox.classList.toggle('modal-light-mode');
-            const icons = document.querySelectorAll('.botThemeIcon');
-            icons.forEach(icon => {
-                if(botBox.classList.contains('modal-light-mode')) {
-                    icon.className = "fa-solid fa-sun botThemeIcon";
-                } else {
-                    icon.className = "fa-solid fa-moon botThemeIcon";
-                }
-            });
+            const icon = document.querySelector('.botThemeIcon');
+            if(botBox.classList.contains('modal-light-mode')) {
+                icon.className = "fa-solid fa-sun botThemeIcon";
+            } else {
+                icon.className = "fa-solid fa-moon botThemeIcon";
+            }
         }
 
-        /* 3. Independent Admin Panel Theme Toggle */
         function toggleAdminPanelTheme() {
             const adminBox = document.getElementById('adminPanelBox');
             adminBox.classList.toggle('modal-light-mode');
-            const icons = document.querySelectorAll('.adminThemeIcon');
-            icons.forEach(icon => {
-                if(adminBox.classList.contains('modal-light-mode')) {
-                    icon.className = "fa-solid fa-sun adminThemeIcon";
-                } else {
-                    icon.className = "fa-solid fa-moon adminThemeIcon";
-                }
-            });
+            const icon = document.querySelector('.adminThemeIcon');
+            if(adminBox.classList.contains('modal-light-mode')) {
+                icon.className = "fa-solid fa-sun adminThemeIcon";
+            } else {
+                icon.className = "fa-solid fa-moon adminThemeIcon";
+            }
         }
     </script>
 </body>
